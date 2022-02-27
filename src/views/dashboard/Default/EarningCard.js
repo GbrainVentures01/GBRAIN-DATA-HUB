@@ -125,16 +125,7 @@ const EarningCard = ({ isLoading }) => {
                                             }}
                                         >
                                             <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{ mr: 1.75 }} /> Import Card
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Data
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <PictureAsPdfTwoToneIcon sx={{ mr: 1.75 }} /> Export
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ArchiveTwoToneIcon sx={{ mr: 1.75 }} /> Archive File
+                                                <FileCopyTwoToneIcon sx={{ mr: 1.75 }} /> Copy Account Number
                                             </MenuItem>
                                         </Menu>
                                     </Grid>
@@ -144,10 +135,10 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            Wallet Balance: $5000.00
+                                            {localStorage.getItem('user') ? 'Wallet Balance: $5000.00' : 'Welcome To Gbrain Ventures'}
                                         </Typography>
                                         <Typography sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            Acoount Number: 3121469215
+                                            {localStorage.getItem('user') ? 'Acoount Number: 3121469215' : ' please login to your acount'}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -172,7 +163,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Olayiwola Saheed Akorede
+                                    {localStorage.getItem('user') ? ' Olayiwola Saheed Akorede' : ''}
                                 </Typography>
                             </Grid>
                         </Grid>

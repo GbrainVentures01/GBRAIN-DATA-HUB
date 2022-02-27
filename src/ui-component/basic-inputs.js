@@ -43,8 +43,8 @@ export const CustomSelect = ({ name, options, ...other }) => {
         <TextField {...defaultConfiq}>
             {options.map((option) => {
                 return (
-                    <MenuItem key={option._id} value={option}>
-                        {option.name}
+                    <MenuItem key={option.id} value={option.attributes}>
+                        {option.attributes.Plan}
                     </MenuItem>
                 );
             })}

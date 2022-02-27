@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -24,7 +24,7 @@ import {
 
 // third party
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -35,6 +35,7 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { registerAction } from 'store/actions';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -48,10 +49,6 @@ const FirebaseRegister = ({ ...others }) => {
 
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
-
-    const googleHandler = async () => {
-        console.error('Register');
-    };
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -70,30 +67,14 @@ const FirebaseRegister = ({ ...others }) => {
     useEffect(() => {
         changePassword('123456');
     }, []);
+    const dispatch = useDispatch();
+    const handleSubmit = (values) => {
+        dispatch(registerAction({ user: values }));
+    };
 
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
-                <Grid item xs={12}>
-                    <AnimateButton>
-                        <Button
-                            variant="outlined"
-                            fullWidth
-                            onClick={googleHandler}
-                            size="large"
-                            sx={{
-                                color: 'grey.700',
-                                backgroundColor: theme.palette.grey[50],
-                                borderColor: theme.palette.grey[100]
-                            }}
-                        >
-                            <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
-                            </Box>
-                            Sign up with Google
-                        </Button>
-                    </AnimateButton>
-                </Grid>
                 <Grid item xs={12}>
                     <Box sx={{ alignItems: 'center', display: 'flex' }}>
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
@@ -126,34 +107,21 @@ const FirebaseRegister = ({ ...others }) => {
 
             <Formik
                 initialValues={{
+                    username: '',
                     email: '',
-                    password: '',
-                    submit: null
+                    password: ''
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    password: Yup.string().max(255).required('Password is required'),
+                    username: Yup.string().required('Username is required')
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        if (scriptedRef.current) {
-                            setStatus({ success: true });
-                            setSubmitting(false);
-                        }
-                    } catch (err) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
-                    }
-                }}
+                onSubmit={handleSubmit}
             >
-                {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
+                {({ errors, handleBlur, handleChange, isSubmitting, touched, values }) => (
+                    <Form>
                         <Grid container spacing={matchDownSM ? 0 : 2}>
-                            <Grid item xs={12} sm={6}>
+                            {/* <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
                                     label="First Name"
@@ -163,17 +131,24 @@ const FirebaseRegister = ({ ...others }) => {
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
+                            </Grid> */}
+                            <Grid item xs={12} sm={12}>
                                 <TextField
                                     fullWidth
-                                    label="Last Name"
+                                    label="Username"
                                     margin="normal"
-                                    name="lname"
+                                    name="username"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
                                     type="text"
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
+                                {touched.username && errors.username && (
+                                    <FormHelperText error id="standard-weight-helper-text--register">
+                                        {errors.username}
+                                    </FormHelperText>
+                                )}
                             </Grid>
                         </Grid>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
@@ -283,20 +258,12 @@ const FirebaseRegister = ({ ...others }) => {
 
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
-                                <Button
-                                    disableElevation
-                                    disabled={isSubmitting}
-                                    fullWidth
-                                    size="large"
-                                    type="submit"
-                                    variant="contained"
-                                    color="secondary"
-                                >
+                                <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="secondary">
                                     Sign up
                                 </Button>
                             </AnimateButton>
                         </Box>
-                    </form>
+                    </Form>
                 )}
             </Formik>
         </>

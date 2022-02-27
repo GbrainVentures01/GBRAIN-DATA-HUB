@@ -57,27 +57,27 @@ const MainRoutes = {
         },
         {
             path: '/buy-mtn-airtime',
-            element: <BuyAirtime title="MTN Airtime" />
+            element: <BuyAirtime network="Mtn" title="MTN Airtime" />
         },
         {
             path: '/buy-airtel-airtime',
-            element: <BuyAirtime title="Airtel Airtime" />
+            element: <BuyAirtime network="Airtel" title="Airtel Airtime" />
         },
         {
             path: '/buy-glo-airtime',
-            element: <BuyAirtime title="Glo Airtime" />
+            element: <BuyAirtime network="Glo" title="Glo Airtime" />
         },
         {
             path: '/buy-glo-data',
-            element: <BuyData title="Glo Data" product={Glo_data} />
+            element: <BuyData title="Glo Data" network="Glo" product={Glo_data} />
         },
         {
             path: '/buy-mtn-data',
-            element: <BuyData title="Mtn Data" product={Mtn_plans} />
+            element: <BuyData title="Mtn Data" network="Mtn" product={Mtn_plans} />
         },
         {
             path: '/buy-airtel-data',
-            element: <BuyData title="Airtel Data" product={[]} />
+            element: <BuyData title="Airtel Data" network="Airtel" product={[]} />
         }
     ]
 };

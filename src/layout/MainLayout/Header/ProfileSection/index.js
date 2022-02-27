@@ -89,7 +89,7 @@ const ProfileSection = () => {
 
     return (
         <>
-            <Chip
+            {/* <Chip
                 sx={{
                     height: '48px',
                     alignItems: 'center',
@@ -301,7 +301,7 @@ const ProfileSection = () => {
                         </Paper>
                     </Transitions>
                 )}
-            </Popper>
+            </Popper> */}
         </>
     );
 };

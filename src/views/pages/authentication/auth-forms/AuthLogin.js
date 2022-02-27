@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -23,7 +23,7 @@ import {
 
 // third party
 import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -34,6 +34,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import { LoginAction } from 'store/actions';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -41,12 +42,8 @@ const FirebaseLogin = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const customization = useSelector((state) => state.customization);
+    const { customization, loading, error } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
-
-    const googleHandler = async () => {
-        console.error('Login');
-    };
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
@@ -57,30 +54,19 @@ const FirebaseLogin = ({ ...others }) => {
         event.preventDefault();
     };
 
+    const dispatch = useDispatch();
+
+    const handleSubmit = (values) => {
+        const user = {
+            identifier: values.email,
+            password: values.password
+        };
+        dispatch(LoginAction({ user: user }));
+    };
+
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
-                <Grid item xs={12}>
-                    <AnimateButton>
-                        <Button
-                            disableElevation
-                            fullWidth
-                            onClick={googleHandler}
-                            size="large"
-                            variant="outlined"
-                            sx={{
-                                color: 'grey.700',
-                                backgroundColor: theme.palette.grey[50],
-                                borderColor: theme.palette.grey[100]
-                            }}
-                        >
-                            <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
-                            </Box>
-                            Sign in with Google
-                        </Button>
-                    </AnimateButton>
-                </Grid>
                 <Grid item xs={12}>
                     <Box
                         sx={{
@@ -120,32 +106,18 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
+                    email: '',
+                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        if (scriptedRef.current) {
-                            setStatus({ success: true });
-                            setSubmitting(false);
-                        }
-                    } catch (err) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
-                    }
-                }}
+                onSubmit={handleSubmit}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
-                    <form noValidate onSubmit={handleSubmit} {...others}>
+                    <Form>
                         <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
                             <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
                             <OutlinedInput
@@ -155,7 +127,7 @@ const FirebaseLogin = ({ ...others }) => {
                                 name="email"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                label="Email Address / Username"
+                                label="Email Address "
                                 inputProps={{}}
                             />
                             {touched.email && errors.email && (
@@ -225,8 +197,8 @@ const FirebaseLogin = ({ ...others }) => {
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
                                 <Button
+                                    disabled={loading ? true : false}
                                     disableElevation
-                                    disabled={isSubmitting}
                                     fullWidth
                                     size="large"
                                     type="submit"
@@ -237,7 +209,7 @@ const FirebaseLogin = ({ ...others }) => {
                                 </Button>
                             </AnimateButton>
                         </Box>
-                    </form>
+                    </Form>
                 )}
             </Formik>
         </>
