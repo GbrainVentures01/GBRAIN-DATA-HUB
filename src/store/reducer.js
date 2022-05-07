@@ -7,8 +7,13 @@ import {
     getMtnDataReducer,
     getAirtelDataReducer,
     dataOrderReducer,
+    airtimeOrderReducer,
     loginUserReducer,
-    registerUserReducer
+    registerUserReducer,
+    logoutReducer,
+    userReducer,
+    forgetPasswordReducer,
+    monnifyFundingReducer
 } from './netorkCallsReducers';
 
 // ==============================|| COMBINE REDUCER ||============================== //
@@ -19,8 +24,14 @@ const reducer = combineReducers({
     myGloDataPlans: getGloDataReducer,
     myAirtelDataPlans: getAirtelDataReducer,
     dataOrder: dataOrderReducer,
+    airtimeOrder: airtimeOrderReducer,
     login: loginUserReducer,
-    register: registerUserReducer
+    logout:logoutReducer,
+    register: registerUserReducer,
+    loggedInUser:userReducer,
+    forgetPassword:forgetPasswordReducer,
+    fundWithMonnify:monnifyFundingReducer
+    
 });
 
 export default reducer;

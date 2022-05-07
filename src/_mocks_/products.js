@@ -1,7 +1,7 @@
-import CallIcon from '@material-ui/icons/Call';
-import NetworkCheckIcon from '@material-ui/icons/NetworkCheck';
-import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
-import TvIcon from '@material-ui/icons/Tv';
+import CallIcon from '@mui/icons-material/Call';
+import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import TvIcon from '@mui/icons-material/Tv';
 export const products = [
     {
         id: 1,

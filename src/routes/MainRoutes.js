@@ -7,6 +7,10 @@ import BuyAirtime from 'views/airtime';
 import { Glo_data } from '_mocks_/glo_data_plan';
 import BuyData from 'views/data';
 import { Mtn_plans } from '_mocks_/mtn_data_plan';
+import Login from 'views/pages/authentication/authentication3/Login3';
+import Funding from 'views/payments/Funding';
+import { SuccessPAyment } from 'views/payments/ConfirmPayment';
+import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -30,6 +34,14 @@ const MainRoutes = {
         {
             path: '/',
             element: <DashboardDefault />
+        },
+        {
+            path: '/pages/login/login3',
+            element: <Login />
+        },
+         {
+            path: '/pages/auth/forget-pswd',
+            element: <ForgetPswdWrapper />
         },
         {
             path: '/dashboard/default',
@@ -78,6 +90,14 @@ const MainRoutes = {
         {
             path: '/buy-airtel-data',
             element: <BuyData title="Airtel Data" network="Airtel" product={[]} />
+        },
+         {
+            path: '/fund-wallet',
+            element: <Funding  />
+        },
+         {
+            path: '/confirm-payment',
+            element: <SuccessPAyment  />
         }
     ]
 };

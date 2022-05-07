@@ -1,13 +1,13 @@
 import { TextField, MenuItem, Button } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 
-export const CustomTextField = ({ name, ...other }) => {
+export const CustomTextField = ({ name, fullWidth, ...other }) => {
     const [field, meta] = useField(name);
     const defaultConfiq = {
         ...field,
         ...other,
         variant: 'outlined',
-        fullWidth: true
+        fullWidth: true || fullWidth
     };
     if (meta && meta.touched && meta.error) {
         defaultConfiq.error = true;
@@ -75,7 +75,7 @@ export const CustomDate = ({ name, ...other }) => {
 //Custom
 
 // Custom button
-export const CustomButton = ({ children, ...others }) => {
+export const CustomButton = ({ children, fullWidth, ...others }) => {
     const { submitForm } = useFormikContext();
     const handleSubmit = () => {
         submitForm();
@@ -85,7 +85,7 @@ export const CustomButton = ({ children, ...others }) => {
         onClick: handleSubmit,
         variant: 'contained',
         color: 'primary',
-        fullWidth: true
+        fullWidth: true || fullWidth
     };
 
     return <Button {...defaultConfiq}>{children}</Button>;

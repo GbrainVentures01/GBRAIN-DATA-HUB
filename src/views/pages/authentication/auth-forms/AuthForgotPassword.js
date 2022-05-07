@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -36,11 +36,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 import { ForgetPasswordAction, LoginAction } from 'store/actions';
-import { forgetPasswordAction } from 'store/netorkCallsReducers';
+
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const FirebaseLogin = ({ ...others }) => {
+const ForgotPassword = ({ ...others }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const scriptedRef = useScriptRef();
@@ -48,31 +48,15 @@ const FirebaseLogin = ({ ...others }) => {
     const { customization, loading, error } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
 
-    const [showPassword, setShowPassword] = useState(false);
     const [userEmail, setUserEmail] = useState("")
-    const handleClickShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+   
 
     const dispatch = useDispatch();
 
     const handleSubmit = (values) => {
-        const user = {
-            identifier: values.email,
-            password: values.password
-        };
-        dispatch(LoginAction({ user: user, navigate }));
+     const email= {email:values.email}
+     dispatch(ForgetPasswordAction({email}));
     };
-
-    const ForgetPassword = (values)=>{
-        const email = {email:values.email}
-    
-        dispatch(ForgetPasswordAction({email}))
-    }
 
     return (
         <>
@@ -109,7 +93,7 @@ const FirebaseLogin = ({ ...others }) => {
                 </Grid>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Sign in with Email address</Typography>
+                        <Typography variant="subtitle1">Provide your Email address to restore your passwor</Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -117,12 +101,11 @@ const FirebaseLogin = ({ ...others }) => {
             <Formik
                 initialValues={{
                     email: '',
-                    password: '',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    
                 })}
                 onSubmit={handleSubmit}
             >
@@ -147,41 +130,6 @@ const FirebaseLogin = ({ ...others }) => {
                             )}
                         </FormControl>
 
-                        <FormControl
-                            fullWidth
-                            error={Boolean(touched.password && errors.password)}
-                            sx={{ ...theme.typography.customInput }}
-                        >
-                            <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-password-login"
-                                type={showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                name="password"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                            size="large"
-                                        >
-                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                                label="Password"
-                                inputProps={{}}
-                            />
-                            {touched.password && errors.password && (
-                                <FormHelperText error id="standard-weight-helper-text-password-login">
-                                    {errors.password}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
                         <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
                             <FormControlLabel
                                 control={
@@ -194,9 +142,7 @@ const FirebaseLogin = ({ ...others }) => {
                                 }
                                 label="Remember me"
                             />
-                           <Link to="/pages/auth/forget-pswd"><Typography  variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
-                                Forgot Password?
-                            </Typography></Link> 
+                           
                         </Stack>
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
@@ -215,7 +161,7 @@ const FirebaseLogin = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                    Sign in
+                                   Submit
                                 </Button>
                             </AnimateButton>
                         </Box>
@@ -226,4 +172,4 @@ const FirebaseLogin = ({ ...others }) => {
     );
 };
 
-export default FirebaseLogin;
+export default ForgotPassword;

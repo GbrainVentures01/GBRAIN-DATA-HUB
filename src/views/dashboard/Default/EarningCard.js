@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from "js-cookie"
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -17,6 +19,11 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+
+
+import axios from 'axios';
+import { makeNetworkCall } from 'network';
+import { userAction } from 'store/actions';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -54,9 +61,19 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     }
 }));
 
+
+
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const EarningCard = ({ isLoading }) => {
+    
+    const { loggedInUser } = useSelector((state) => state);
+    const { user, error, loading } = loggedInUser;
+    const dispatch = useDispatch()
+    useEffect(() => {
+     dispatch(userAction())
+    }, [])
+   
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -68,6 +85,8 @@ const EarningCard = ({ isLoading }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
 
     return (
         <>
@@ -134,11 +153,23 @@ const EarningCard = ({ isLoading }) => {
                             <Grid item>
                                 <Grid container alignItems="center">
                                     <Grid item>
-                                        <Typography sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {localStorage.getItem('user') ? 'Wallet Balance: $5000.00' : 'Welcome To Gbrain Ventures'}
+                                        {  Cookies.get("user") &&
+                                       (<Typography sx={{ fontSize: '1.5rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                      { `Welcome Back, ${user?.username}`}
+                                        </Typography>)}
+                                        <div style={{display:"flex", flexDirection:"row"}}>
+                                            <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                            {Cookies.get('user') ? `Wallet Balance:₦${user?.AccountBalance} ` : 'Welcome To Gbrain Ventures'}
                                         </Typography>
-                                        <Typography sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {localStorage.getItem('user') ? 'Acoount Number: 3121469215' : ' please login to your acount'}
+                                       {
+                                           Cookies.get('user') &&(
+<Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 0.4,ml:1.3, mt: 1, mb: 0.75 }}><Link to={"/fund-wallet"} style={{textDecoration:"none", color:"white", position:"relative", top:6, bottom:0}} > Fund Wallet</Link></Typography>
+                                           )
+                                       } 
+                                        </div>
+                                        
+                                        <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                            {Cookies.get('user') ? `Acoount Number: ${user?.AccountNumber}` : <Link to={"/pages/login/login3"} ><Typography variant='subtitle1' color={"white"}>Please Login To Your Account</Typography></Link> }
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -155,17 +186,7 @@ const EarningCard = ({ isLoading }) => {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <Grid item sx={{ mt: 1.25 }}>
-                                <Typography
-                                    sx={{
-                                        fontSize: '1rem',
-                                        fontWeight: 500,
-                                        color: theme.palette.secondary[200]
-                                    }}
-                                >
-                                    {localStorage.getItem('user') ? ' Olayiwola Saheed Akorede' : ''}
-                                </Typography>
-                            </Grid>
+                           
                         </Grid>
                     </Box>
                 </CardWrapper>
@@ -178,4 +199,6 @@ EarningCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
+ 
+        
 export default EarningCard;

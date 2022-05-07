@@ -11,15 +11,17 @@ import { buyAirtime } from 'store/actions';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import Cookies from "js-cookie"
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyAirtime = ({ title, network }) => {
-    const { login } = useSelector((state) => state);
-    const { user, error, loading } = login;
+    const { airtimeOrder } = useSelector((state) => state);
+    const { airtime, error, loading } = airtimeOrder;
+    
     const navigate = useNavigate();
     useEffect(() => {
-        !localStorage.getItem('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login/login3');
     }, []);
 
     const INITIAL_FORM_VALUES = {
@@ -43,9 +45,11 @@ const BuyAirtime = ({ title, network }) => {
                 }
             })
         );
-        console.log(values);
+        
+      
     };
     return (
+        
         <MainCard title={title}>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
@@ -67,8 +71,10 @@ const BuyAirtime = ({ title, network }) => {
                             </Grid>
                         </Box>
                     </Form>
+                   
                 )}
             </Formik>
+             {console.log(error)}
         </MainCard>
     );
 };

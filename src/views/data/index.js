@@ -7,29 +7,32 @@ import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getGloData, getMtnData, getAirtelData, buyData } from 'store/actions';
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie"
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyData = ({ title, network }) => {
     const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder } = useSelector((state) => state);
-    const { gloDataPlans, error, loading } = myGloDataPlans;
+    const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
-    const { dataError, dataStatus } = dataOrder;
+    const { error, loading, dataStatus } = dataOrder;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+  
 
-    console.log(loading);
-    console.log(error);
     useEffect(() => {
-        !localStorage.getItem('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login/login3');
         dispatch(getGloData());
         dispatch(getMtnData());
         dispatch(getAirtelData());
+        
     }, []);
+
+  
     const INITIAL_FORM_VALUES = {
         beneficiaryNum: '',
         amount: '',

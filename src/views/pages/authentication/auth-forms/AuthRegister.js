@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -40,6 +41,7 @@ import { registerAction } from 'store/actions';
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
+    const navigate = useNavigate()
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -69,7 +71,7 @@ const FirebaseRegister = ({ ...others }) => {
     }, []);
     const dispatch = useDispatch();
     const handleSubmit = (values) => {
-        dispatch(registerAction({ user: values }));
+        dispatch(registerAction({ user: values, navigate }));
     };
 
     return (
