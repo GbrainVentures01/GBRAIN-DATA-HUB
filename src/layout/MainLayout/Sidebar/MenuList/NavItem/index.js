@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
-import { forwardRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
-
-// project imports
-import { MENU_OPEN, SET_MENU } from 'store/actions';
-import config from 'config';
-
 // assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+// material-ui
+import { useTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import { forwardRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+// project imports
+import { MENU_OPEN, SET_MENU } from 'store/actions';
+
+
+
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 

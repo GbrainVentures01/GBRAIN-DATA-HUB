@@ -5,19 +5,19 @@ import { Button, Grid, Typography } from '@mui/material';
 
 import MainCard from 'ui-component/cards/MainCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { CustomTextField, CustomButton } from 'ui-component/basic-inputs';
+import { CustomTextField } from 'ui-component/basic-inputs';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { fundWalletWithMonnify } from 'store/actions';
 
 const Funding = () => {
       const { loggedInUser } = useSelector((state) => state);
-    const { user, error, loading } = loggedInUser;
+    const { user } = loggedInUser;
     const navigate = useNavigate();
     const dispatch = useDispatch()
      useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
-    }, []);
+    }, [navigate]);
      const INITIAL_FORM_VALUES = {
        
         amount: '',

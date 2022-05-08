@@ -1,8 +1,3 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -20,17 +15,22 @@ import {
     Typography,
     useMediaQuery
 } from '@mui/material';
-
+// material-ui
+import { useTheme } from '@mui/material/styles';
+// assets
+import { IconBell } from '@tabler/icons';
+import { useEffect, useRef, useState } from 'react';
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-
+import { Link } from 'react-router-dom';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
-// assets
-import { IconBell } from '@tabler/icons';
+
+
+
 
 // notification status options
 const status = [

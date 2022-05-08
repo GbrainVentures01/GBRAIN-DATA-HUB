@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import Cookies from 'js-cookie';
 const testUrl = 'http://localhost:1337/api/';
-const liveUrl = '';
+
 
 // const baseUrl = `${testUrl}/api`;
 

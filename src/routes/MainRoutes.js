@@ -1,16 +1,14 @@
-import { lazy } from 'react';
-
 // project imports
 import MainLayout from 'layout/MainLayout';
+import { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 import BuyAirtime from 'views/airtime';
-import { Glo_data } from '_mocks_/glo_data_plan';
 import BuyData from 'views/data';
-import { Mtn_plans } from '_mocks_/mtn_data_plan';
-import Login from 'views/pages/authentication/authentication3/Login3';
-import Funding from 'views/payments/Funding';
-import { SuccessPAyment } from 'views/payments/ConfirmPayment';
 import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
+import Login from 'views/pages/authentication/authentication3/Login3';
+import { SuccessPAyment } from 'views/payments/ConfirmPayment';
+import Funding from 'views/payments/Funding';
+
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -23,7 +21,7 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('views/utilities/MaterialI
 const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons')));
 
 // sample page routing
-const SamplePage = Loadable(lazy(() => import('views/airtime')));
+// const SamplePage = Loadable(lazy(() => import('views/airtime')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -81,15 +79,15 @@ const MainRoutes = {
         },
         {
             path: '/buy-glo-data',
-            element: <BuyData title="Glo Data" network="Glo" product={Glo_data} />
+            element: <BuyData title="Glo Data" network="Glo"  />
         },
         {
             path: '/buy-mtn-data',
-            element: <BuyData title="Mtn Data" network="Mtn" product={Mtn_plans} />
+            element: <BuyData title="Mtn Data" network="Mtn"  />
         },
         {
             path: '/buy-airtel-data',
-            element: <BuyData title="Airtel Data" network="Airtel" product={[]} />
+            element: <BuyData title="Airtel Data" network="Airtel"  />
         },
          {
             path: '/fund-wallet',

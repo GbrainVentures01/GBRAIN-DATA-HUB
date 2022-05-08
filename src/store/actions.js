@@ -1,4 +1,4 @@
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 import { makeNetworkCall } from 'network';
 import {
     BUY_AIRTIME_FAIL,

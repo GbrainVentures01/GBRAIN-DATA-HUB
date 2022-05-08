@@ -1,20 +1,11 @@
 import { combineReducers } from 'redux';
-
 // reducer import
 import customizationReducer from './customizationReducer';
 import {
-    getGloDataReducer,
-    getMtnDataReducer,
-    getAirtelDataReducer,
-    dataOrderReducer,
-    airtimeOrderReducer,
-    loginUserReducer,
-    registerUserReducer,
-    logoutReducer,
-    userReducer,
-    forgetPasswordReducer,
-    monnifyFundingReducer
+    airtimeOrderReducer, dataOrderReducer, forgetPasswordReducer, getAirtelDataReducer, getGloDataReducer,
+    getMtnDataReducer, loginUserReducer, logoutReducer, monnifyFundingReducer, registerUserReducer, userReducer
 } from './netorkCallsReducers';
+
 
 // ==============================|| COMBINE REDUCER ||============================== //
 

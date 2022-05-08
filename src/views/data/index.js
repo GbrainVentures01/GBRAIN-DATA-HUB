@@ -1,16 +1,16 @@
 // material-ui
-import { Grid, Box } from '@mui/material';
-
+import { Box, Grid } from '@mui/material';
+import { Form, Formik } from 'formik';
+import Cookies from "js-cookie";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { buyData, getAirtelData, getGloData, getMtnData } from 'store/actions';
+import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getGloData, getMtnData, getAirtelData, buyData } from 'store/actions';
-import { useNavigate } from 'react-router-dom';
-import Cookies from "js-cookie"
+
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -19,7 +19,7 @@ const BuyData = ({ title, network }) => {
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
-    const { error, loading, dataStatus } = dataOrder;
+    const {  loading } = dataOrder;
     const dispatch = useDispatch();
     const navigate = useNavigate();
   
@@ -30,7 +30,7 @@ const BuyData = ({ title, network }) => {
         dispatch(getMtnData());
         dispatch(getAirtelData());
         
-    }, []);
+    }, [dispatch, navigate]);
 
   
     const INITIAL_FORM_VALUES = {

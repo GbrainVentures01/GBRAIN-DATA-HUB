@@ -1,45 +1,37 @@
+import { Card, CardContent, CardHeader, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
-import { Card, CardContent, CardHeader, Grid, MenuItem, TextField, Typography } from '@mui/material';
-
+import MainCard from 'ui-component/cards/MainCard';
 // third-party
 // import ApexCharts from 'apexcharts';
 // import Chart from 'react-apexcharts';
-
 // project imports
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
-import MainCard from 'ui-component/cards/MainCard';
-import { gridSpacing } from 'store/constant';
-
 // chart data
 // import chartData from './chart-data/total-growth-bar-chart';
 import { products } from '_mocks_/products';
 import ProductCard from '../ProductCard';
 
-const status = [
-    {
-        value: 'today',
-        label: 'Today'
-    },
-    {
-        value: 'month',
-        label: 'This Month'
-    },
-    {
-        value: 'year',
-        label: 'This Year'
-    }
-];
+
+
+
+// const status = [
+//     {
+//         value: 'today',
+//         label: 'Today'
+//     },
+//     {
+//         value: 'month',
+//         label: 'This Month'
+//     },
+//     {
+//         value: 'year',
+//         label: 'This Year'
+//     }
+// ];
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
 const ProductListing = ({ isLoading }) => {
-    const theme = useTheme();
-    const customization = useSelector((state) => state.customization);
 
     // const { navType } = customization;
     // const { primary } = theme.palette.text;

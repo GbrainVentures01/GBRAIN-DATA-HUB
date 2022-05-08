@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
+// assets
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
     Box,
     Button,
@@ -18,38 +15,33 @@ import {
     InputLabel,
     OutlinedInput,
     Stack,
-    Typography,
-    useMediaQuery
+    Typography
 } from '@mui/material';
-
+// material-ui
+import { useTheme } from '@mui/material/styles';
+import { Form, Formik } from 'formik';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { LoginAction } from 'store/actions';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 // third party
 import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
 
-// project imports
-import useScriptRef from 'hooks/useScriptRef';
-import AnimateButton from 'ui-component/extended/AnimateButton';
 
-// assets
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import Google from 'assets/images/icons/social-google.svg';
-import { ForgetPasswordAction, LoginAction } from 'store/actions';
-import { forgetPasswordAction } from 'store/netorkCallsReducers';
+
+
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
     const navigate = useNavigate();
     const theme = useTheme();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const { customization, loading, error } = useSelector((state) => state);
+    const { customization, loading } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
 
     const [showPassword, setShowPassword] = useState(false);
-    const [userEmail, setUserEmail] = useState("")
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -68,11 +60,6 @@ const FirebaseLogin = ({ ...others }) => {
         dispatch(LoginAction({ user: user, navigate }));
     };
 
-    const ForgetPassword = (values)=>{
-        const email = {email:values.email}
-    
-        dispatch(ForgetPasswordAction({email}))
-    }
 
     return (
         <>

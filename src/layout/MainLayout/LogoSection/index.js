@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-
 // material-ui
-import { ButtonBase, Typography } from '@mui/material';
-
+import { ButtonBase } from '@mui/material';
 // project imports
 import config from 'config';
+import { Link } from 'react-router-dom';
 import Logo from 'ui-component/Logo';
+
+
 
 // ==============================|| MAIN LOGO ||============================== //
 

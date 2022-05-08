@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
-import Cookies from "js-cookie"
-import { useNavigate } from 'react-router';
 import { Button, Grid, Typography } from '@mui/material';
-
-import MainCard from 'ui-component/cards/MainCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { CustomTextField, CustomButton } from 'ui-component/basic-inputs';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
+import Cookies from "js-cookie";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { fundWalletWithMonnify } from 'store/actions';
+import { CustomTextField } from 'ui-component/basic-inputs';
+import MainCard from 'ui-component/cards/MainCard';
+import * as yup from 'yup';
+
 
 const Profile = () => {
       const { loggedInUser } = useSelector((state) => state);

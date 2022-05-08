@@ -1,9 +1,3 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
-// material-ui
-import { useTheme } from '@mui/material/styles';
 import {
     Box,
     Button,
@@ -12,47 +6,34 @@ import {
     FormControl,
     FormControlLabel,
     FormHelperText,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
+    Grid, InputLabel,
     OutlinedInput,
     Stack,
-    Typography,
-    useMediaQuery
+    Typography
 } from '@mui/material';
-
+// material-ui
+import { useTheme } from '@mui/material/styles';
+import { Form, Formik } from 'formik';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ForgetPasswordAction } from 'store/actions';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 // third party
 import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
 
-// project imports
-import useScriptRef from 'hooks/useScriptRef';
-import AnimateButton from 'ui-component/extended/AnimateButton';
 
-// assets
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-import Google from 'assets/images/icons/social-google.svg';
-import { ForgetPasswordAction, LoginAction } from 'store/actions';
+
+
 
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const ForgotPassword = ({ ...others }) => {
-    const navigate = useNavigate();
     const theme = useTheme();
-    const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const { customization, loading, error } = useSelector((state) => state);
+    const { customization, loading } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
-
-    const [userEmail, setUserEmail] = useState("")
-   
-
     const dispatch = useDispatch();
-
     const handleSubmit = (values) => {
      const email= {email:values.email}
      dispatch(ForgetPasswordAction({email}));

@@ -1,29 +1,24 @@
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Cookies from "js-cookie"
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
-import { Avatar, Box, Button, Grid, Menu, MenuItem, Typography } from '@mui/material';
-
+// assets
+import EarningIcon from 'assets/images/icons/earning.svg';
+import Cookies from "js-cookie";
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { userAction } from 'store/actions';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
-// assets
-import EarningIcon from 'assets/images/icons/earning.svg';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
-import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
-import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
 
-import axios from 'axios';
-import { makeNetworkCall } from 'network';
-import { userAction } from 'store/actions';
+
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -68,11 +63,11 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 const EarningCard = ({ isLoading }) => {
     
     const { loggedInUser } = useSelector((state) => state);
-    const { user, error, loading } = loggedInUser;
+    const { user } = loggedInUser;
     const dispatch = useDispatch()
     useEffect(() => {
      dispatch(userAction())
-    }, [])
+    }, [dispatch])
    
     const theme = useTheme();
 

@@ -1,28 +1,28 @@
 // material-ui
-import { Grid, Typography, Box } from '@mui/material';
-
+import { Box, Grid } from '@mui/material';
+import { Form, Formik } from 'formik';
+import Cookies from "js-cookie";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { buyAirtime } from 'store/actions';
+import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
-import { useDispatch, useSelector } from 'react-redux';
-import { buyAirtime } from 'store/actions';
 
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import Cookies from "js-cookie"
+
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyAirtime = ({ title, network }) => {
     const { airtimeOrder } = useSelector((state) => state);
-    const { airtime, error, loading } = airtimeOrder;
+    const { error } = airtimeOrder;
     
     const navigate = useNavigate();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
-    }, []);
+    }, [navigate]);
 
     const INITIAL_FORM_VALUES = {
         beneficiary: '',
