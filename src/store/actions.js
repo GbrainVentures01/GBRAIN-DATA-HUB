@@ -296,7 +296,7 @@ export const registerAction =
     };
 
     export const userAction =
-    () =>
+    ({navigate}) =>
     async (dispatch) => {
         const id = Cookies.get("user_id")
         
@@ -319,7 +319,7 @@ export const registerAction =
            
         } catch (error) {
             if (error.response?.data?.error?.status === 401) {
-                window.location.replace("/pages/login/login3")
+                navigate("/pages/login/login3")
             }
             dispatch({
                 type: GET_LOGGED_IN_USER_FAIL,

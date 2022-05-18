@@ -1,6 +1,9 @@
 // material-ui
 import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { userAction } from 'store/actions';
 import { gridSpacing } from 'store/constant';
 // project imports
 import EarningCard from './EarningCard';
@@ -13,9 +16,13 @@ import ProductListing from './ProductListing';
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
+     const dispatch = useDispatch()
+     const navigate = useNavigate();
+    
     useEffect(() => {
         setLoading(false);
-    }, []);
+        dispatch(userAction({navigate}))
+    }, [dispatch,navigate]);
 
     return (
         <Grid container spacing={gridSpacing}>

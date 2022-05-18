@@ -8,10 +8,9 @@ import { styled, useTheme } from '@mui/material/styles';
 import EarningIcon from 'assets/images/icons/earning.svg';
 import Cookies from "js-cookie";
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { userAction } from 'store/actions';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
@@ -64,11 +63,7 @@ const EarningCard = ({ isLoading }) => {
     
     const { loggedInUser } = useSelector((state) => state);
     const { user } = loggedInUser;
-    const dispatch = useDispatch()
-    useEffect(() => {
-     dispatch(userAction())
-    }, [dispatch])
-   
+
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
