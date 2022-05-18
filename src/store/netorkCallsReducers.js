@@ -63,7 +63,7 @@ export const initialAirtimeOrderState = {
     error: null
 };
 export const initialDataOrderState = {
-    dataStatus: {},
+    data: {},
     loading: false,
     error: null
 };
@@ -250,7 +250,7 @@ export const dataOrderReducer = (state = initialDataOrderState, action) => {
             return { ...state, loading: true };
 
         case BUY_DATA_SUCCESS:
-            return { ...state, loading: false, dataStatus: action.payload };
+            return { ...state, loading: false, data: action.payload };
         case BUY_DATA_FAIL:
             return { ...state, loading: false, error: action.payload };
 

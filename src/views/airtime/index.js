@@ -2,6 +2,7 @@
 import { Box, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from "js-cookie";
+import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import * as yup from 'yup';
+import FeedBack from '../feedBack';
 
 
 
@@ -17,8 +19,9 @@ import * as yup from 'yup';
 
 const BuyAirtime = ({ title, network }) => {
     const { airtimeOrder } = useSelector((state) => state);
-    const { error } = airtimeOrder;
-    
+    const { loading, airtime, error} = airtimeOrder;
+    const {enqueueSnackbar} = useSnackbar()
+
     const navigate = useNavigate();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
@@ -40,14 +43,19 @@ const BuyAirtime = ({ title, network }) => {
     const handleSubmit = (values) => {
         dispatch(
             buyAirtime({
+
                 orderDetails: {
                     data: { ...values }
-                }
+                },
+                enqueueSnackbar
+              
             })
         );
         
       
     };
+   
+
     return (
         
         <MainCard title={title}>
@@ -66,7 +74,7 @@ const BuyAirtime = ({ title, network }) => {
                                     <CustomTextField name="network" label="Network" value={(values.network = network)} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton>Submit</CustomButton>
+                                    <CustomButton disabled={loading?true:false}>Submit</CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -74,7 +82,17 @@ const BuyAirtime = ({ title, network }) => {
                    
                 )}
             </Formik>
-             {console.log(error)}
+
+            {airtime.data && (
+                <FeedBack message={airtime?.data?.message} variant="success"/>
+            )}
+            {
+                error &&(
+                    <FeedBack message={error} variant="error"/>
+                )
+            }
+           
+          
         </MainCard>
     );
 };

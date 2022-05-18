@@ -8,6 +8,7 @@ import ForgetPswdWrapper from 'views/pages/authentication/authentication3/Forget
 import Login from 'views/pages/authentication/authentication3/Login3';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
 import Funding from 'views/payments/Funding';
+import Profile from 'views/profile';
 
 
 // dashboard routing
@@ -96,6 +97,10 @@ const MainRoutes = {
          {
             path: '/confirm-payment',
             element: <SuccessPAyment  />
+        },
+        {
+            path: '/profile',
+            element: <Profile  />
         }
     ]
 };

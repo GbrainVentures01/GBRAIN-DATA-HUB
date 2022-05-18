@@ -24,9 +24,9 @@ import Transitions from 'ui-component/extended/Transitions';
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
-    const theme = useTheme();
+   const theme = useTheme();
    const { loggedInUser } = useSelector((state) => state);
-    const { user } = loggedInUser;
+   const { user } = loggedInUser;
     // const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);

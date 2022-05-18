@@ -122,7 +122,7 @@ export const getAirtelData = () => async (dispatch) => {
 
 
 export const buyAirtime =
-    ({ orderDetails }) =>
+    ({ orderDetails, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -141,17 +141,25 @@ export const buyAirtime =
                 payload: data
             });
             console.log(data)
+      data &&
+      enqueueSnackbar(data?.data?.message, {
+        variant: "success",
+      });
         } catch (error) {
          
             dispatch({
                 type: BUY_AIRTIME_FAIL,
                 payload: error.response?.data?.error?.message|| error?.message 
             });
+             error &&
+      enqueueSnackbar(error.response?.data?.error?.message|| error?.message , {
+        variant: "error",
+      });
         }
     };
 
 export const buyData =
-    ({ orderDetails }) =>
+    ({ orderDetails, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -170,11 +178,19 @@ export const buyData =
                 type: BUY_DATA_SUCCESS,
                 payload: data
             });
+             data &&
+      enqueueSnackbar(data?.data?.message, {
+        variant: "success",
+      });
         } catch (error) {
             dispatch({
                 type: BUY_DATA_FAIL,
                 payload: error.response?.data?.error?.message|| error?.messag
             });
+                   error &&
+      enqueueSnackbar(error.response?.data?.error?.message|| error?.message , {
+        variant: "error",
+      });
         }
     };
 
@@ -197,7 +213,7 @@ export const LogoutAction = () => async (dispatch)=>{
 }
 
 export const LoginAction =
-    ({ user, navigate }) =>
+    ({ user, navigate, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -212,13 +228,16 @@ export const LoginAction =
                 type: LOGIN_USER_SUCCESS,
                 payload: data
             });
-           
-            console.log(data);
+       
         } catch (error) {
             dispatch({
                 type: LOGIN_USER_FAIL,
                 payload: error.response?.data?.error?.message|| error?.messag
             });
+      error &&
+      enqueueSnackbar(error.response?.data?.error?.message|| error?.messag, {
+      variant: "error",
+      });
         }
     };
 
@@ -245,7 +264,7 @@ export const ForgetPasswordAction =
         } catch (error) {
             dispatch({
                 type: FORGET_PASSWORD_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message|| error?.message
             });
         }
     };
@@ -271,7 +290,7 @@ export const registerAction =
         } catch (error) {
             dispatch({
                 type: REGISTER_USER_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message|| error?.message
             });
         }
     };
@@ -296,8 +315,12 @@ export const registerAction =
                 type: GET_LOGGED_IN_USER_SUCCESS,
                 payload: data
             });
-            console.log(data);
+
+           
         } catch (error) {
+            if (error.response?.data?.error?.status === 401) {
+                window.location.replace("/pages/login/login3")
+            }
             dispatch({
                 type: GET_LOGGED_IN_USER_FAIL,
                 payload: error.response?.data?.error?.message|| error?.messag

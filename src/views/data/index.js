@@ -10,6 +10,8 @@ import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import * as yup from 'yup';
+import { useSnackbar } from 'notistack';
+import FeedBack from 'views/feedBack';
 
 
 // ==============================|| SAMPLE PAGE ||============================== //
@@ -19,9 +21,10 @@ const BuyData = ({ title, network }) => {
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
-    const {  loading } = dataOrder;
+    const {  loading, data, error } = dataOrder;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {enqueueSnackbar} = useSnackbar()
   
 
     useEffect(() => {
@@ -71,7 +74,8 @@ const BuyData = ({ title, network }) => {
             buyData({
                 orderDetails: {
                     data: { ...body }
-                }
+                },
+                enqueueSnackbar
             })
         );
     };
@@ -112,6 +116,8 @@ const BuyData = ({ title, network }) => {
                     </Form>
                 )}
             </Formik>
+            {data.data&&(<FeedBack message={data?.data?.message} variant="success"/>)}
+            {error&&(<FeedBack message={error} variant="error"/>)}
         </MainCard>
     );
 };

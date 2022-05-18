@@ -1,13 +1,12 @@
-import React from 'react'
+import React from 'react';
+import FeedBack from 'views/feedBack';
 
 export const SuccessPAyment = () => {
   return (
-    <div>Payment Successful</div>
+    <>
+    <FeedBack message={"Payment Successfully Recieved"} variant="success"/>
+</>
   )
 }
 
-export const FailedPAyment = () => {
-  return (
-    <div>Payment Failed</div>
-  )
-}
+

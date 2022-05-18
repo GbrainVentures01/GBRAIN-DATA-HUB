@@ -1,6 +1,7 @@
 import axios from 'axios';
 // import Cookies from 'js-cookie';
-const testUrl = 'http://localhost:1337/api/';
+const liveUrl = 'https://gbrain-backend.herokuapp.com/api/';
+// const testUrl = 'http://localhost:1337/api/'
 
 
 // const baseUrl = `${testUrl}/api`;
@@ -25,7 +26,7 @@ export const makeNetworkCall = async ({ method, path, requestBody, params, heade
 
     const config = {
         method,
-        url: `${testUrl}${path}`,
+        url: `${liveUrl}${path}`,
         params: params,
         headers: headers,
         data: requestBody

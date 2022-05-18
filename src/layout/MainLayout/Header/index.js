@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 // assets
 import { IconMenu2 } from '@tabler/icons';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 // project imports
 import LogoSection from '../LogoSection';
 import ProfileSection from './ProfileSection';
@@ -14,6 +15,8 @@ import ProfileSection from './ProfileSection';
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle }) => {
+    const { loggedInUser } = useSelector((state) => state);
+    const { user } = loggedInUser;
     const theme = useTheme();
 
     return (
@@ -60,7 +63,10 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
             {/* notification & profile */}
             {/* <NotificationSection /> */}
+            {user.username&&(
             <ProfileSection />
+            )}
+            
         </>
     );
 };

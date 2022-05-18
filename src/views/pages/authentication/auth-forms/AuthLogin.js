@@ -27,6 +27,7 @@ import { LoginAction } from 'store/actions';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 // third party
 import * as Yup from 'yup';
+import { useSnackbar } from 'notistack';
 
 
 
@@ -37,14 +38,15 @@ import * as Yup from 'yup';
 
 const FirebaseLogin = ({ ...others }) => {
     const navigate = useNavigate();
+    const {enqueueSnackbar} = useSnackbar()
     const theme = useTheme();
-    const { customization, loading } = useSelector((state) => state);
+    const { customization, login } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
-
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
+    console.log(login)
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -57,7 +59,7 @@ const FirebaseLogin = ({ ...others }) => {
             identifier: values.email,
             password: values.password
         };
-        dispatch(LoginAction({ user: user, navigate }));
+        dispatch(LoginAction({ user: user, navigate, enqueueSnackbar }));
     };
 
 
@@ -194,7 +196,7 @@ const FirebaseLogin = ({ ...others }) => {
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
                                 <Button
-                                    disabled={loading ? true : false}
+                                    disabled={login.loading ? true : false}
                                     disableElevation
                                     fullWidth
                                     size="large"

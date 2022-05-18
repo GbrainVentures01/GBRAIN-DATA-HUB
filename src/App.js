@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Routes from 'routes';
 // defaultTheme
 import themes from 'themes';
+// third party packages 
+import { SnackbarProvider } from 'notistack';
 
 
 
@@ -18,6 +20,7 @@ const App = () => {
     const { customization } = useSelector((state) => state);
 
     return (
+        <SnackbarProvider maxSnack={2} anchorOrigin={{vertical:"top", horizontal:"right"}}>
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes(customization)}>
                 <CssBaseline />
@@ -26,6 +29,7 @@ const App = () => {
                 </NavigationScroll>
             </ThemeProvider>
         </StyledEngineProvider>
+        </SnackbarProvider>
     );
 };
 

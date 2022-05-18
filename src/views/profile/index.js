@@ -12,12 +12,12 @@ import * as yup from 'yup';
 
 const Profile = () => {
       const { loggedInUser } = useSelector((state) => state);
-    const { user, error, loading } = loggedInUser;
+    const { user } = loggedInUser;
     const navigate = useNavigate();
     const dispatch = useDispatch()
      useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
-    }, []);
+    }, [navigate]);
      const INITIAL_FORM_VALUES = {
        
         amount: '',
