@@ -110,11 +110,11 @@ const MenuCard = () => {
                                     Powered By:
                                 </Typography>
                             }
-                            secondary={<Typography variant="caption"> layintontechhub</Typography>}
+                            secondary={<Typography variant="h5"> Layintontechhub</Typography>}
                         />
                     </ListItem>
                 </List>
-                <LinearProgressWithLabel value={80} />
+                {/* <LinearProgressWithLabel value={80} /> */}
             </CardContent>
         </CardStyle>
     );

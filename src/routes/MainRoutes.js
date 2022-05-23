@@ -101,7 +101,8 @@ const MainRoutes = {
         {
             path: '/profile',
             element: <Profile  />
-        }
+        },
+        
     ]
 };
 
