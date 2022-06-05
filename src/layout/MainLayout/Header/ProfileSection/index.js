@@ -1,12 +1,4 @@
-import {
-    Avatar, Box, Button, Chip,
-    ClickAwayListener,
-    Divider,
-    Paper,
-    Popper,
-    Stack,
-    Typography
-} from '@mui/material';
+import { Avatar, Box, Button, Chip, ClickAwayListener, Divider, Paper, Popper, Stack, Typography } from '@mui/material';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import User1 from 'assets/images/users/user-round.svg';
@@ -18,15 +10,12 @@ import { LogoutAction } from 'store/actions';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 
-
-
-
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
-   const theme = useTheme();
-   const { loggedInUser } = useSelector((state) => state);
-   const { user } = loggedInUser;
+    const theme = useTheme();
+    const { loggedInUser } = useSelector((state) => state);
+    const { user } = loggedInUser;
     // const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
@@ -64,12 +53,11 @@ const ProfileSection = () => {
     }, [open]);
 
     // logout current logged in user
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const Logout = () => {
-         dispatch(LogoutAction());
-
-    }
+        dispatch(LogoutAction());
+    };
 
     return (
         <>
@@ -141,18 +129,16 @@ const ProfileSection = () => {
                                     <Box sx={{ p: 2 }}>
                                         <Stack>
                                             <Stack direction="row" spacing={0.5} alignItems="center">
-                                                <Typography variant="h4">Good day,</Typography>
-                                                <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    {user?.username}
-                                                </Typography>
+                                                <Typography variant="h4">Hello,</Typography>
                                             </Stack>
-                                            <Typography variant="subtitle2">Project Admin</Typography>
+                                            <Typography component="span" variant="subtitle2" sx={{ fontWeight: 400 }}>
+                                                {user?.username}
+                                            </Typography>
                                         </Stack>
-                                    
+
                                         <Divider />
-                                          <Button onClick={Logout}> Log out</Button>
+                                        <Button onClick={Logout}> Log out</Button>
                                     </Box>
-                                  
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>

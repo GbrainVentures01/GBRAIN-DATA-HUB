@@ -89,7 +89,7 @@ export const CustomButton = ({ children, fullWidth, ...others }) => {
     const defaultConfiq = {
         onClick: handleSubmit,
         variant: 'contained',
-        color: 'primary',
+        color: 'secondary',
         fullWidth: true || fullWidth
     };
 

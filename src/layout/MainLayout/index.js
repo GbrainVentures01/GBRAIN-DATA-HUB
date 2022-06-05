@@ -15,9 +15,6 @@ import Customization from '../Customization';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-
-
-
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     ...theme.typography.mainContent,

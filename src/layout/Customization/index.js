@@ -24,9 +24,6 @@ import { gridSpacing } from 'store/constant';
 import SubCard from 'ui-component/cards/SubCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
-
-
-
 // concat 'px'
 function valueText(value) {
     return `${value}px`;
@@ -132,7 +129,7 @@ const Customization = () => {
                     <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
                         <Grid item xs={12}>
                             {/* font family */}
-                            <SubCard title="Font Family">
+                            <SubCard title="Font Families">
                                 <FormControl>
                                     <RadioGroup
                                         aria-label="font-family"

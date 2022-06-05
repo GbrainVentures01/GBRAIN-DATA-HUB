@@ -66,7 +66,9 @@ const BuyAirtime = ({ title, network }) => {
                                     <CustomTextField name="network" label="Network" value={(values.network = network)} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
+                                    <CustomButton color="primary" disabled={loading ? true : false}>
+                                        Submit
+                                    </CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>
