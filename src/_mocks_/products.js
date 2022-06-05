@@ -21,19 +21,19 @@ export const products = [
         id: 3,
         name: 'Electricity',
         icon: <EmojiObjectsIcon style={{ color: 'orange', fontSize: '35px' }} />,
-        url: 'electricity-sub'
+        url: '/electricity-sub'
     },
     {
         id: 4,
         name: 'Tv/Cable',
         icon: <TvIcon style={{ color: 'brown', fontSize: '35px' }} />,
-        url: 'cable-tv-sub'
+        url: '/cable-tv-sub'
     },
     {
         id: 5,
         name: 'Exam Pin',
         icon: <SchoolIcon style={{ color: 'teal', fontSize: '35px' }} />,
-        url: 'exam-pin'
+        url: '/exam-pin'
     },
     {
         id: 6,
