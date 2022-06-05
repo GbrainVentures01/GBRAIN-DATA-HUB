@@ -1,23 +1,52 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import {
-    BUY_AIRTIME_FAIL, BUY_AIRTIME_REQUEST,
-    BUY_AIRTIME_SUCCESS, BUY_DATA_FAIL, BUY_DATA_REQUEST,
-    BUY_DATA_SUCCESS, FORGET_PASSWORD_FAIL, FORGET_PASSWORD_REQUEST,
-    FORGET_PASSWORD_SUCCESS, FUND_WALLET_BY_MONNIFY_FAIL, FUND_WALLET_BY_MONNIFY_REQUEST,
-    FUND_WALLET_BY_MONNIFY_SUCCESS, GET_AIRTEL_DATA_PLAN_FAIL, GET_AIRTEL_DATA_PLAN_REQUEST,
-    GET_AIRTEL_DATA_PLAN_SUCCESS, GET_GLO_DATA_PLAN_FAIL,
+    BUY_AIRTIME_FAIL,
+    BUY_AIRTIME_REQUEST,
+    BUY_AIRTIME_SUCCESS,
+    BUY_DATA_FAIL,
+    BUY_DATA_REQUEST,
+    BUY_DATA_SUCCESS,
+    BUY_ELECTRICITY_FAIL,
+    BUY_ELECTRICITY_REQUEST,
+    BUY_ELECTRICITY_SUCCESS,
+    BUY_EXAM_PIN_FAIL,
+    BUY_EXAM_PIN_REQUEST,
+    BUY_EXAM_PIN_SUCCESS,
+    BUY_TV_CABLES_FAIL,
+    BUY_TV_CABLES_REQUEST,
+    BUY_TV_CABLES_SUCCESS,
+    FORGET_PASSWORD_FAIL,
+    FORGET_PASSWORD_REQUEST,
+    FORGET_PASSWORD_SUCCESS,
+    FUND_WALLET_BY_MONNIFY_FAIL,
+    FUND_WALLET_BY_MONNIFY_REQUEST,
+    FUND_WALLET_BY_MONNIFY_SUCCESS,
+    GET_AIRTEL_DATA_PLAN_FAIL,
+    GET_AIRTEL_DATA_PLAN_REQUEST,
+    GET_AIRTEL_DATA_PLAN_SUCCESS,
+    GET_ELECTRICITY_PROVIDERS_FAIL,
+    GET_ELECTRICITY_PROVIDERS_REQUEST,
+    GET_ELECTRICITY_PROVIDERS_SUCCESS,
+    GET_GLO_DATA_PLAN_FAIL,
     GET_GLO_DATA_PLAN_REQUEST,
-    GET_GLO_DATA_PLAN_SUCCESS, GET_LOGGED_IN_USER_FAIL, GET_LOGGED_IN_USER_REQUEST,
-    GET_LOGGED_IN_USER_SUCCESS, GET_MTN_DATA_PLAN_FAIL,
+    GET_GLO_DATA_PLAN_SUCCESS,
+    GET_LOGGED_IN_USER_FAIL,
+    GET_LOGGED_IN_USER_REQUEST,
+    GET_LOGGED_IN_USER_SUCCESS,
+    GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_VARIANTS_FAIL,
+    GET_VARIANTS_REQUEST,
+    GET_VARIANTS_SUCCESS,
     LOGIN_USER_FAIL,
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
-
     LOGOUT_USER_FAIL,
     LOGOUT_USER_REQUEST,
-    LOGOUT_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST,
+    LOGOUT_USER_SUCCESS,
+    REGISTER_USER_FAIL,
+    REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS
 } from './constant';
 
@@ -46,16 +75,16 @@ export const initialUserState = {
 };
 
 export const initialLoginState = {
-    loading:false,
-    error:null,
-    user:{}
-}
+    loading: false,
+    error: null,
+    user: {}
+};
 
 export const initialLogoutState = {
-    loading:false,
-    error:null,
-    user:{}
-}
+    loading: false,
+    error: null,
+    user: {}
+};
 
 export const initialAirtimeOrderState = {
     airtime: {},
@@ -69,6 +98,31 @@ export const initialDataOrderState = {
 };
 export const initialFundingState = {
     paymentStatus: {},
+    loading: false,
+    error: null
+};
+export const initialVariationsState = {
+    variations: [],
+    loading: false,
+    error: null
+};
+export const initialElectriProvidersState = {
+    providers: [],
+    loading: false,
+    error: null
+};
+export const initialTvCableState = {
+    data: {},
+    loading: false,
+    error: null
+};
+export const initialElectricityState = {
+    data: {},
+    loading: false,
+    error: null
+};
+export const initialExamPinState = {
+    data: {},
     loading: false,
     error: null
 };
@@ -127,10 +181,10 @@ export const loginUserReducer = (state = initialLoginState, action) => {
             return { ...state, loading: true };
 
         case LOGIN_USER_SUCCESS: {
-            Cookies.set("user", action?.payload?.jwt, {expires:1})
-            Cookies.set("user_id", action?.payload?.user?.id, {expires:1})
-           
-            window.location.replace("/")
+            Cookies.set('user', action?.payload?.jwt, { expires: 1 });
+            Cookies.set('user_id', action?.payload?.user?.id, { expires: 1 });
+
+            // window.location.replace('/');
             return { ...state, loading: false, user: action.payload.user };
         }
         case LOGIN_USER_FAIL:
@@ -149,7 +203,6 @@ export const userReducer = (state = initialUserState, action) => {
             return { ...state, loading: true };
 
         case GET_LOGGED_IN_USER_SUCCESS: {
-           
             return { ...state, loading: false, user: action.payload };
         }
         case GET_LOGGED_IN_USER_FAIL:
@@ -161,27 +214,25 @@ export const userReducer = (state = initialUserState, action) => {
 };
 
 //logout user reducers starts her
-export const logoutReducer = (state=initialLogoutState, action)=>{
+export const logoutReducer = (state = initialLogoutState, action) => {
     switch (action.type) {
         case LOGOUT_USER_REQUEST:
-            return {...state, loading:true};
+            return { ...state, loading: true };
 
-             case LOGOUT_USER_SUCCESS:
-                Cookies.remove("user")
-                Cookies.remove("user_id")
-                 window.location.replace('/pages/login/login3');
-                 
-            return {...state, loading:false, user:action.payload};
+        case LOGOUT_USER_SUCCESS:
+            Cookies.remove('user');
+            Cookies.remove('user_id');
+            window.location.replace('/pages/login/login3');
 
-             case LOGOUT_USER_FAIL:
-            return {...state, loading:false, error:action.payload};
-            
-         
-    
+            return { ...state, loading: false, user: action.payload };
+
+        case LOGOUT_USER_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
         default:
-           return state;
+            return state;
     }
-}
+};
 
 //FORGET PASSWORD REDUCER
 export const forgetPasswordReducer = (state = initialLoginState, action) => {
@@ -190,7 +241,6 @@ export const forgetPasswordReducer = (state = initialLoginState, action) => {
             return { ...state, loading: true };
 
         case FORGET_PASSWORD_SUCCESS: {
-            
             return { ...state, loading: false };
         }
         case FORGET_PASSWORD_FAIL:
@@ -201,7 +251,6 @@ export const forgetPasswordReducer = (state = initialLoginState, action) => {
     }
 };
 
-
 // Register user reducers
 
 export const registerUserReducer = (state = initialUserState, action) => {
@@ -210,11 +259,11 @@ export const registerUserReducer = (state = initialUserState, action) => {
             return { ...state, loading: true };
 
         case REGISTER_USER_SUCCESS: {
-              Cookies.set("user", action?.payload?.jwt, {expires:1})
-            Cookies.set("user_id", action?.payload?.user?.id, {expires:1})
-         
-            window.location.replace("/")
-         
+            Cookies.set('user', action?.payload?.jwt, { expires: 1 });
+            Cookies.set('user_id', action?.payload?.user?.id, { expires: 1 });
+
+            window.location.replace('/');
+
             return { ...state, loading: false, user: action.payload.user };
         }
         case REGISTER_USER_FAIL:
@@ -235,7 +284,6 @@ export const airtimeOrderReducer = (state = initialAirtimeOrderState, action) =>
         case BUY_AIRTIME_SUCCESS:
             return { ...state, loading: false, airtime: action.payload };
         case BUY_AIRTIME_FAIL:
-           
             return { ...state, loading: false, error: action.payload };
 
         default:
@@ -265,7 +313,7 @@ export const monnifyFundingReducer = (state = initialFundingState, action) => {
             return { ...state, loading: true };
 
         case FUND_WALLET_BY_MONNIFY_SUCCESS:
-            window.open(action.payload.checkoutUrl, '_blank')
+            window.open(action.payload.checkoutUrl, '_blank');
             return { ...state, loading: false, paymentStatus: action.payload };
         case FUND_WALLET_BY_MONNIFY_FAIL:
             return { ...state, loading: false, error: action.payload };
@@ -275,3 +323,77 @@ export const monnifyFundingReducer = (state = initialFundingState, action) => {
     }
 };
 
+// VTPASS REDUCERS
+export const getVariationsReducer = (state = initialVariationsState, action) => {
+    switch (action.type) {
+        case GET_VARIANTS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_VARIANTS_SUCCESS:
+            return { ...state, loading: false, variations: action.payload };
+        case GET_VARIANTS_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getelectricityProvidersReducer = (state = initialElectriProvidersState, action) => {
+    switch (action.type) {
+        case GET_ELECTRICITY_PROVIDERS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_ELECTRICITY_PROVIDERS_SUCCESS:
+            return { ...state, loading: false, providers: action.payload };
+        case GET_ELECTRICITY_PROVIDERS_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const tvCablesPurchase = (state = initialTvCableState, action) => {
+    switch (action.type) {
+        case BUY_TV_CABLES_REQUEST:
+            return { ...state, loading: true };
+
+        case BUY_TV_CABLES_SUCCESS:
+            return { ...state, loading: false, data: action.payload };
+        case BUY_TV_CABLES_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const electricityPurchase = (state = initialElectricityState, action) => {
+    switch (action.type) {
+        case BUY_ELECTRICITY_REQUEST:
+            return { ...state, loading: true };
+
+        case BUY_ELECTRICITY_SUCCESS:
+            return { ...state, loading: false, data: action.payload };
+        case BUY_ELECTRICITY_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+export const examPinPurchase = (state = initialExamPinState, action) => {
+    switch (action.type) {
+        case BUY_EXAM_PIN_REQUEST:
+            return { ...state, loading: true };
+
+        case BUY_EXAM_PIN_SUCCESS:
+            return { ...state, loading: false, data: action.payload };
+        case BUY_EXAM_PIN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};

@@ -31,14 +31,10 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // third party
 import * as Yup from 'yup';
 
-
-
-
-
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
@@ -130,24 +126,29 @@ const FirebaseRegister = ({ ...others }) => {
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid> */}
-                             <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-                            <InputLabel htmlFor="outlined-adornment-email-register">Email Address / Username</InputLabel>
-                            <OutlinedInput
-                                id="outlined-adornment-email-register"
-                                type="email"
-                                value={values.email}
-                                name="email"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                inputProps={{}}
-                            />
-                            {touched.email && errors.email && (
-                                <FormHelperText error id="standard-weight-helper-text--register">
-                                    {errors.email}
-                                </FormHelperText>
-                            )}
-                        </FormControl>
-                        
+                            <Grid item xs={12} sm={12}>
+                                <FormControl
+                                    fullWidth
+                                    error={Boolean(touched.email && errors.email)}
+                                    sx={{ ...theme.typography.customInput }}
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-email-register">Email Address</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-email-register"
+                                        type="email"
+                                        value={values.email}
+                                        name="email"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        inputProps={{}}
+                                    />
+                                    {touched.email && errors.email && (
+                                        <FormHelperText error id="standard-weight-helper-text--register">
+                                            {errors.email}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
                             <Grid item xs={12} sm={12}>
                                 <TextField
                                     fullWidth
@@ -167,7 +168,6 @@ const FirebaseRegister = ({ ...others }) => {
                                 )}
                             </Grid>
                         </Grid>
-                       
 
                         <FormControl
                             fullWidth

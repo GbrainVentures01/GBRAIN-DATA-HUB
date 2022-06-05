@@ -20,6 +20,7 @@ import {
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Form, Formik } from 'formik';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -27,18 +28,12 @@ import { LoginAction } from 'store/actions';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 // third party
 import * as Yup from 'yup';
-import { useSnackbar } from 'notistack';
-
-
-
-
-
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
     const navigate = useNavigate();
-    const {enqueueSnackbar} = useSnackbar()
+    const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
     const { customization, login } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
@@ -46,7 +41,7 @@ const FirebaseLogin = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-    console.log(login)
+    console.log(login);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
@@ -61,7 +56,6 @@ const FirebaseLogin = ({ ...others }) => {
         };
         dispatch(LoginAction({ user: user, navigate, enqueueSnackbar }));
     };
-
 
     return (
         <>
@@ -183,9 +177,11 @@ const FirebaseLogin = ({ ...others }) => {
                                 }
                                 label="Remember me"
                             />
-                           <Link to="/pages/auth/forget-pswd"><Typography  variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
-                                Forgot Password?
-                            </Typography></Link> 
+                            <Link to="/pages/auth/forget-pswd">
+                                <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
+                                    Forgot Password?
+                                </Typography>
+                            </Link>
                         </Stack>
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>

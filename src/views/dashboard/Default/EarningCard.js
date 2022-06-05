@@ -6,7 +6,7 @@ import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -14,10 +14,6 @@ import { Link } from 'react-router-dom';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
-
-
-
-
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -55,14 +51,12 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     }
 }));
 
-
-
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const EarningCard = ({ isLoading }) => {
-    
     const { loggedInUser } = useSelector((state) => state);
     const { user } = loggedInUser;
+    console.log(user);
 
     const theme = useTheme();
 
@@ -75,8 +69,6 @@ const EarningCard = ({ isLoading }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-
 
     return (
         <>
@@ -143,23 +135,46 @@ const EarningCard = ({ isLoading }) => {
                             <Grid item>
                                 <Grid container alignItems="center">
                                     <Grid item>
-                                        {  Cookies.get("user") &&
-                                       (<Typography sx={{ fontSize: '1.5rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                      { `Welcome Back, ${user?.username}`}
-                                        </Typography>)}
-                                        <div style={{display:"flex", flexDirection:"row"}}>
+                                        {Cookies.get('user') && (
+                                            <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                                {`Welcome Back, ${user?.username}`}
+                                            </Typography>
+                                        )}
+                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
                                             <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {Cookies.get('user') ? `Wallet Balance:₦${user?.AccountBalance} ` : 'Welcome To Gbrain Ventures'}
-                                        </Typography>
-                                       {
-                                           Cookies.get('user') &&(
-<Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 0.4,ml:1.3, mt: 1, mb: 0.75 }}><Link to={"/fund-wallet"} style={{textDecoration:"none", color:"white", position:"relative", top:6, bottom:0}} > Fund Wallet</Link></Typography>
-                                           )
-                                       } 
+                                                {Cookies.get('user')
+                                                    ? `Wallet Balance:₦${user?.AccountBalance} `
+                                                    : 'Welcome To Gbrain Ventures'}
+                                            </Typography>
+                                            {Cookies.get('user') && (
+                                                <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 0.4, ml: 1.3, mt: 1, mb: 0.75 }}>
+                                                    <Link
+                                                        to={'/fund-wallet'}
+                                                        style={{
+                                                            textDecoration: 'none',
+                                                            color: 'white',
+                                                            position: 'relative',
+                                                            top: 6,
+                                                            bottom: 0
+                                                        }}
+                                                    >
+                                                        {' '}
+                                                        Fund Wallet
+                                                    </Link>
+                                                </Typography>
+                                            )}
                                         </div>
-                                        
+
                                         <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {Cookies.get('user') ? `Acoount Number: ${user?.AccountNumber}` : <Link to={"/pages/login/login3"} ><Typography variant='subtitle1' color={"white"}>Please Login To Your Account</Typography></Link> }
+                                            {Cookies.get('user') ? (
+                                                `Acoount Number: ${user?.AccountNumber}`
+                                            ) : (
+                                                <Link to={'/pages/login/login3'}>
+                                                    <Typography variant="subtitle1" color={'white'}>
+                                                        Please Login To Your Account
+                                                    </Typography>
+                                                </Link>
+                                            )}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -176,7 +191,6 @@ const EarningCard = ({ isLoading }) => {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                           
                         </Grid>
                     </Box>
                 </CardWrapper>
@@ -189,6 +203,4 @@ EarningCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
- 
-        
 export default EarningCard;

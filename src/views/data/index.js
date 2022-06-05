@@ -1,7 +1,8 @@
 // material-ui
 import { Box, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,33 +10,29 @@ import { buyData, getAirtelData, getGloData, getMtnData } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import * as yup from 'yup';
-import { useSnackbar } from 'notistack';
 import FeedBack from 'views/feedBack';
-
+import * as yup from 'yup';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyData = ({ title, network }) => {
     const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder } = useSelector((state) => state);
+
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
-    const {  loading, data, error } = dataOrder;
+    const { loading, data, error } = dataOrder;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {enqueueSnackbar} = useSnackbar()
-  
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
         dispatch(getGloData());
         dispatch(getMtnData());
         dispatch(getAirtelData());
-        
     }, [dispatch, navigate]);
 
-  
     const INITIAL_FORM_VALUES = {
         beneficiaryNum: '',
         amount: '',
@@ -116,8 +113,8 @@ const BuyData = ({ title, network }) => {
                     </Form>
                 )}
             </Formik>
-            {data.data&&(<FeedBack message={data?.data?.message} variant="success"/>)}
-            {error&&(<FeedBack message={error} variant="error"/>)}
+            {data.data && <FeedBack message={data?.data?.message} variant="success" />}
+            {error && <FeedBack message={error} variant="error" />}
         </MainCard>
     );
 };

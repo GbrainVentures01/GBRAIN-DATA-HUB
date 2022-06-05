@@ -16,13 +16,15 @@ export const CustomTextField = ({ name, fullWidth, ...other }) => {
     return <TextField {...defaultConfiq} />;
 };
 
-// custom select
-export const CustomSelect = ({ name, options, ...other }) => {
+// custom select box
+
+export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...other }) => {
     const [field, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
 
     const handleChange = (e) => {
         const { value } = e.target;
+        makeNetCall && setvalue(value);
         setFieldValue(name, value);
     };
 
@@ -32,7 +34,7 @@ export const CustomSelect = ({ name, options, ...other }) => {
         fullWidth: true,
         ...other,
         ...field,
-        onchange: handleChange
+        onChange: handleChange
     };
 
     if (meta && meta.touched && meta.error) {
@@ -43,8 +45,11 @@ export const CustomSelect = ({ name, options, ...other }) => {
         <TextField {...defaultConfiq}>
             {options.map((option) => {
                 return (
-                    <MenuItem key={option.id} value={option.attributes}>
-                        {option.attributes.Plan}
+                    <MenuItem
+                        key={option.id || option?.variation_code}
+                        value={vtplan ? option : option?.attributes?.service_id || option?.attributes || option?.value}
+                    >
+                        {option?.attributes?.Plan || option?.attributes?.provider || option?.name}
                     </MenuItem>
                 );
             })}

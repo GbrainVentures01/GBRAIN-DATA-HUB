@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import { makeNetworkCall } from 'network';
 import {
     BUY_AIRTIME_FAIL,
@@ -7,6 +7,15 @@ import {
     BUY_DATA_FAIL,
     BUY_DATA_REQUEST,
     BUY_DATA_SUCCESS,
+    BUY_ELECTRICITY_FAIL,
+    BUY_ELECTRICITY_REQUEST,
+    BUY_ELECTRICITY_SUCCESS,
+    BUY_EXAM_PIN_FAIL,
+    BUY_EXAM_PIN_REQUEST,
+    BUY_EXAM_PIN_SUCCESS,
+    BUY_TV_CABLES_FAIL,
+    BUY_TV_CABLES_REQUEST,
+    BUY_TV_CABLES_SUCCESS,
     FORGET_PASSWORD_FAIL,
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_SUCCESS,
@@ -16,6 +25,9 @@ import {
     GET_AIRTEL_DATA_PLAN_FAIL,
     GET_AIRTEL_DATA_PLAN_REQUEST,
     GET_AIRTEL_DATA_PLAN_SUCCESS,
+    GET_ELECTRICITY_PROVIDERS_FAIL,
+    GET_ELECTRICITY_PROVIDERS_REQUEST,
+    GET_ELECTRICITY_PROVIDERS_SUCCESS,
     GET_GLO_DATA_PLAN_FAIL,
     GET_GLO_DATA_PLAN_REQUEST,
     GET_GLO_DATA_PLAN_SUCCESS,
@@ -25,6 +37,9 @@ import {
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_VARIANTS_FAIL,
+    GET_VARIANTS_REQUEST,
+    GET_VARIANTS_SUCCESS,
     LOGIN_USER_FAIL,
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
@@ -65,7 +80,7 @@ export const getGloData = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: GET_GLO_DATA_PLAN_FAIL,
-            payload: error.response?.data?.error?.message|| error?.messag
+            payload: error.response?.data?.error?.message || error?.messag
         });
     }
 };
@@ -90,7 +105,7 @@ export const getMtnData = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: GET_MTN_DATA_PLAN_FAIL,
-            payload: error.response?.data?.error?.message|| error?.messag
+            payload: error.response?.data?.error?.message || error?.messag
         });
     }
 };
@@ -115,11 +130,10 @@ export const getAirtelData = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: GET_AIRTEL_DATA_PLAN_FAIL,
-            payload:error.response?.data?.error?.message|| error?.messag
+            payload: error.response?.data?.error?.message || error?.messag
         });
     }
 };
-
 
 export const buyAirtime =
     ({ orderDetails, enqueueSnackbar }) =>
@@ -140,21 +154,20 @@ export const buyAirtime =
                 type: BUY_AIRTIME_SUCCESS,
                 payload: data
             });
-            console.log(data)
-      data &&
-      enqueueSnackbar(data?.data?.message, {
-        variant: "success",
-      });
+            console.log(data);
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
         } catch (error) {
-         
             dispatch({
                 type: BUY_AIRTIME_FAIL,
-                payload: error.response?.data?.error?.message|| error?.message 
+                payload: error.response?.data?.error?.message || error?.message
             });
-             error &&
-      enqueueSnackbar(error.response?.data?.error?.message|| error?.message , {
-        variant: "error",
-      });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
         }
     };
 
@@ -178,39 +191,38 @@ export const buyData =
                 type: BUY_DATA_SUCCESS,
                 payload: data
             });
-             data &&
-      enqueueSnackbar(data?.data?.message, {
-        variant: "success",
-      });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
         } catch (error) {
             dispatch({
                 type: BUY_DATA_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message || error?.messag
             });
-                   error &&
-      enqueueSnackbar(error.response?.data?.error?.message|| error?.message , {
-        variant: "error",
-      });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
         }
     };
 
-export const LogoutAction = () => async (dispatch)=>{
+export const LogoutAction = () => async (dispatch) => {
     try {
         dispatch({
-            type:LOGOUT_USER_REQUEST
-        })
+            type: LOGOUT_USER_REQUEST
+        });
         dispatch({
-            type:LOGOUT_USER_SUCCESS,
-            payload:"successfully logged out"
-        })
-      
+            type: LOGOUT_USER_SUCCESS,
+            payload: 'successfully logged out'
+        });
     } catch (error) {
         dispatch({
-            type:LOGOUT_USER_FAIL,
-            payload:error.response?.data?.error?.message|| error?.messag
-        })
+            type: LOGOUT_USER_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
     }
-}
+};
 
 export const LoginAction =
     ({ user, navigate, enqueueSnackbar }) =>
@@ -228,43 +240,41 @@ export const LoginAction =
                 type: LOGIN_USER_SUCCESS,
                 payload: data
             });
-       
+            navigate('/');
         } catch (error) {
             dispatch({
                 type: LOGIN_USER_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message || error?.messag
             });
-      error &&
-      enqueueSnackbar(error.response?.data?.error?.message|| error?.messag, {
-      variant: "error",
-      });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
         }
     };
 
-    
 export const ForgetPasswordAction =
-    ({email}) =>
+    ({ email }) =>
     async (dispatch) => {
-        
         try {
             dispatch({
                 type: FORGET_PASSWORD_REQUEST
             });
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                requestBody:email,
+                requestBody: email,
                 path: 'auth/forgot-password'
             });
             dispatch({
                 type: FORGET_PASSWORD_SUCCESS,
                 payload: data
             });
-           
+
             console.log(data);
         } catch (error) {
             dispatch({
                 type: FORGET_PASSWORD_FAIL,
-                payload: error.response?.data?.error?.message|| error?.message
+                payload: error.response?.data?.error?.message || error?.message
             });
         }
     };
@@ -285,21 +295,21 @@ export const registerAction =
                 type: REGISTER_USER_SUCCESS,
                 payload: data
             });
-           
+
             console.log(data);
         } catch (error) {
             dispatch({
                 type: REGISTER_USER_FAIL,
-                payload: error.response?.data?.error?.message|| error?.message
+                payload: error.response?.data?.error?.message || error?.message
             });
         }
     };
 
-    export const userAction =
-    ({navigate}) =>
+export const userAction =
+    ({ navigate }) =>
     async (dispatch) => {
-        const id = Cookies.get("user_id")
-        
+        const id = Cookies.get('user_id');
+
         try {
             dispatch({
                 type: GET_LOGGED_IN_USER_REQUEST
@@ -315,23 +325,20 @@ export const registerAction =
                 type: GET_LOGGED_IN_USER_SUCCESS,
                 payload: data
             });
-
-           
         } catch (error) {
             if (error.response?.data?.error?.status === 401) {
-                navigate("/pages/login/login3")
+                navigate('/pages/login/login3');
             }
             dispatch({
                 type: GET_LOGGED_IN_USER_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message || error?.messag
             });
         }
     };
 
-   export const fundWalletWithMonnify =
-    ({amount}) =>
+export const fundWalletWithMonnify =
+    ({ amount }) =>
     async (dispatch) => {
-        
         try {
             dispatch({
                 type: FUND_WALLET_BY_MONNIFY_REQUEST
@@ -339,7 +346,7 @@ export const registerAction =
             const { data } = await makeNetworkCall({
                 method: 'POST',
                 path: `monnify-atm-fundings`,
-                requestBody:amount,
+                requestBody: amount,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -352,7 +359,146 @@ export const registerAction =
         } catch (error) {
             dispatch({
                 type: FUND_WALLET_BY_MONNIFY_FAIL,
-                payload: error.response?.data?.error?.message|| error?.messag
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+
+// VTU ACTIONS HERE
+
+// todo: create networkcall to vtpass
+
+export const getVariants =
+    ({ provider }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_VARIANTS_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `vtpass-variation/${provider}`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: GET_VARIANTS_SUCCESS,
+                payload: data.content.varations
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_VARIANTS_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+export const getElectricProviders = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_ELECTRICITY_PROVIDERS_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: `electricity-payment-providers`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        dispatch({
+            type: GET_ELECTRICITY_PROVIDERS_SUCCESS,
+            payload: data.data
+        });
+        console.log(data.data);
+    } catch (error) {
+        dispatch({
+            type: GET_ELECTRICITY_PROVIDERS_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+
+export const buyTvCables =
+    ({ reqBody }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: BUY_TV_CABLES_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'buy-tv-cables',
+                requestBody: reqBody,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: BUY_TV_CABLES_SUCCESS,
+                payload: data
+            });
+        } catch (error) {
+            dispatch({
+                type: BUY_TV_CABLES_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+
+export const buyElectricity =
+    ({ reqBody }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: BUY_ELECTRICITY_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'buy-electricity',
+                requestBody: reqBody,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: BUY_ELECTRICITY_SUCCESS,
+                payload: data
+            });
+            console.log(data);
+        } catch (error) {
+            dispatch({
+                type: BUY_ELECTRICITY_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+
+export const buyExamPin =
+    ({ reqBody }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: BUY_EXAM_PIN_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'buy-exam-pin',
+                requestBody: reqBody,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: BUY_EXAM_PIN_SUCCESS,
+                payload: data
+            });
+            console.log(data);
+        } catch (error) {
+            dispatch({
+                type: BUY_EXAM_PIN_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
             });
         }
     };

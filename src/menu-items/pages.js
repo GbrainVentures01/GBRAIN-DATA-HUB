@@ -1,6 +1,7 @@
 // assets
 import { IconKey } from '@tabler/icons';
 
+
 // constant
 const icons = {
     IconKey
@@ -77,32 +78,26 @@ const pages = {
         {
             id: 'cable&tv',
             title: 'Cable And Tv Subscription',
-            type: 'collapse',
+            type: 'item',
+            url:'/cable-tv-sub',
+            target:false,
             icon: icons.IconKey,
-
-            children: [
-                {
-                    id: 'dstv',
-                    title: 'DSTV Subscription',
-                    type: 'item',
-                    url: '/sub-dstv',
-                    target: false
-                },
-                {
-                    id: 'gotv',
-                    title: 'GOTV Subscription',
-                    type: 'item',
-                    url: '/sub-gotv',
-                    target: false
-                },
-                {
-                    id: 'startimes',
-                    title: 'StarTimes Subscription',
-                    type: 'item',
-                    url: '/sub-startimes',
-                    target: false
-                }
-            ]
+        },
+         {
+            id: 'Electricity',
+            title: 'Electricity and Power Subscription ',
+            type: 'item',
+            url:'/electricity-sub',
+            target:false,
+            icon: icons.IconKey,
+        },
+         {
+            id: 'Exam Pin',
+            title: 'Examination Scratch Card and pins',
+            type: 'item',
+            url:'/exam-pin',
+            target:false,
+            icon: icons.IconKey,
         }
     ]
 };

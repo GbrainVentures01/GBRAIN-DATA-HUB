@@ -3,7 +3,6 @@ import axios from 'axios';
 const liveUrl = 'https://gbrain-backend.herokuapp.com/api/';
 // const testUrl = 'http://localhost:1337/api/'
 
-
 // const baseUrl = `${testUrl}/api`;
 
 export const RequestMethod = {
@@ -19,7 +18,7 @@ export const RequestMethod = {
  *
  */
 
-export const makeNetworkCall = async ({ method, path, requestBody, params, headers }) => {
+export const makeNetworkCall = async ({ method, target, path, requestBody, params, headers }) => {
     if (!method || !path) {
         throw new Error('A required parameter is missing. Please provide method or path');
     }

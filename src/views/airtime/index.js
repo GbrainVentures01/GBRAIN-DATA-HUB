@@ -1,7 +1,7 @@
 // material-ui
 import { Box, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,14 +13,12 @@ import MainCard from 'ui-component/cards/MainCard';
 import * as yup from 'yup';
 import FeedBack from '../feedBack';
 
-
-
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyAirtime = ({ title, network }) => {
     const { airtimeOrder } = useSelector((state) => state);
-    const { loading, airtime, error} = airtimeOrder;
-    const {enqueueSnackbar} = useSnackbar()
+    const { loading, airtime, error } = airtimeOrder;
+    const { enqueueSnackbar } = useSnackbar();
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -43,21 +41,15 @@ const BuyAirtime = ({ title, network }) => {
     const handleSubmit = (values) => {
         dispatch(
             buyAirtime({
-
                 orderDetails: {
                     data: { ...values }
                 },
                 enqueueSnackbar
-              
             })
         );
-        
-      
     };
-   
 
     return (
-        
         <MainCard title={title}>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
@@ -74,25 +66,16 @@ const BuyAirtime = ({ title, network }) => {
                                     <CustomTextField name="network" label="Network" value={(values.network = network)} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton disabled={loading?true:false}>Submit</CustomButton>
+                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>
                     </Form>
-                   
                 )}
             </Formik>
 
-            {airtime.data && (
-                <FeedBack message={airtime?.data?.message} variant="success"/>
-            )}
-            {
-                error &&(
-                    <FeedBack message={error} variant="error"/>
-                )
-            }
-           
-          
+            {airtime.data && <FeedBack message={airtime?.data?.message} variant="success" />}
+            {error && <FeedBack message={error} variant="error" />}
         </MainCard>
     );
 };

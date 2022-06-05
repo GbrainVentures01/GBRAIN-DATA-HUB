@@ -2,10 +2,23 @@ import { combineReducers } from 'redux';
 // reducer import
 import customizationReducer from './customizationReducer';
 import {
-    airtimeOrderReducer, dataOrderReducer, forgetPasswordReducer, getAirtelDataReducer, getGloDataReducer,
-    getMtnDataReducer, loginUserReducer, logoutReducer, monnifyFundingReducer, registerUserReducer, userReducer
+    airtimeOrderReducer,
+    dataOrderReducer,
+    electricityPurchase,
+    examPinPurchase,
+    forgetPasswordReducer,
+    getAirtelDataReducer,
+    getelectricityProvidersReducer,
+    getGloDataReducer,
+    getMtnDataReducer,
+    getVariationsReducer,
+    loginUserReducer,
+    logoutReducer,
+    monnifyFundingReducer,
+    registerUserReducer,
+    tvCablesPurchase,
+    userReducer
 } from './netorkCallsReducers';
-
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -17,12 +30,16 @@ const reducer = combineReducers({
     dataOrder: dataOrderReducer,
     airtimeOrder: airtimeOrderReducer,
     login: loginUserReducer,
-    logout:logoutReducer,
+    logout: logoutReducer,
     register: registerUserReducer,
-    loggedInUser:userReducer,
-    forgetPassword:forgetPasswordReducer,
-    fundWithMonnify:monnifyFundingReducer
-    
+    loggedInUser: userReducer,
+    forgetPassword: forgetPasswordReducer,
+    fundWithMonnify: monnifyFundingReducer,
+    vtuVariations: getVariationsReducer,
+    electricityProviders: getelectricityProvidersReducer,
+    tvCablesOrder: tvCablesPurchase,
+    electricityOrder: electricityPurchase,
+    examPinOrder: examPinPurchase
 });
 
 export default reducer;

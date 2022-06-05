@@ -3,7 +3,10 @@ import MainLayout from 'layout/MainLayout';
 import { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 import BuyAirtime from 'views/airtime';
+import SubTv from 'views/cables&tv';
 import BuyData from 'views/data';
+import Electricity from 'views/electricity';
+import ExamPin from 'views/exam';
 import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
 import Login from 'views/pages/authentication/authentication3/Login3';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
@@ -89,6 +92,18 @@ const MainRoutes = {
         {
             path: '/buy-airtel-data',
             element: <BuyData title="Airtel Data" network="Airtel"  />
+        },
+         {
+            path: '/cable-tv-sub',
+            element: <SubTv title="Buy Cable TV "   />
+        },
+         {
+            path: '/electricity-sub',
+            element: <Electricity title="Buy Electricity (PREPAID)"   />
+        },
+         {
+            path: '/exam-pin',
+            element: <ExamPin title="Buy Exam Pin"   />
         },
          {
             path: '/fund-wallet',

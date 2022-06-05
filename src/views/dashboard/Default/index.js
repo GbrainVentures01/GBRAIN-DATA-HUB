@@ -1,5 +1,6 @@
 // material-ui
 import { Grid } from '@mui/material';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -9,20 +10,19 @@ import { gridSpacing } from 'store/constant';
 import EarningCard from './EarningCard';
 import ProductListing from './ProductListing';
 
-
-
-
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-     const dispatch = useDispatch()
-     const navigate = useNavigate();
-    
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
         setLoading(false);
-        dispatch(userAction({navigate}))
-    }, [dispatch,navigate]);
+        !Cookies.get('user') && navigate('/pages/login/login3');
+        dispatch(userAction({ navigate }));
+    }, [dispatch, navigate]);
 
     return (
         <Grid container spacing={gridSpacing}>
