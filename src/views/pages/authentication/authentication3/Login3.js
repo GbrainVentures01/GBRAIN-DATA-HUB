@@ -2,13 +2,10 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import AuthFooter from 'ui-component/cards/AuthFooter';
 import AuthLogin from '../auth-forms/AuthLogin';
 import AuthCardWrapper from '../AuthCardWrapper';
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
-
-
 
 // assets
 
@@ -87,7 +84,7 @@ const Login = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
+                    {/* <AuthFooter /> */}
                 </Grid>
             </Grid>
         </AuthWrapper1>

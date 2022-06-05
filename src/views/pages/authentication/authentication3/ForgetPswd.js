@@ -2,13 +2,10 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import AuthFooter from 'ui-component/cards/AuthFooter';
 import ForgotPassword from '../auth-forms/AuthForgotPassword';
 import AuthCardWrapper from '../AuthCardWrapper';
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
-
-
 
 // assets
 
@@ -65,7 +62,7 @@ const ForgetPswdWrapper = () => {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <ForgotPassword/>
+                                        <ForgotPassword />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
@@ -88,7 +85,7 @@ const ForgetPswdWrapper = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-                    <AuthFooter />
+                    {/* <AuthFooter /> */}
                 </Grid>
             </Grid>
         </AuthWrapper1>
