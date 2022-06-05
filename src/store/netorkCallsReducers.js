@@ -184,7 +184,7 @@ export const loginUserReducer = (state = initialLoginState, action) => {
             Cookies.set('user', action?.payload?.jwt, { expires: 1 });
             Cookies.set('user_id', action?.payload?.user?.id, { expires: 1 });
 
-            // window.location.replace('/');
+            window.location.replace('/');
             return { ...state, loading: false, user: action.payload.user };
         }
         case LOGIN_USER_FAIL:

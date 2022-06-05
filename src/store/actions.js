@@ -240,7 +240,6 @@ export const LoginAction =
                 type: LOGIN_USER_SUCCESS,
                 payload: data
             });
-            navigate('/');
         } catch (error) {
             dispatch({
                 type: LOGIN_USER_FAIL,
