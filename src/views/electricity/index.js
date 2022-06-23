@@ -2,7 +2,7 @@
 import { Box, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyElectricity, getElectricProviders } from 'store/actions';
@@ -22,6 +22,8 @@ const Electricity = ({ title }) => {
     const { providers } = electricityProviders;
     const { loading, data, error } = electricityOrder;
     // const { enqueueSnackbar } = useSnackbar();
+    const [showAlert, setshowAlert] = useState(false);
+    const [showErrorAlert, setshowErrorAlert] = useState(false);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -58,7 +60,9 @@ const Electricity = ({ title }) => {
             buyElectricity({
                 reqBody: {
                     data: body
-                }
+                },
+                setshowAlert,
+                setErrorAlert: setshowErrorAlert
             })
         );
     };
@@ -95,8 +99,16 @@ const Electricity = ({ title }) => {
                 )}
             </Formik>
 
-            {data.message && <FeedBack message={data?.message} variant="success" />}
-            {error && <FeedBack message={error} variant="error" disableTopup={true} />}
+            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={data?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowErrorAlert={setshowErrorAlert}
+                    showErrorAlert={showErrorAlert}
+                    message={error}
+                    variant="error"
+                    disableTopup={true}
+                />
+            }
         </MainCard>
     );
 };

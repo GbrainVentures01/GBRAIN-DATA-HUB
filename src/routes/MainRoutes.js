@@ -3,8 +3,10 @@ import MainLayout from 'layout/MainLayout';
 import { lazy } from 'react';
 import Loadable from 'ui-component/Loadable';
 import BuyAirtime from 'views/airtime';
+import SelectAirtimeView from 'views/airtime/airtimeSelectionView';
 import SubTv from 'views/cables&tv';
 import BuyData from 'views/data';
+import SelectDataView from 'views/data/dataSelectionView';
 import Electricity from 'views/electricity';
 import ExamPin from 'views/exam';
 import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
@@ -12,7 +14,9 @@ import Login from 'views/pages/authentication/authentication3/Login3';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
 import Funding from 'views/payments/Funding';
 import Profile from 'views/profile';
-
+import EditProfile from 'views/profile/edit_profile';
+import SellAirtime from 'views/sell-airtime/sell-airtime';
+import { airtimeProducts, dataProducts } from '../_mocks_/products';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -41,7 +45,7 @@ const MainRoutes = {
             path: '/pages/login/login3',
             element: <Login />
         },
-         {
+        {
             path: '/pages/auth/forget-pswd',
             element: <ForgetPswdWrapper />
         },
@@ -70,54 +74,73 @@ const MainRoutes = {
             element: <UtilsMaterialIcons />
         },
         {
+            path: '/buy-airtime',
+            element: <SelectAirtimeView airtimeProv={airtimeProducts} />
+        },
+        {
+            path: '/sell-airtime',
+            element: <SellAirtime title="Convert Excess Airtime To Cash" />
+        },
+        {
+            path: '/buy-data',
+            element: <SelectDataView dataplans={dataProducts} />
+        },
+        {
             path: '/buy-mtn-airtime',
-            element: <BuyAirtime network="Mtn" title="MTN Airtime" />
+            element: <BuyAirtime network="mtn" title="MTN Airtime" />
         },
         {
             path: '/buy-airtel-airtime',
-            element: <BuyAirtime network="Airtel" title="Airtel Airtime" />
+            element: <BuyAirtime network="airtel" title="Airtel Airtime" />
         },
         {
             path: '/buy-glo-airtime',
-            element: <BuyAirtime network="Glo" title="Glo Airtime" />
+            element: <BuyAirtime network="glo" title="Glo Airtime" />
         },
         {
             path: '/buy-glo-data',
-            element: <BuyData title="Glo Data" network="Glo"  />
+            element: <BuyData title="Glo Data" sme={false} network="Glo" />
         },
         {
             path: '/buy-mtn-data',
-            element: <BuyData title="Mtn Data" network="Mtn"  />
+            element: <BuyData title="Mtn Data" sme={true} network="Mtn" />
+        },
+        {
+            path: '/buy-mtn-gift-data',
+            element: <BuyData title="Mtn Data Gifting" sme={false} network="Mtn" />
         },
         {
             path: '/buy-airtel-data',
-            element: <BuyData title="Airtel Data" network="Airtel"  />
+            element: <BuyData title="Airtel Data" sme={false} network="Airtel" />
         },
-         {
+        {
             path: '/cable-tv-sub',
-            element: <SubTv title="Buy Cable TV "   />
+            element: <SubTv title="Buy Cable TV " />
         },
-         {
+        {
             path: '/electricity-sub',
-            element: <Electricity title="Buy Electricity (PREPAID)"   />
+            element: <Electricity title="Buy Electricity (PREPAID)" />
         },
-         {
+        {
             path: '/exam-pin',
-            element: <ExamPin title="Buy Exam Pin"   />
+            element: <ExamPin title="Buy Exam Pin" />
         },
-         {
+        {
             path: '/fund-wallet',
-            element: <Funding  />
+            element: <Funding />
         },
-         {
+        {
             path: '/confirm-payment',
-            element: <SuccessPAyment  />
+            element: <SuccessPAyment />
         },
         {
             path: '/profile',
-            element: <Profile  />
+            element: <Profile />
         },
-        
+        {
+            path: '/edit-profile',
+            element: <EditProfile />
+        }
     ]
 };
 

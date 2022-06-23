@@ -6,19 +6,20 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyAirtime } from 'store/actions';
-import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
+import { sellAirtime } from 'store/actions';
+import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
+import { network } from '_mocks_/networks';
 import FeedBack from '../feedBack';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const BuyAirtime = ({ title, network }) => {
-    const { airtimeOrder } = useSelector((state) => state);
-    const { loading, airtime, error } = airtimeOrder;
+const SellAirtime = ({ title }) => {
+    const { sellAirtimeOrder } = useSelector((state) => state);
+    const { loading, airtime, error } = sellAirtimeOrder;
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
@@ -29,28 +30,33 @@ const BuyAirtime = ({ title, network }) => {
     }, [navigate]);
 
     const INITIAL_FORM_VALUES = {
-        beneficiary: '',
+        account_number: '',
+        phone_number: '',
+        account_name: '',
         amount: '',
         network: network
     };
     const VALIDATIONS = yup.object().shape({
-        beneficiary: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
+        phone_number: yup.string().required('Please enter phone number').typeError('phone number must be a number'),
         amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
-        network: yup.string()
+        network: yup.string().required('please select a airtime network').typeError('This must be a string'),
+        account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
+        account_number: yup.string().required('Enter account number to be credited').typeError('This must be a string')
     });
 
     const dispatch = useDispatch();
 
     const handleSubmit = (values) => {
         const body = {
-            beneficiary: values.beneficiary,
-            serviceID: values.network,
+            phone_number: values.phone_number,
+            account_name: values.account_name,
+            account_number: values.account_number,
             request_id: generateRequestId(),
             amount: values.amount,
             network: values.network
         };
         dispatch(
-            buyAirtime({
+            sellAirtime({
                 orderDetails: {
                     data: body
                 },
@@ -69,13 +75,19 @@ const BuyAirtime = ({ title, network }) => {
                         <Box sx={{ maxWidth: 500, height: '60vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
-                                    <CustomTextField name="beneficiary" label="Beneficiary Number" />
-                                </Grid>
-                                <Grid item xs={12}>
                                     <CustomTextField name="amount" label="Airtime Amount" />
                                 </Grid>
-                                <Grid item xs={12} style={{ display: 'none' }}>
-                                    <CustomTextField name="network" label="Network" value={(values.network = network)} />
+                                <Grid item xs={12}>
+                                    <CustomSelect name="network" options={network} label="Select Airtime Network" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField name="account_name" label="Beneficiary Account Name" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField name="account_number" label="Beneficiary Account Number" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField name="phone_number" label="Phone Number" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton color="primary" disabled={loading ? true : false}>
@@ -94,4 +106,4 @@ const BuyAirtime = ({ title, network }) => {
     );
 };
 
-export default BuyAirtime;
+export default SellAirtime;

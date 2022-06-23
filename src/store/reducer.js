@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import customizationReducer from './customizationReducer';
 import {
     airtimeOrderReducer,
+    dataGiftingOrderReducer,
     dataOrderReducer,
     electricityPurchase,
     examPinPurchase,
@@ -16,8 +17,10 @@ import {
     logoutReducer,
     monnifyFundingReducer,
     registerUserReducer,
+    sellAirtimeReducer,
     tvCablesPurchase,
-    userReducer
+    userReducer,
+    userUpdateReducer
 } from './netorkCallsReducers';
 
 // ==============================|| COMBINE REDUCER ||============================== //
@@ -28,11 +31,14 @@ const reducer = combineReducers({
     myGloDataPlans: getGloDataReducer,
     myAirtelDataPlans: getAirtelDataReducer,
     dataOrder: dataOrderReducer,
+    dataGiftingOrder: dataGiftingOrderReducer,
     airtimeOrder: airtimeOrderReducer,
+    sellAirtimeOrder: sellAirtimeReducer,
     login: loginUserReducer,
     logout: logoutReducer,
     register: registerUserReducer,
     loggedInUser: userReducer,
+    updateUser: userUpdateReducer,
     forgetPassword: forgetPasswordReducer,
     fundWithMonnify: monnifyFundingReducer,
     vtuVariations: getVariationsReducer,

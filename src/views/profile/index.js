@@ -1,55 +1,81 @@
-import { Button, Grid } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Button, Grid, Paper, Typography } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Cookies from 'js-cookie';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { CustomTextField } from 'ui-component/basic-inputs';
+import { userAction } from 'store/actions';
 import MainCard from 'ui-component/cards/MainCard';
-import * as yup from 'yup';
 
 const Profile = () => {
     const { loggedInUser } = useSelector((state) => state);
     const { user } = loggedInUser;
     console.log(user);
+
     const navigate = useNavigate();
-    //  const dispatch = useDispatch();
+    const dispatch = useDispatch();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
-    }, [navigate]);
-    const INITIAL_FORM_VALUES = {
-        amount: ''
+        dispatch(userAction({ navigate }));
+    }, [navigate, dispatch]);
+    const matches = useMediaQuery('(min-width:600px)');
+    const handleClick = () => {
+        navigate('/edit-profile');
     };
-    const VALIDATIONS = yup.object().shape({
-        amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number')
-    });
-    const handleSubmit = (values) => {
-        console.log(values);
-    };
-
     return (
-        <MainCard title="View And Edit Your Profile">
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Grid container spacing={4}>
-                            <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
-                                <CustomTextField name="first_name" label="First Name" />
-                            </Grid>
-                            <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
-                                <CustomTextField name="email" label="Email" />
-                            </Grid>
-                            <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
-                                <CustomTextField name="username" label="Username" />
-                            </Grid>
-                        </Grid>
-
-                        <Button onClick={() => handleSubmit(values)} variant="contained" color="primary" sx={{ mt: 2 }}>
-                            Pay Now
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
+        <MainCard
+            title="View And Edit Your Profile"
+            sx={{
+                width: matches ? '50%' : '100%'
+            }}
+        >
+            <Paper>
+                <Grid container spacing={4}>
+                    <Grid item xs={6}>
+                        <Typography variant="button">First Name:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle1">{user?.first_name}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="button">Last Name:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle1">{user?.last_name}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="button">Username:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle1">{user?.username}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="button">Email:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle1">{user?.email}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="button">Phone Number:</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle1">{user?.phone_number}</Typography>
+                    </Grid>
+                    <Button
+                        sx={{
+                            margin: 'auto',
+                            marginTop: '35px',
+                            padding: '15px',
+                            borderRadius: '10px'
+                        }}
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleClick}
+                    >
+                        Edit Profile
+                    </Button>
+                </Grid>
+            </Paper>
         </MainCard>
     );
 };

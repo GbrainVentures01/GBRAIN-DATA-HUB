@@ -40,6 +40,9 @@ import {
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
+    GIFT_DATA_FAIL,
+    GIFT_DATA_REQUEST,
+    GIFT_DATA_SUCCESS,
     LOGIN_USER_FAIL,
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
@@ -48,7 +51,13 @@ import {
     LOGOUT_USER_SUCCESS,
     REGISTER_USER_FAIL,
     REGISTER_USER_REQUEST,
-    REGISTER_USER_SUCCESS
+    REGISTER_USER_SUCCESS,
+    SELL_AIRTIME_FAIL,
+    SELL_AIRTIME_REQUEST,
+    SELL_AIRTIME_SUCCESS,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS
 } from './constant';
 
 // action - customization reducer
@@ -136,7 +145,7 @@ export const getAirtelData = () => async (dispatch) => {
 };
 
 export const buyAirtime =
-    ({ orderDetails, enqueueSnackbar }) =>
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -154,11 +163,12 @@ export const buyAirtime =
                 type: BUY_AIRTIME_SUCCESS,
                 payload: data
             });
-            console.log(data);
+
             data &&
                 enqueueSnackbar(data?.data?.message, {
                     variant: 'success'
                 });
+            setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
                 type: BUY_AIRTIME_FAIL,
@@ -168,11 +178,49 @@ export const buyAirtime =
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error'
                 });
+            setErrorAlert((prevState) => !prevState);
         }
     };
 
+export const sellAirtime =
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: SELL_AIRTIME_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'sell-airtimes',
+                requestBody: orderDetails,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: SELL_AIRTIME_SUCCESS,
+                payload: data
+            });
+
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
+            setshowAlert((prevState) => !prevState);
+        } catch (error) {
+            dispatch({
+                type: SELL_AIRTIME_FAIL,
+                payload: error.response?.data?.error?.message || error?.message
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
+            setErrorAlert((prevState) => !prevState);
+        }
+    };
 export const buyData =
-    ({ orderDetails, enqueueSnackbar }) =>
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -180,13 +228,13 @@ export const buyData =
             });
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: 'data-orders',
+                path: 'sme-data-orders',
                 requestBody: orderDetails,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(data);
+
             dispatch({
                 type: BUY_DATA_SUCCESS,
                 payload: data
@@ -195,6 +243,7 @@ export const buyData =
                 enqueueSnackbar(data?.data?.message, {
                     variant: 'success'
                 });
+            setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
                 type: BUY_DATA_FAIL,
@@ -204,6 +253,45 @@ export const buyData =
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error'
                 });
+            setErrorAlert((prevState) => !prevState);
+        }
+    };
+
+export const giftData =
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GIFT_DATA_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'data-gifting-orders',
+                requestBody: orderDetails,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: GIFT_DATA_SUCCESS,
+                payload: data
+            });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
+            setshowAlert((prevState) => !prevState);
+        } catch (error) {
+            dispatch({
+                type: GIFT_DATA_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
+            setErrorAlert((prevState) => !prevState);
         }
     };
 
@@ -301,6 +389,43 @@ export const registerAction =
                 type: REGISTER_USER_FAIL,
                 payload: error.response?.data?.error?.message || error?.message
             });
+        }
+    };
+
+export const UpdateUserAction =
+    ({ enqueueSnackbar, user }) =>
+    async (dispatch) => {
+        const id = Cookies.get('user_id');
+
+        try {
+            dispatch({
+                type: UPDATE_USER_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'PUT',
+                path: `users/${id}`,
+                requestBody: user,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: UPDATE_USER_SUCCESS,
+                payload: data
+            });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
+        } catch (error) {
+            dispatch({
+                type: UPDATE_USER_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
         }
     };
 
@@ -420,7 +545,7 @@ export const getElectricProviders = () => async (dispatch) => {
 };
 
 export const buyTvCables =
-    ({ reqBody }) =>
+    ({ reqBody, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -438,16 +563,18 @@ export const buyTvCables =
                 type: BUY_TV_CABLES_SUCCESS,
                 payload: data
             });
+            data && setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
                 type: BUY_TV_CABLES_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
+            setErrorAlert((prevState) => !prevState);
         }
     };
 
 export const buyElectricity =
-    ({ reqBody }) =>
+    ({ reqBody, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -465,17 +592,18 @@ export const buyElectricity =
                 type: BUY_ELECTRICITY_SUCCESS,
                 payload: data
             });
-            console.log(data);
+            data && setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
                 type: BUY_ELECTRICITY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
+            setErrorAlert((prevState) => !prevState);
         }
     };
 
 export const buyExamPin =
-    ({ reqBody }) =>
+    ({ reqBody, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -493,11 +621,12 @@ export const buyExamPin =
                 type: BUY_EXAM_PIN_SUCCESS,
                 payload: data
             });
-            console.log(data);
+            data && setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
                 type: BUY_EXAM_PIN_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
+            setErrorAlert((prevState) => !prevState);
         }
     };

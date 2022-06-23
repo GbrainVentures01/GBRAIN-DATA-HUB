@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import Cookies from 'js-cookie';
 const liveUrl = 'https://gbrain-backend.herokuapp.com/api/';
-// const testUrl = 'http://localhost:1337/api/'
+// const testUrl = 'http://localhost:1337/api/';
 
 // const baseUrl = `${testUrl}/api`;
 

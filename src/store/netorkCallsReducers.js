@@ -39,6 +39,9 @@ import {
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
+    GIFT_DATA_FAIL,
+    GIFT_DATA_REQUEST,
+    GIFT_DATA_SUCCESS,
     LOGIN_USER_FAIL,
     LOGIN_USER_REQUEST,
     LOGIN_USER_SUCCESS,
@@ -47,7 +50,13 @@ import {
     LOGOUT_USER_SUCCESS,
     REGISTER_USER_FAIL,
     REGISTER_USER_REQUEST,
-    REGISTER_USER_SUCCESS
+    REGISTER_USER_SUCCESS,
+    SELL_AIRTIME_FAIL,
+    SELL_AIRTIME_REQUEST,
+    SELL_AIRTIME_SUCCESS,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS
 } from './constant';
 
 export const initialGloDataState = {
@@ -74,6 +83,12 @@ export const initialUserState = {
     user: {}
 };
 
+export const initialUserUpdate = {
+    loading: false,
+    error: null,
+    user: {}
+};
+
 export const initialLoginState = {
     loading: false,
     error: null,
@@ -91,10 +106,20 @@ export const initialAirtimeOrderState = {
     loading: false,
     error: null
 };
+export const initialSellAirtimeState = {
+    airtime: {},
+    loading: false,
+    error: null
+};
 export const initialDataOrderState = {
     data: {},
     loading: false,
     error: null
+};
+export const initialDataGiftingOrderState = {
+    dataGiftData: {},
+    dataGiftloading: false,
+    dataGiftError: null
 };
 export const initialFundingState = {
     paymentStatus: {},
@@ -213,6 +238,24 @@ export const userReducer = (state = initialUserState, action) => {
     }
 };
 
+// update user profile reducers
+
+export const userUpdateReducer = (state = initialUserUpdate, action) => {
+    switch (action.type) {
+        case UPDATE_USER_REQUEST:
+            return { ...state, loading: true };
+
+        case UPDATE_USER_SUCCESS: {
+            return { ...state, loading: false, user: action.payload };
+        }
+        case UPDATE_USER_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
 //logout user reducers starts her
 export const logoutReducer = (state = initialLogoutState, action) => {
     switch (action.type) {
@@ -291,6 +334,22 @@ export const airtimeOrderReducer = (state = initialAirtimeOrderState, action) =>
     }
 };
 
+// sell airtie reducers
+export const sellAirtimeReducer = (state = initialSellAirtimeState, action) => {
+    switch (action.type) {
+        case SELL_AIRTIME_REQUEST:
+            return { ...state, loading: true };
+
+        case SELL_AIRTIME_SUCCESS:
+            return { ...state, loading: false, airtime: action.payload };
+        case SELL_AIRTIME_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
 // Data order reducers
 export const dataOrderReducer = (state = initialDataOrderState, action) => {
     switch (action.type) {
@@ -301,6 +360,21 @@ export const dataOrderReducer = (state = initialDataOrderState, action) => {
             return { ...state, loading: false, data: action.payload };
         case BUY_DATA_FAIL:
             return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const dataGiftingOrderReducer = (state = initialDataGiftingOrderState, action) => {
+    switch (action.type) {
+        case GIFT_DATA_REQUEST:
+            return { ...state, dataGiftloading: true };
+
+        case GIFT_DATA_SUCCESS:
+            return { ...state, dataGiftloading: false, dataGiftData: action.payload };
+        case GIFT_DATA_FAIL:
+            return { ...state, dataGiftloading: false, dataGiftError: action.payload };
 
         default:
             return state;

@@ -1,13 +1,13 @@
 import { Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useNavigate } from 'react-router';
-const FeedBack = ({ message, variant, disableTopup }) => {
-    const [showAlert, setshowAlert] = useState(true);
+const FeedBack = ({ message, variant, disableTopup, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
-    const onClickButton = () => {
+    const onClickSuccess = () => {
         setshowAlert(false);
-        window.location.replace('/');
+    };
+    const onClickFailure = () => {
+        setshowErrorAlert(false);
     };
 
     const SuccessFullAlert = ({ message }) => {
@@ -16,11 +16,11 @@ const FeedBack = ({ message, variant, disableTopup }) => {
                 success
                 title="Successful!"
                 show={showAlert}
-                onConfirm={() => setshowAlert(false)}
-                onCancel={() => setshowAlert(false)}
+                onConfirm={onClickSuccess}
+                onCancel={onClickSuccess}
                 customButtons={
                     <>
-                        <Button fullWidth onClick={onClickButton} variant="contained" color="primary">
+                        <Button fullWidth onClick={onClickSuccess} variant="contained" color="primary">
                             Ok
                         </Button>
                     </>
@@ -34,17 +34,17 @@ const FeedBack = ({ message, variant, disableTopup }) => {
         return (
             <SweetAlert
                 danger
-                showCancel
+                show={showErrorAlert}
                 confirmBtnText="Yes, delete it!"
                 confirmBtnBsStyle="danger"
                 title="Failed"
-                onConfirm={onClickButton}
-                onCancel={onClickButton}
+                onConfirm={onClickFailure}
+                onCancel={onClickFailure}
                 focusCancelBtn
                 customButtons={
                     <>
-                        <Button onClick={onClickButton} sx={{ mr: 2 }} variant="contained" color="primary">
-                            Back
+                        <Button onClick={onClickFailure} sx={{ mr: 2 }} variant="contained" color="primary">
+                            Ok
                         </Button>
                         {!disableTopup && (
                             <Button onClick={() => navigate('/fund-wallet')} variant="contained" color="primary">
@@ -58,10 +58,13 @@ const FeedBack = ({ message, variant, disableTopup }) => {
             </SweetAlert>
         );
     };
-    if (variant === 'success') {
+
+    if (showAlert) {
         return <SuccessFullAlert message={message} />;
-    } else {
+    } else if (showErrorAlert) {
         return <FailureAlert message={message} />;
+    } else {
+        return '';
     }
 };
 

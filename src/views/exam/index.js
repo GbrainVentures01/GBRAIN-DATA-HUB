@@ -21,6 +21,8 @@ const ExamPin = ({ title }) => {
     const { variations } = vtuVariations;
     const { loading, data, error } = examPinOrder;
     // const { enqueueSnackbar } = useSnackbar();
+    const [showAlert, setshowAlert] = useState(false);
+    const [showErrorAlert, setshowErrorAlert] = useState(false);
     const [value, setvalue] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -55,7 +57,9 @@ const ExamPin = ({ title }) => {
             buyExamPin({
                 reqBody: {
                     data: body
-                }
+                },
+                setshowAlert,
+                setErrorAlert: setshowErrorAlert
             })
         );
     };
@@ -106,8 +110,16 @@ const ExamPin = ({ title }) => {
                 )}
             </Formik>
 
-            {data.message && <FeedBack message={data?.message} variant="success" />}
-            {error && <FeedBack message={error} variant="error" disableTopup={true} />}
+            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={data?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowErrorAlert={setshowErrorAlert}
+                    showErrorAlert={showErrorAlert}
+                    message={error}
+                    variant="error"
+                    disableTopup={true}
+                />
+            }
         </MainCard>
     );
 };

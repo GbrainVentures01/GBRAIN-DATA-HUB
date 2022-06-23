@@ -26,6 +26,8 @@ const SubTv = ({ title }) => {
     const navigate = useNavigate();
     const [value, setvalue] = useState(null);
     const dispatch = useDispatch();
+    const [showAlert, setshowAlert] = useState(false);
+    const [showErrorAlert, setshowErrorAlert] = useState(false);
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
     }, [navigate, dispatch]);
@@ -61,7 +63,9 @@ const SubTv = ({ title }) => {
             buyTvCables({
                 reqBody: {
                     data: body
-                }
+                },
+                setshowAlert,
+                setErrorAlert: setshowErrorAlert
             })
         );
     };
@@ -113,8 +117,16 @@ const SubTv = ({ title }) => {
                 )}
             </Formik>
 
-            {data.message && <FeedBack message={data?.message} variant="success" />}
-            {error && <FeedBack message={error} variant="error" disableTopup={true} />}
+            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={data?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowErrorAlert={setshowErrorAlert}
+                    showErrorAlert={showErrorAlert}
+                    message={error}
+                    variant="error"
+                    disableTopup={false}
+                />
+            }
         </MainCard>
     );
 };

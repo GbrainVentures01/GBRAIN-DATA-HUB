@@ -47,7 +47,7 @@ export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...
                 return (
                     <MenuItem
                         key={option.id || option?.variation_code}
-                        value={vtplan ? option : option?.attributes?.service_id || option?.attributes || option?.value}
+                        value={vtplan ? option : option?.attributes?.service_id || option?.attributes || option?.value || option?.name}
                     >
                         {option?.attributes?.Plan || option?.attributes?.provider || option?.name}
                     </MenuItem>

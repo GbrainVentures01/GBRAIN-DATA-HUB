@@ -3,10 +3,10 @@ import { Box, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyData, getAirtelData, getGloData, getMtnData } from 'store/actions';
+import { buyData, giftData, getAirtelData, getGloData, getMtnData } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -15,16 +15,19 @@ import * as yup from 'yup';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const BuyData = ({ title, network }) => {
-    const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder } = useSelector((state) => state);
+const BuyData = ({ title, network, sme }) => {
+    const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder, dataGiftingOrder } = useSelector((state) => state);
 
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
     const { loading, data, error } = dataOrder;
+    const { dataGiftloading, dataGiftData, dataGiftError } = dataGiftingOrder;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const [showAlert, setshowAlert] = useState(false);
+    const [showErrorAlert, setshowErrorAlert] = useState(false);
 
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login/login3');
@@ -60,19 +63,40 @@ const BuyData = ({ title, network }) => {
                 return [];
         }
     };
-    const handleSubmit = (values) => {
+    const sendGiftData = (values) => {
         const body = {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan.Plan,
+            network: network
+        };
+        dispatch(
+            giftData({
+                orderDetails: {
+                    data: { ...body }
+                },
+                enqueueSnackbar,
+                setshowAlert,
+                setErrorAlert: setshowErrorAlert
+            })
+        );
+    };
+    const handleSubmit = (values) => {
+        const body = {
+            beneficiary: values.beneficiaryNum,
+            amount: values.amount,
+            plan: values.plan,
             network: values.network
         };
+
         dispatch(
             buyData({
                 orderDetails: {
                     data: { ...body }
                 },
-                enqueueSnackbar
+                enqueueSnackbar,
+                setshowAlert,
+                setErrorAlert: setshowErrorAlert
             })
         );
     };
@@ -81,7 +105,7 @@ const BuyData = ({ title, network }) => {
             <Formik
                 initialValues={{ ...INITIAL_FORM_VALUES }}
                 enableReinitialize={true}
-                onSubmit={handleSubmit}
+                onSubmit={sme ? handleSubmit : sendGiftData}
                 validationSchema={VALIDATIONS}
             >
                 {({ values, setFieldValue }) => (
@@ -106,15 +130,29 @@ const BuyData = ({ title, network }) => {
                                     <CustomTextField name="network" disabled value={(values.network = network)} placeholder="Amount" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
+                                    <CustomButton disabled={loading || dataGiftloading ? true : false}>Submit</CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>
                     </Form>
                 )}
             </Formik>
-            {data.data && <FeedBack message={data?.data?.message} variant="success" />}
-            {error && <FeedBack message={error} variant="error" />}
+            {
+                <FeedBack
+                    setshowAlert={setshowAlert}
+                    showAlert={showAlert}
+                    message={data?.data?.message || dataGiftData?.data?.message}
+                    variant="success"
+                />
+            }
+            {
+                <FeedBack
+                    setshowErrorAlert={setshowErrorAlert}
+                    showErrorAlert={showErrorAlert}
+                    message={error || dataGiftError}
+                    variant="error"
+                />
+            }
         </MainCard>
     );
 };
