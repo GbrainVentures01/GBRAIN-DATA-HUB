@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FeedBack from 'views/feedBack';
 
 export const SuccessPAyment = () => {
     const [showAlert, setshowAlert] = useState(false);
     useEffect(() => {
         setshowAlert((prevAlert) => !prevAlert);
-    }, [third]);
+    }, [setshowAlert]);
 
     return (
         <>
