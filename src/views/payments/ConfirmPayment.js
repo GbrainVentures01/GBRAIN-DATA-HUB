@@ -9,7 +9,7 @@ export const SuccessPAyment = () => {
 
     return (
         <>
-            <FeedBack message={'Payment Successfully Recieved'} showAlert={showAlert} />
+            <FeedBack message={'Payment Successfully Recieved'} showAlert={showAlert} goHome={true} />
         </>
     );
 };
