@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useNavigate } from 'react-router';
-const FeedBack = ({ message, variant, disableTopup, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
+const FeedBack = ({ message, disableTopup, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
     const onClickSuccess = () => {
         setshowAlert(false);

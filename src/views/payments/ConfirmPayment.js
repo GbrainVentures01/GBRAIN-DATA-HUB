@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FeedBack from 'views/feedBack';
 
 export const SuccessPAyment = () => {
-  return (
-    <>
-    <FeedBack message={"Payment Successfully Recieved"} variant="success"/>
-</>
-  )
-}
+    const [showAlert, setshowAlert] = useState(false);
+    useEffect(() => {
+        setshowAlert((prevAlert) => !prevAlert);
+    }, [third]);
 
-
+    return (
+        <>
+            <FeedBack message={'Payment Successfully Recieved'} showAlert={showAlert} />
+        </>
+    );
+};
