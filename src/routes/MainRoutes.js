@@ -5,10 +5,13 @@ import Loadable from 'ui-component/Loadable';
 import BuyAirtime from 'views/airtime';
 import SelectAirtimeView from 'views/airtime/airtimeSelectionView';
 import SubTv from 'views/cables&tv';
+import Contact from 'views/contact-us/Contact';
+import SellCrypto from 'views/crypto/sell_crypto';
 import BuyData from 'views/data';
 import SelectDataView from 'views/data/dataSelectionView';
 import Electricity from 'views/electricity';
 import ExamPin from 'views/exam';
+import Histories from 'views/histories/Transaction_History';
 import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
 import Login from 'views/pages/authentication/authentication3/Login3';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
@@ -140,6 +143,18 @@ const MainRoutes = {
         {
             path: '/edit-profile',
             element: <EditProfile />
+        },
+        {
+            path: '/trx-histories',
+            element: <Histories />
+        },
+        {
+            path: '/contact-us',
+            element: <Contact />
+        },
+        {
+            path: '/sell-crypto',
+            element: <SellCrypto />
         }
     ]
 };

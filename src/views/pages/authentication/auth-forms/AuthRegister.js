@@ -222,7 +222,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     <InputLabel htmlFor="outlined-adornment-username-register">Username </InputLabel>
                                     <OutlinedInput
                                         id="outlined-adornment-username-register"
-                                        type="email"
+                                        type="text"
                                         value={values.username}
                                         name="username"
                                         onBlur={handleBlur}

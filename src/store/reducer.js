@@ -9,9 +9,12 @@ import {
     examPinPurchase,
     forgetPasswordReducer,
     getAirtelDataReducer,
+    getBtcDetailsReducer,
     getelectricityProvidersReducer,
     getGloDataReducer,
+    getHistoriesReducer,
     getMtnDataReducer,
+    getSellAirtimeDetailsReducer,
     getVariationsReducer,
     loginUserReducer,
     logoutReducer,
@@ -45,7 +48,10 @@ const reducer = combineReducers({
     electricityProviders: getelectricityProvidersReducer,
     tvCablesOrder: tvCablesPurchase,
     electricityOrder: electricityPurchase,
-    examPinOrder: examPinPurchase
+    examPinOrder: examPinPurchase,
+    transactionHistory: getHistoriesReducer,
+    sellAirtimeDetails: getSellAirtimeDetailsReducer,
+    sellBtcDetails: getBtcDetailsReducer
 });
 
 export default reducer;

@@ -25,6 +25,9 @@ import {
     GET_AIRTEL_DATA_PLAN_FAIL,
     GET_AIRTEL_DATA_PLAN_REQUEST,
     GET_AIRTEL_DATA_PLAN_SUCCESS,
+    GET_BTC_DETAILS_FAIL,
+    GET_BTC_DETAILS_REQUEST,
+    GET_BTC_DETAILS_SUCCESS,
     GET_ELECTRICITY_PROVIDERS_FAIL,
     GET_ELECTRICITY_PROVIDERS_REQUEST,
     GET_ELECTRICITY_PROVIDERS_SUCCESS,
@@ -37,6 +40,12 @@ import {
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_SELL_AIRTIME_DETAILS_FAIL,
+    GET_SELL_AIRTIME_DETAILS_REQUEST,
+    GET_SELL_AIRTIME_DETAILS_SUCCESS,
+    GET_TRANSACTION_HISTORY_FAIL,
+    GET_TRANSACTION_HISTORY_REQUEST,
+    GET_TRANSACTION_HISTORY_SUCCESS,
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
@@ -628,5 +637,102 @@ export const buyExamPin =
                 payload: error.response?.data?.error?.message || error?.messag
             });
             setErrorAlert((prevState) => !prevState);
+        }
+    };
+export const getHistories =
+    ({ enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_TRANSACTION_HISTORY_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `transaction-history`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: GET_TRANSACTION_HISTORY_SUCCESS,
+                payload: data
+            });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success'
+                });
+            console.log(data);
+        } catch (error) {
+            dispatch({
+                type: GET_TRANSACTION_HISTORY_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
+        }
+    };
+
+export const getSellAirtimeDetails =
+    ({ enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_SELL_AIRTIME_DETAILS_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `sell-airtime-models?populate=*`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: GET_SELL_AIRTIME_DETAILS_SUCCESS,
+                payload: data.data
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_SELL_AIRTIME_DETAILS_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
+        }
+    };
+
+export const getSellBTCDetails =
+    ({ enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_BTC_DETAILS_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `sell-airtime-models`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: GET_BTC_DETAILS_SUCCESS,
+                payload: data
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_BTC_DETAILS_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
         }
     };

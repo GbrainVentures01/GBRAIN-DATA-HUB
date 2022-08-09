@@ -10,9 +10,6 @@ import { Link } from 'react-router-dom';
 // project imports
 import { MENU_OPEN, SET_MENU } from 'store/actions';
 
-
-
-
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
 const NavItem = ({ item, level }) => {
@@ -23,7 +20,7 @@ const NavItem = ({ item, level }) => {
 
     const Icon = item.icon;
     const itemIcon = item?.icon ? (
-        <Icon stroke={1.5} size="1.3rem" />
+        <Icon stroke={1.5} size="1.1rem" />
     ) : (
         <FiberManualRecordIcon
             sx={{

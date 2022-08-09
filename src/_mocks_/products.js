@@ -43,7 +43,7 @@ export const products = [
         id: 6,
         name: 'Crypto Exchange',
         icon: <TvIcon style={{ color: 'grey', fontSize: '35px' }} />,
-        url: '#'
+        url: '/sell-crypto'
     }
 ];
 

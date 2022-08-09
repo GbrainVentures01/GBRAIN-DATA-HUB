@@ -10,6 +10,7 @@ import { buyData, giftData, getAirtelData, getGloData, getMtnData } from 'store/
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
+import { generateRequestId } from 'utils/generateRequestId';
 import FeedBack from 'views/feedBack';
 import * as yup from 'yup';
 
@@ -68,7 +69,8 @@ const BuyData = ({ title, network, sme }) => {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan.Plan,
-            network: network
+            network: network,
+            request_id: generateRequestId()
         };
         dispatch(
             giftData({

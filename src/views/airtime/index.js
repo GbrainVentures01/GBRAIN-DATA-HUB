@@ -49,6 +49,7 @@ const BuyAirtime = ({ title, network }) => {
             amount: values.amount,
             network: values.network
         };
+        console.log(body);
         dispatch(
             buyAirtime({
                 orderDetails: {

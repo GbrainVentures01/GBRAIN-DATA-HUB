@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router';
 const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
     const onClickSuccess = () => {
-        setshowAlert(false);
-        goHome && navigate('/');
+        setshowAlert((prevAlert) => !prevAlert);
+        if (goHome) {
+            navigate('/');
+        }
     };
     const onClickFailure = () => {
         setshowErrorAlert(false);

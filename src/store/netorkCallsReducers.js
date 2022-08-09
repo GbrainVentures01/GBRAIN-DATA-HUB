@@ -36,6 +36,12 @@ import {
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_SELL_AIRTIME_DETAILS_FAIL,
+    GET_SELL_AIRTIME_DETAILS_REQUEST,
+    GET_SELL_AIRTIME_DETAILS_SUCCESS,
+    GET_TRANSACTION_HISTORY_FAIL,
+    GET_TRANSACTION_HISTORY_REQUEST,
+    GET_TRANSACTION_HISTORY_SUCCESS,
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
@@ -108,7 +114,7 @@ export const initialAirtimeOrderState = {
 };
 export const initialSellAirtimeState = {
     airtime: {},
-    loading: false,
+    airtimeLoading: false,
     error: null
 };
 export const initialDataOrderState = {
@@ -148,6 +154,21 @@ export const initialElectricityState = {
 };
 export const initialExamPinState = {
     data: {},
+    loading: false,
+    error: null
+};
+export const initialHistoryState = {
+    histories: [],
+    loading: false,
+    error: null
+};
+export const initialAirtimeDetailState = {
+    airtimeDetails: [],
+    loading: false,
+    error: null
+};
+export const initialBtcDetailState = {
+    btcDetails: [],
     loading: false,
     error: null
 };
@@ -338,12 +359,12 @@ export const airtimeOrderReducer = (state = initialAirtimeOrderState, action) =>
 export const sellAirtimeReducer = (state = initialSellAirtimeState, action) => {
     switch (action.type) {
         case SELL_AIRTIME_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, airtimeLoading: true };
 
         case SELL_AIRTIME_SUCCESS:
-            return { ...state, loading: false, airtime: action.payload };
+            return { ...state, airtimeLoading: false, airtime: action.payload };
         case SELL_AIRTIME_FAIL:
-            return { ...state, loading: false, error: action.payload };
+            return { ...state, airtimeLoading: false, error: action.payload };
 
         default:
             return state;
@@ -465,6 +486,52 @@ export const examPinPurchase = (state = initialExamPinState, action) => {
         case BUY_EXAM_PIN_SUCCESS:
             return { ...state, loading: false, data: action.payload };
         case BUY_EXAM_PIN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+// Transaction history reducer
+export const getHistoriesReducer = (state = initialHistoryState, action) => {
+    switch (action.type) {
+        case GET_TRANSACTION_HISTORY_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_TRANSACTION_HISTORY_SUCCESS:
+            return { ...state, loading: false, histories: action.payload };
+        case GET_TRANSACTION_HISTORY_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getSellAirtimeDetailsReducer = (state = initialAirtimeDetailState, action) => {
+    switch (action.type) {
+        case GET_SELL_AIRTIME_DETAILS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_SELL_AIRTIME_DETAILS_SUCCESS:
+            return { ...state, loading: false, airtimeDetails: action.payload };
+        case GET_SELL_AIRTIME_DETAILS_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getBtcDetailsReducer = (state = initialBtcDetailState, action) => {
+    switch (action.type) {
+        case GET_SELL_AIRTIME_DETAILS_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_SELL_AIRTIME_DETAILS_SUCCESS:
+            return { ...state, loading: false, btcDetails: action.payload };
+        case GET_SELL_AIRTIME_DETAILS_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:

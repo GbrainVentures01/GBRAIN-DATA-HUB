@@ -1,9 +1,29 @@
 // assets
 import { IconKey } from '@tabler/icons';
+import { FaMobile } from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa';
+import { FaTv } from 'react-icons/fa';
+import { FaLightbulb } from 'react-icons/fa';
+import { FaClock } from 'react-icons/fa';
+import { FaWallet } from 'react-icons/fa';
+import { FaGraduationCap } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
+import { FaMoneyBill } from 'react-icons/fa';
+import { FaFacebookMessenger } from 'react-icons/fa';
 
 // constant
 const icons = {
-    IconKey
+    IconKey,
+    FaMobile,
+    FaPhone,
+    FaTv,
+    FaLightbulb,
+    FaWallet,
+    FaGraduationCap,
+    FaClock,
+    FaUser,
+    FaMoneyBill,
+    FaFacebookMessenger
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -18,7 +38,7 @@ const pages = {
             id: 'airtime',
             title: 'Airtime',
             type: 'collapse',
-            icon: icons.IconKey,
+            icon: icons.FaPhone,
 
             children: [
                 {
@@ -50,7 +70,7 @@ const pages = {
             id: 'data',
             title: 'Data Subscription',
             type: 'collapse',
-            icon: icons.IconKey,
+            icon: icons.FaMobile,
 
             children: [
                 {
@@ -90,7 +110,7 @@ const pages = {
             type: 'item',
             url: '/sell-airtime',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaMoneyBill
         },
         {
             id: 'cable&tv',
@@ -98,7 +118,7 @@ const pages = {
             type: 'item',
             url: '/cable-tv-sub',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaTv
         },
         {
             id: 'Electricity',
@@ -106,7 +126,7 @@ const pages = {
             type: 'item',
             url: '/electricity-sub',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaLightbulb
         },
         {
             id: 'Exam Pin',
@@ -114,7 +134,7 @@ const pages = {
             type: 'item',
             url: '/exam-pin',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaGraduationCap
         },
         {
             id: 'fund wallet',
@@ -122,15 +142,15 @@ const pages = {
             type: 'item',
             url: '/fund-wallet',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaWallet
         },
         {
             id: 'Transaction History',
             title: 'Transaction History',
             type: 'item',
-            url: '/#',
+            url: '/trx-histories',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaClock
         },
         {
             id: 'Profile',
@@ -138,15 +158,15 @@ const pages = {
             type: 'item',
             url: '/profile',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaUser
         },
         {
             id: 'Contact',
             title: 'Contact Us',
             type: 'item',
-            url: '/#',
+            url: '/contact-us',
             target: false,
-            icon: icons.IconKey
+            icon: icons.FaFacebookMessenger
         }
     ]
 };
