@@ -45,7 +45,7 @@ const MainRoutes = {
             element: <DashboardDefault />
         },
         {
-            path: '/pages/login/login3',
+            path: '/pages/login',
             element: <Login />
         },
         {

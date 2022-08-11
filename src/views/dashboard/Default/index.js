@@ -20,7 +20,10 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoading(false);
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        if (!Cookies.get('user')) {
+            navigate('/pages/login');
+            return;
+        }
         dispatch(userAction({ navigate }));
     }, [dispatch, navigate]);
 

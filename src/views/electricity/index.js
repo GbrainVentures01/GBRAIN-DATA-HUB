@@ -28,7 +28,7 @@ const Electricity = ({ title }) => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         dispatch(getElectricProviders());
     }, [navigate, dispatch]);
 

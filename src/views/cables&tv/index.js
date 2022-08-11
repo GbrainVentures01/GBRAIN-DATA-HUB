@@ -29,7 +29,7 @@ const SubTv = ({ title }) => {
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
     }, [navigate, dispatch]);
     useEffect(() => {
         value && dispatch(getVariants({ provider: value }));

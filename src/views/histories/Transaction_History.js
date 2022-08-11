@@ -20,7 +20,7 @@ const Histories = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         dispatch(getHistories({ enqueueSnackbar }));
     }, [dispatch, enqueueSnackbar, navigate]);
 

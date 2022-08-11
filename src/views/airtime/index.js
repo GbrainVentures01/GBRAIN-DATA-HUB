@@ -25,7 +25,7 @@ const BuyAirtime = ({ title, network }) => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
     }, [navigate]);
 
     const INITIAL_FORM_VALUES = {

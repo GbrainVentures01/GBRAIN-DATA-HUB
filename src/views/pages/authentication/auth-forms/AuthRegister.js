@@ -20,6 +20,7 @@ import {
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Form, Formik } from 'formik';
+import { useSnackbar } from 'notistack';
 // project imports
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,10 +37,11 @@ const FirebaseRegister = ({ ...others }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const customization = useSelector((state) => state.customization);
+    const { customization, register } = useSelector((state) => state);
     const [showPassword, setShowPassword] = useState(false);
     const [checked, setChecked] = useState(true);
 
+    const { enqueueSnackbar } = useSnackbar();
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
 
@@ -62,7 +64,28 @@ const FirebaseRegister = ({ ...others }) => {
     }, []);
     const dispatch = useDispatch();
     const handleSubmit = (values) => {
-        dispatch(registerAction({ user: values, navigate }));
+        console.log({
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.confirm_password,
+            phone_number: values.phone_number,
+            username: values.username
+        });
+        dispatch(
+            registerAction({
+                user: {
+                    first_name: values.first_name,
+                    last_name: values.last_name,
+                    email: values.email,
+                    password: values.confirm_password,
+                    phone_number: values.phone_number,
+                    username: values.username
+                },
+                navigate,
+                enqueueSnackbar
+            })
+        );
     };
 
     return (
@@ -105,11 +128,15 @@ const FirebaseRegister = ({ ...others }) => {
                     username: '',
                     email: '',
                     phone_number: '',
-                    password: ''
+                    password: '',
+                    confirm_password: ''
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required'),
+                    confirm_password: Yup.string()
+                        .required('Please re-enter password')
+                        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
                     username: Yup.string().required('Username is required'),
                     first_name: Yup.string().required('First name is required'),
                     last_name: Yup.string().required('Last name  is required'),
@@ -278,6 +305,46 @@ const FirebaseRegister = ({ ...others }) => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={12}>
+                                <FormControl
+                                    fullWidth
+                                    error={Boolean(touched.confirm_password && errors.confirm_password)}
+                                    sx={{ ...theme.typography.customInput }}
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-confirm_password-register">Confirm Password</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-confirm_password-register"
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={values.confirm_password}
+                                        name="confirm_password"
+                                        label="Confirm Password"
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            changePassword(e.target.value);
+                                        }}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    size="large"
+                                                >
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        inputProps={{}}
+                                    />
+                                    {touched.confirm_password && errors.confirm_password && (
+                                        <FormHelperText error id="standard-weight-helper-text-confirm_password                  -register">
+                                            {errors.confirm_password}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
                                 {strength !== 0 && (
                                     <FormControl fullWidth>
                                         <Box sx={{ mb: 2 }}>
@@ -328,7 +395,15 @@ const FirebaseRegister = ({ ...others }) => {
 
                             <Box sx={{ mt: 2 }}>
                                 <AnimateButton>
-                                    <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="secondary">
+                                    <Button
+                                        disabled={register.loading ? true : false}
+                                        disableElevation
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                        color="secondary"
+                                    >
                                         Sign up
                                     </Button>
                                 </AnimateButton>

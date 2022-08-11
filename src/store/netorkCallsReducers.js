@@ -89,6 +89,11 @@ export const initialUserState = {
     user: {}
 };
 
+export const initialRegisterState = {
+    loading: false,
+    error: null,
+    user: {}
+};
 export const initialUserUpdate = {
     loading: false,
     error: null,
@@ -286,7 +291,7 @@ export const logoutReducer = (state = initialLogoutState, action) => {
         case LOGOUT_USER_SUCCESS:
             Cookies.remove('user');
             Cookies.remove('user_id');
-            window.location.replace('/pages/login/login3');
+            window.location.replace('/pages/login');
 
             return { ...state, loading: false, user: action.payload };
 
@@ -317,7 +322,7 @@ export const forgetPasswordReducer = (state = initialLoginState, action) => {
 
 // Register user reducers
 
-export const registerUserReducer = (state = initialUserState, action) => {
+export const registerUserReducer = (state = initialRegisterState, action) => {
     switch (action.type) {
         case REGISTER_USER_REQUEST:
             return { ...state, loading: true };

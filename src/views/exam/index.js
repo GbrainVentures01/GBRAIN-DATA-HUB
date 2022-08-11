@@ -27,7 +27,7 @@ const ExamPin = ({ title }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         value && dispatch(getVariants({ provider: value }));
     }, [navigate, value, dispatch]);
 

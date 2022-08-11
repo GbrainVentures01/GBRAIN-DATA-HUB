@@ -26,7 +26,7 @@ const SellAirtime = ({ title }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         dispatch(getSellAirtimeDetails({ enqueueSnackbar }));
     }, [navigate, dispatch, enqueueSnackbar]);
     console.log(airtimeDetails);

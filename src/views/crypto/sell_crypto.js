@@ -24,7 +24,7 @@ const SellCrypto = () => {
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         dispatch(getSellBTCDetails({ enqueueSnackbar }));
     }, [dispatch, navigate, enqueueSnackbar]);
 

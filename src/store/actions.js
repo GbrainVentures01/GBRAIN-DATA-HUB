@@ -376,7 +376,7 @@ export const ForgetPasswordAction =
     };
 
 export const registerAction =
-    ({ user, navigate }) =>
+    ({ user, navigate, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -394,9 +394,14 @@ export const registerAction =
 
             console.log(data);
         } catch (error) {
+            console.log(error.response);
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
             dispatch({
                 type: REGISTER_USER_FAIL,
-                payload: error.response?.data?.error?.message || error?.message
+                payload: error?.message
             });
         }
     };
@@ -460,7 +465,7 @@ export const userAction =
             });
         } catch (error) {
             if (error.response?.data?.error?.status === 401) {
-                navigate('/pages/login/login3');
+                navigate('/pages/login');
             }
             dispatch({
                 type: GET_LOGGED_IN_USER_FAIL,

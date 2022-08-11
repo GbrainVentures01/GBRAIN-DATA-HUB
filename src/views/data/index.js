@@ -31,7 +31,7 @@ const BuyData = ({ title, network, sme }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
 
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login/login3');
+        !Cookies.get('user') && navigate('/pages/login');
         dispatch(getGloData());
         dispatch(getMtnData());
         dispatch(getAirtelData());
