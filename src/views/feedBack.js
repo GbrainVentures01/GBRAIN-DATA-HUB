@@ -3,7 +3,7 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import { useNavigate } from 'react-router';
 const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
-    const onClickSuccess = () => {
+    const onClickSuccess = (setshowAlert, goHome) => {
         setshowAlert((prevAlert) => !prevAlert);
         if (goHome) {
             navigate('/');
@@ -19,11 +19,11 @@ const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, show
                 success
                 title="Successful!"
                 show={showAlert}
-                onConfirm={onClickSuccess}
-                onCancel={onClickSuccess}
+                onConfirm={() => onClickSuccess(setshowAlert, goHome)}
+                onCancel={() => setshowAlert(false)}
                 customButtons={
                     <>
-                        <Button fullWidth onClick={onClickSuccess} variant="contained" color="primary">
+                        <Button fullWidth onClick={() => onClickSuccess(setshowAlert, goHome)} variant="contained" color="primary">
                             Ok
                         </Button>
                     </>
