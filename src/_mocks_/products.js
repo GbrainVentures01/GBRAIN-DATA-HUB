@@ -38,13 +38,13 @@ export const products = [
         name: 'Education/Card Pin',
         icon: <SchoolIcon style={{ color: 'teal', fontSize: '35px' }} />,
         url: '/exam-pin'
-    },
-    {
-        id: 6,
-        name: 'Crypto Exchange',
-        icon: <TvIcon style={{ color: 'grey', fontSize: '35px' }} />,
-        url: '/sell-crypto'
     }
+    // {
+    //     id: 6,
+    //     name: 'Crypto Exchange',
+    //     icon: <TvIcon style={{ color: 'grey', fontSize: '35px' }} />,
+    //     url: '/sell-crypto'
+    // }
 ];
 
 export const dataProducts = [

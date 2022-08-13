@@ -6,7 +6,6 @@ import BuyAirtime from 'views/airtime';
 import SelectAirtimeView from 'views/airtime/airtimeSelectionView';
 import SubTv from 'views/cables&tv';
 import Contact from 'views/contact-us/Contact';
-import SellCrypto from 'views/crypto/sell_crypto';
 import BuyData from 'views/data';
 import SelectDataView from 'views/data/dataSelectionView';
 import Electricity from 'views/electricity';
@@ -151,11 +150,11 @@ const MainRoutes = {
         {
             path: '/contact-us',
             element: <Contact />
-        },
-        {
-            path: '/sell-crypto',
-            element: <SellCrypto />
         }
+        // {
+        //     path: '/sell-crypto',
+        //     element: <SellCrypto />
+        // }
     ]
 };
 
