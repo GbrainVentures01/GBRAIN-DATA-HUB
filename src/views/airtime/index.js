@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyAirtime } from 'store/actions';
+import { buyAirtime, userAction } from 'store/actions';
 import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -24,9 +24,11 @@ const BuyAirtime = ({ title, network }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
-    }, [navigate]);
+        dispatch(userAction({ navigate }));
+    }, [navigate, dispatch]);
 
     const INITIAL_FORM_VALUES = {
         beneficiary: '',
@@ -38,8 +40,6 @@ const BuyAirtime = ({ title, network }) => {
         amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
         network: yup.string()
     });
-
-    const dispatch = useDispatch();
 
     const handleSubmit = (values) => {
         const body = {

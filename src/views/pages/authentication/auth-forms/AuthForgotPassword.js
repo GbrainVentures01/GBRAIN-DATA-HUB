@@ -6,7 +6,8 @@ import {
     FormControl,
     FormControlLabel,
     FormHelperText,
-    Grid, InputLabel,
+    Grid,
+    InputLabel,
     OutlinedInput,
     Stack,
     Typography
@@ -14,6 +15,7 @@ import {
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Form, Formik } from 'formik';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ForgetPasswordAction } from 'store/actions';
@@ -21,22 +23,18 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // third party
 import * as Yup from 'yup';
 
-
-
-
-
-
-
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const ForgotPassword = ({ ...others }) => {
     const theme = useTheme();
-    const { customization, loading } = useSelector((state) => state);
+    const { customization, forgetPassword } = useSelector((state) => state);
+    const { loading } = forgetPassword;
     const [checked, setChecked] = useState(true);
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const handleSubmit = (values) => {
-     const email= {email:values.email}
-     dispatch(ForgetPasswordAction({email}));
+        const email = { email: values.email };
+        dispatch(ForgetPasswordAction({ email, enqueueSnackbar }));
     };
 
     return (
@@ -74,7 +72,7 @@ const ForgotPassword = ({ ...others }) => {
                 </Grid>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Provide your Email address to restore your passwor</Typography>
+                        <Typography variant="subtitle1">Provide your Email address to restore your password</Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -85,8 +83,7 @@ const ForgotPassword = ({ ...others }) => {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    
+                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required')
                 })}
                 onSubmit={handleSubmit}
             >
@@ -123,7 +120,6 @@ const ForgotPassword = ({ ...others }) => {
                                 }
                                 label="Remember me"
                             />
-                           
                         </Stack>
                         {errors.submit && (
                             <Box sx={{ mt: 3 }}>
@@ -142,7 +138,7 @@ const ForgotPassword = ({ ...others }) => {
                                     variant="contained"
                                     color="secondary"
                                 >
-                                   Submit
+                                    Submit
                                 </Button>
                             </AnimateButton>
                         </Box>

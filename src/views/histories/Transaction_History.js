@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { getHistories } from 'store/actions';
+import { getHistories, userAction } from 'store/actions';
 import MainCard from 'ui-component/cards/MainCard';
 
 // ==============================|| SAMPLE PAGE ||============================== //
@@ -21,6 +21,7 @@ const Histories = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
         dispatch(getHistories({ enqueueSnackbar }));
     }, [dispatch, enqueueSnackbar, navigate]);
 
@@ -46,7 +47,7 @@ const Histories = () => {
             label: 'Date',
             options: {
                 filter: true,
-                sort: false
+                sort: true
             }
         },
         {
@@ -95,10 +96,14 @@ const Histories = () => {
 
     const options = {
         filterType: 'checkbox',
-        selectableRows: 'none'
+        selectableRows: 'none',
+        sortOrder: {
+            name: 'date',
+            direction: 'desc'
+        }
     };
     return (
-        <MainCard title={'Transactions Hidtories'}>
+        <MainCard title={'Transactions History'}>
             {loading ? (
                 <Box sx={{ textAlign: 'center' }}>
                     <CircularProgress />

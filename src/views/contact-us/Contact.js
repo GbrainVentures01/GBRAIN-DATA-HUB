@@ -25,7 +25,7 @@ const Contact = ({ title }) => {
                     <a
                         target="_blank"
                         rel="noreferrer"
-                        href="https://wa.me/+23400000000"
+                        href="https://wa.me/+2348106361767"
                         style={{
                             textDecoration: 'none'
                         }}
@@ -39,12 +39,12 @@ const Contact = ({ title }) => {
                     }}
                 >
                     <a
-                        href="tel: +23400000000"
+                        href="tel: +2347039039384"
                         style={{
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">+2340000000 </Typography>
+                        <Typography variant="h4">+2348106361767</Typography>
                     </a>
                 </li>
                 <li
@@ -53,12 +53,26 @@ const Contact = ({ title }) => {
                     }}
                 >
                     <a
-                        href="mailto: abc@gmail.com"
+                        href="tel: +2348106361767"
                         style={{
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">abc@gmail.com </Typography>
+                        <Typography variant="h4">+2348106361767</Typography>
+                    </a>
+                </li>
+                <li
+                    style={{
+                        marginBottom: '10px'
+                    }}
+                >
+                    <a
+                        href="mailto: gbrainventures@gmail.com"
+                        style={{
+                            textDecoration: 'none'
+                        }}
+                    >
+                        <Typography variant="h4">gbrainventures@gmail.com </Typography>
                     </a>
                 </li>
             </ul>

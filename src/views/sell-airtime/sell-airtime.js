@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getSellAirtimeDetails, sellAirtime } from 'store/actions';
+import { getSellAirtimeDetails, sellAirtime, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -27,6 +27,7 @@ const SellAirtime = ({ title }) => {
     const navigate = useNavigate();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
         dispatch(getSellAirtimeDetails({ enqueueSnackbar }));
     }, [navigate, dispatch, enqueueSnackbar]);
     console.log(airtimeDetails);
@@ -92,29 +93,33 @@ const SellAirtime = ({ title }) => {
             <Grid
                 container
                 spacing={12}
-                // sx={{
-                //     marginBottom: '30px',
-                //     overflowY: 'scroll'
-                // }}
+                sx={{
+                    marginBottom: '30px',
+                    overflowY: 'scroll'
+                }}
             >
                 {airtimeDetails.map((details) => {
                     const liveUrl = 'https://gbrain-backend.herokuapp.com/';
                     // const testUrl = 'http://localhost:1337';
                     return (
                         <Grid item xs={3} lg={0} key={details.id}>
-                            <Box>
-                                <img
-                                    src={liveUrl + details.attributes?.image?.data?.attributes?.url}
-                                    alt="net_img"
-                                    style={{
-                                        width: '75px',
-                                        height: '75px'
-                                    }}
-                                />
-                                <Typography style={{}} variant="subtitle2">
-                                    {` We charge ${details.attributes.charges_in_percentage} %`}
-                                </Typography>
-                            </Box>
+                            <img
+                                src={liveUrl + details.attributes?.image?.data?.attributes?.url}
+                                alt="net_img"
+                                style={{
+                                    width: '75px',
+                                    height: '75px'
+                                }}
+                            />
+
+                            <Typography
+                                style={{
+                                    width: '75px'
+                                }}
+                                variant="subtitle2"
+                            >
+                                {` We convert at ${details.attributes.charges_in_percentage} %`}
+                            </Typography>
                         </Grid>
                     );
                 })}

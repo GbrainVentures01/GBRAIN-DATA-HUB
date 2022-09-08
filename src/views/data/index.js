@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyData, giftData, getAirtelData, getGloData, getMtnData } from 'store/actions';
+import { buyData, giftData, getAirtelData, getGloData, getMtnData, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -32,6 +32,7 @@ const BuyData = ({ title, network, sme }) => {
 
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
         dispatch(getGloData());
         dispatch(getMtnData());
         dispatch(getAirtelData());

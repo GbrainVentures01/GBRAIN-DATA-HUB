@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyExamPin, getVariants } from 'store/actions';
+import { buyExamPin, getVariants, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -28,6 +28,7 @@ const ExamPin = ({ title }) => {
     const navigate = useNavigate();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
         value && dispatch(getVariants({ provider: value }));
     }, [navigate, value, dispatch]);
 

@@ -16,6 +16,7 @@ const EditProfile = () => {
     const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch]);
     const { loggedInUser } = useSelector((state) => state);

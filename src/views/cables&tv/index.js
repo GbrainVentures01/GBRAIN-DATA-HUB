@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyTvCables, getVariants } from 'store/actions';
+import { buyTvCables, getVariants, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -30,6 +30,7 @@ const SubTv = ({ title }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
     }, [navigate, dispatch]);
     useEffect(() => {
         value && dispatch(getVariants({ provider: value }));

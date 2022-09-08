@@ -8,16 +8,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CustomTextField } from 'ui-component/basic-inputs';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { fundWalletWithMonnify } from 'store/actions';
+import { fundWalletWithMonnify, userAction } from 'store/actions';
+import { useSnackbar } from 'notistack';
 
 const Funding = () => {
-    const { loggedInUser } = useSelector((state) => state);
-    const { user } = loggedInUser;
+    const { fundWithMonnify } = useSelector((state) => state);
+    // const { user } = loggedInUser;
+    const { loading } = fundWithMonnify;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
-    }, [navigate]);
+        dispatch(userAction({ navigate }));
+    }, [navigate, dispatch]);
     const INITIAL_FORM_VALUES = {
         amount: ''
     };
@@ -29,56 +33,46 @@ const Funding = () => {
             fundWalletWithMonnify({
                 amount: {
                     data: { ...values }
-                }
+                },
+                enqueueSnackbar
             })
         );
     };
 
     return (
-        <MainCard title="Select a Payment Method">
+        <MainCard title="Fund Wallet ">
             <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
-                Bank Transfer
+                Flutter Wave
             </Typography>
-            <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 0.75 }}>
-                You can Transfer into your dedicated bank account for auto wallet funding
-            </Typography>
-            <ul>
-                <li style={{ marginBottom: '10px' }}>
-                    <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 0.4, mt: 10, mb: 0.75 }}>
-                        {' '}
-                        BANK: Wema Bank
-                    </Typography>
-                </li>
-                <li style={{ marginBottom: '10px' }}>
-                    <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 0.4, mt: 10, mb: 0.75 }}>
-                        {' '}
-                        ACCOUNT NUMBER: {user?.AccountNumber}
-                    </Typography>
-                </li>
-                <li style={{ marginBottom: '10px' }}>
-                    <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 500, mr: 0.4, mt: 10, mb: 0.75 }}>
-                        {' '}
-                        ACCOUNT NAME: {user?.username}
-                    </Typography>
-                </li>
-            </ul>
 
-            <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 2.5, mb: 1.75 }}>
+            {/* <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 2.5, mb: 1.75 }}>
                 Card Payment
+            </Typography> */}
+            <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
+                Enter amount to fund and you will be redirected to flutter wave payment gateway.
             </Typography>
+            <br />
+            <br />
             <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
-                Fill the form below to fund using your atm card
+                You can choose any payment method you are comfortable with, after payment is successful, you will be redirected back to our
+                website.
             </Typography>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
                         <Grid container spacing={4}>
                             <Grid item xs={6} sx={{ mt: 2 }}>
-                                <CustomTextField name="amount" label="Amount" />
+                                <CustomTextField fullWidth={true} name="amount" label="Amount" />
                             </Grid>
                         </Grid>
 
-                        <Button onClick={() => handleSubmit(values)} variant="contained" color="primary" sx={{ mt: 2 }}>
+                        <Button
+                            disabled={loading ? true : false}
+                            onClick={() => handleSubmit(values)}
+                            variant="contained"
+                            color="primary"
+                            sx={{ mt: 2 }}
+                        >
                             Pay Now
                         </Button>
                     </Form>

@@ -146,36 +146,31 @@ const EarningCard = ({ isLoading }) => {
                                                     ? `Wallet Balance:₦${user?.AccountBalance} `
                                                     : 'Welcome To Gbrain Ventures'}
                                             </Typography>
-                                            {Cookies.get('user') && (
-                                                <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 0.4, ml: 1.3, mt: 1, mb: 0.75 }}>
-                                                    <Link
-                                                        to={'/fund-wallet'}
-                                                        style={{
-                                                            textDecoration: 'none',
-                                                            color: 'white',
-                                                            position: 'relative',
-                                                            top: 6,
-                                                            bottom: 0
-                                                        }}
-                                                    >
-                                                        {' '}
-                                                        Fund Wallet
-                                                    </Link>
-                                                </Typography>
-                                            )}
                                         </div>
 
-                                        <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            {Cookies.get('user') ? (
-                                                `Acoount Number: ${user?.AccountNumber}`
-                                            ) : (
-                                                <Link to={'/pages/login/login3'}>
-                                                    <Typography variant="subtitle1" color={'white'}>
-                                                        Please Login To Your Account
-                                                    </Typography>
+                                        {Cookies.get('user') ? (
+                                            <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 1.75 }}>
+                                                <Link
+                                                    to={'/fund-wallet'}
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                        color: 'white',
+                                                        position: 'relative',
+                                                        top: 6,
+                                                        bottom: 0
+                                                    }}
+                                                >
+                                                    {' '}
+                                                    Fund Wallet
                                                 </Link>
-                                            )}
-                                        </Typography>
+                                            </Typography>
+                                        ) : (
+                                            <Link to={'/pages/login'}>
+                                                <Typography variant="subtitle1" color={'white'}>
+                                                    Please Login To Your Account
+                                                </Typography>
+                                            </Link>
+                                        )}
                                     </Grid>
                                     <Grid item>
                                         <Avatar

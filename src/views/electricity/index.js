@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyElectricity, getElectricProviders } from 'store/actions';
+import { buyElectricity, getElectricProviders, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -29,6 +29,7 @@ const Electricity = ({ title }) => {
     const navigate = useNavigate();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+        dispatch(userAction({ navigate }));
         dispatch(getElectricProviders());
     }, [navigate, dispatch]);
 

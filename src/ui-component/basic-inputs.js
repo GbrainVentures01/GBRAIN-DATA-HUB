@@ -88,7 +88,7 @@ export const CustomDate = ({ name, ...other }) => {
 //Custom
 
 // Custom button
-export const CustomButton = ({ children, fullWidth, ...others }) => {
+export const CustomButton = ({ children, fullWidth, disabled, ...others }) => {
     const { submitForm } = useFormikContext();
     const handleSubmit = () => {
         submitForm();
@@ -98,6 +98,7 @@ export const CustomButton = ({ children, fullWidth, ...others }) => {
         onClick: handleSubmit,
         variant: 'contained',
         color: 'secondary',
+        disabled: disabled,
         fullWidth: true || fullWidth
     };
 

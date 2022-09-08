@@ -173,10 +173,10 @@ export const buyAirtime =
                 payload: data
             });
 
-            data &&
-                enqueueSnackbar(data?.data?.message, {
-                    variant: 'success'
-                });
+            // data &&
+            //     enqueueSnackbar(data?.data?.message, {
+            //         variant: 'success'
+            //     });
             setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({
@@ -350,7 +350,7 @@ export const LoginAction =
     };
 
 export const ForgetPasswordAction =
-    ({ email }) =>
+    ({ email, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -367,7 +367,12 @@ export const ForgetPasswordAction =
             });
 
             console.log(data);
+            data &&
+                enqueueSnackbar(data?.message, {
+                    variant: 'success'
+                });
         } catch (error) {
+            console.log(error);
             dispatch({
                 type: FORGET_PASSWORD_FAIL,
                 payload: error.response?.data?.error?.message || error?.message
@@ -475,7 +480,7 @@ export const userAction =
     };
 
 export const fundWalletWithMonnify =
-    ({ amount }) =>
+    ({ amount, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -483,7 +488,7 @@ export const fundWalletWithMonnify =
             });
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: `monnify-atm-fundings`,
+                path: `account-fundings`,
                 requestBody: amount,
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -499,6 +504,10 @@ export const fundWalletWithMonnify =
                 type: FUND_WALLET_BY_MONNIFY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
         }
     };
 
@@ -653,7 +662,7 @@ export const getHistories =
             });
             const { data } = await makeNetworkCall({
                 method: 'GET',
-                path: `transaction-history`,
+                path: `transaction-histories`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -661,14 +670,15 @@ export const getHistories =
 
             dispatch({
                 type: GET_TRANSACTION_HISTORY_SUCCESS,
-                payload: data
+                payload: data?.data
             });
             data &&
-                enqueueSnackbar(data?.data?.message, {
+                enqueueSnackbar(data?.message, {
                     variant: 'success'
                 });
             console.log(data);
         } catch (error) {
+            console.log(error);
             dispatch({
                 type: GET_TRANSACTION_HISTORY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
