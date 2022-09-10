@@ -99,12 +99,10 @@ const SellAirtime = ({ title }) => {
                 }}
             >
                 {airtimeDetails.map((details) => {
-                    const liveUrl = 'https://gbrain-backend.herokuapp.com/';
-                    // const testUrl = 'http://localhost:1337';
                     return (
                         <Grid item xs={3} lg={0} key={details.id}>
                             <img
-                                src={liveUrl + details.attributes?.image?.data?.attributes?.url}
+                                src={details.attributes?.image?.data?.attributes?.url}
                                 alt="net_img"
                                 style={{
                                     width: '75px',
@@ -167,7 +165,7 @@ const SellAirtime = ({ title }) => {
                                     <CustomTextField name="account_number" label="Beneficiary Account Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomTextField name="phone_number" label="Phone Number" />
+                                    <CustomTextField name="phone_number" label="Sender Phone Number" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>

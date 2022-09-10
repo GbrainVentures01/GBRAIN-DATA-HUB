@@ -2,6 +2,7 @@ import CallIcon from '@mui/icons-material/Call';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import TvIcon from '@mui/icons-material/Tv';
+import PaidIcon from '@mui/icons-material/Paid';
 import SchoolIcon from '@mui/icons-material/School';
 import mtnLogo from '../assets/images/network/mtn-logo.png';
 import gloLogo from '../assets/images/network/glo-log.png';
@@ -38,13 +39,13 @@ export const products = [
         name: 'Education/Card Pin',
         icon: <SchoolIcon style={{ color: 'teal', fontSize: '35px' }} />,
         url: '/exam-pin'
+    },
+    {
+        id: 6,
+        name: 'Convert Airtime To Cash ',
+        icon: <PaidIcon style={{ color: 'purple', fontSize: '35px' }} />,
+        url: '/sell-airtime'
     }
-    // {
-    //     id: 6,
-    //     name: 'Crypto Exchange',
-    //     icon: <TvIcon style={{ color: 'grey', fontSize: '35px' }} />,
-    //     url: '/sell-crypto'
-    // }
 ];
 
 export const dataProducts = [

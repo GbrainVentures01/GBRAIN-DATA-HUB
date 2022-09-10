@@ -75,7 +75,7 @@ const Register = () => {
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
-                                                Already have an account?
+                                                Already have an account? Sign in now.
                                             </Typography>
                                         </Grid>
                                     </Grid>
