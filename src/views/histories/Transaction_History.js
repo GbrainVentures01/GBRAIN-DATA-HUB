@@ -59,6 +59,14 @@ const Histories = () => {
             }
         },
         {
+            name: 'network',
+            label: 'Network',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+        {
             name: 'beneficiary',
             label: 'Beneficiary',
             options: {
@@ -91,6 +99,7 @@ const Histories = () => {
             name: `${serv.TRX_Name ? serv?.TRX_Name : serv?.plan || '-'}`,
             ref: `${serv.request_id || serv?.ref || serv?.tx_ref || '-'}`,
             amount: `${serv.amount}`,
+            network: `${serv.network ? serv.network : '-'}`,
             beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || '-'}`,
             status: `${serv.status}`,
             date: convert(strDate)
