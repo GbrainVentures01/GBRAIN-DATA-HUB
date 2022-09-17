@@ -75,7 +75,9 @@ const Histories = () => {
             }
         }
     ];
+
     const data = histories.histories?.map((serv, i) => {
+        console.log(serv);
         const strDate = new Date(serv?.createdAt);
         function convert(strDate) {
             var date = new Date(strDate),
