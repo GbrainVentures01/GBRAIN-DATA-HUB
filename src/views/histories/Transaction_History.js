@@ -15,7 +15,7 @@ import MainCard from 'ui-component/cards/MainCard';
 const Histories = () => {
     const { transactionHistory } = useSelector((state) => state);
     const { loading, histories } = transactionHistory;
-    console.log(histories);
+
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -75,7 +75,8 @@ const Histories = () => {
             }
         }
     ];
-
+    histories.histories?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    console.log(histories);
     const data = histories.histories?.map((serv, i) => {
         console.log(serv);
         const strDate = new Date(serv?.createdAt);
@@ -88,7 +89,7 @@ const Histories = () => {
         return {
             id: `${serv._id}`,
             name: `${serv.TRX_Name ? serv?.TRX_Name : serv?.plan || '-'}`,
-            ref: `${serv.request_id || serv?.ref || '-'}`,
+            ref: `${serv.request_id || serv?.ref || serv?.tx_ref || '-'}`,
             amount: `${serv.amount}`,
             beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || '-'}`,
             status: `${serv.status}`,
@@ -98,11 +99,11 @@ const Histories = () => {
 
     const options = {
         filterType: 'checkbox',
-        selectableRows: 'none',
-        sortOrder: {
-            name: 'date',
-            direction: 'desc'
-        }
+        selectableRows: 'none'
+        // sortOrder: {
+        //     name: 'date',
+        //     direction: 'desc'
+        // }
     };
     return (
         <MainCard title={'Transactions History'}>
