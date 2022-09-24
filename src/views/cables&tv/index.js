@@ -41,12 +41,14 @@ const SubTv = ({ title }) => {
         plan: '',
         price: '',
         cardNumber: '',
-        beneficiaryNum: ''
+        beneficiaryNum: '',
+        pin: ''
     };
     const VALIDATIONS = yup.object().shape({
         provider: yup.string(),
         plan: yup.object(),
         price: yup.number().integer().typeError('amount must be a number'),
+        pin: yup.number().integer().typeError('Pin must be a number').required('Please enter transaction pin'),
         cardNumber: yup.string().required('Please enter card number'),
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
     });
@@ -58,7 +60,9 @@ const SubTv = ({ title }) => {
             billersCode: values.cardNumber,
             amount: values.price,
             phone: values.beneficiaryNum,
-            subscription_type: 'renew'
+            variation_code: values.plan.variation_code,
+            subscription_type: 'renew',
+            pin: values.pin
         };
         dispatch(
             buyTvCables({
@@ -76,7 +80,7 @@ const SubTv = ({ title }) => {
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
-                        <Box sx={{ maxWidth: 500, height: '60vh' }}>
+                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
                                     <CustomSelect
@@ -108,6 +112,9 @@ const SubTv = ({ title }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading ? true : false}>Submit</CustomButton>

@@ -42,11 +42,13 @@ const BuyData = ({ title, network, sme }) => {
         beneficiaryNum: '',
         amount: '',
         plan: '',
-        network: ''
+        network: '',
+        pin: ''
     };
     const VALIDATIONS = yup.object().shape({
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
         amount: yup.number().integer().typeError('Amount Value must be a number'),
+        pin: yup.number().integer().typeError('Pin Value must be a number').required('Please enter transaction pin'),
         plan: yup.object().required('Please select data plan'),
         network: yup.string().required('Please select data plan')
     });
@@ -71,7 +73,8 @@ const BuyData = ({ title, network, sme }) => {
             amount: values.amount,
             plan: values.plan.Plan,
             network: network,
-            request_id: generateRequestId()
+            request_id: generateRequestId(),
+            pin: values.pin
         };
         dispatch(
             giftData({
@@ -89,7 +92,8 @@ const BuyData = ({ title, network, sme }) => {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan,
-            network: values.network
+            network: values.network,
+            pin: values.pin
         };
 
         dispatch(
@@ -113,7 +117,7 @@ const BuyData = ({ title, network, sme }) => {
             >
                 {({ values, setFieldValue }) => (
                     <Form>
-                        <Box sx={{ maxWidth: 500, height: '60vh' }}>
+                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
@@ -131,6 +135,9 @@ const BuyData = ({ title, network, sme }) => {
                                 </Grid>
                                 <Grid item xs={12} style={{ display: 'none' }}>
                                     <CustomTextField name="network" disabled value={(values.network = network)} placeholder="Amount" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading || dataGiftloading ? true : false}>Submit</CustomButton>

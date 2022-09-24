@@ -80,7 +80,8 @@ const FirebaseRegister = ({ ...others }) => {
                     email: values.email,
                     password: values.confirm_password,
                     phone_number: values.phone_number,
-                    username: values.username
+                    username: values.username,
+                    pin: values.pin
                 },
                 navigate,
                 enqueueSnackbar
@@ -129,7 +130,8 @@ const FirebaseRegister = ({ ...others }) => {
                     email: '',
                     phone_number: '',
                     password: '',
-                    confirm_password: ''
+                    confirm_password: '',
+                    pin: ''
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
@@ -140,7 +142,8 @@ const FirebaseRegister = ({ ...others }) => {
                     username: Yup.string().required('Username is required'),
                     first_name: Yup.string().required('First name is required'),
                     last_name: Yup.string().required('Last name  is required'),
-                    phone_number: Yup.string().required('Phone number  is required')
+                    phone_number: Yup.string().required('Phone number  is required'),
+                    pin: Yup.number('Pin must be a number').required('Please set your transaction pin')
                 })}
                 onSubmit={handleSubmit}
             >
@@ -263,7 +266,42 @@ const FirebaseRegister = ({ ...others }) => {
                                     )}
                                 </FormControl>
                             </Grid>
-
+                            <Grid item xs={12} sm={12}>
+                                <FormControl fullWidth error={Boolean(touched.pin && errors.pin)} sx={{ ...theme.typography.customInput }}>
+                                    <InputLabel htmlFor="outlined-adornment-password-register">Set Transaction Pin</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-pin-register"
+                                        type={showPassword ? 'text' : 'password'}
+                                        value={values.pin}
+                                        name="pin"
+                                        label="Transaction Pin"
+                                        onBlur={handleBlur}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                            changePassword(e.target.value);
+                                        }}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    size="large"
+                                                >
+                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        inputProps={{}}
+                                    />
+                                    {touched.pin && errors.pin && (
+                                        <FormHelperText error id="standard-weight-helper-text-pin-register">
+                                            {errors.pin}
+                                        </FormHelperText>
+                                    )}
+                                </FormControl>
+                            </Grid>
                             <Grid item xs={12} sm={12}>
                                 <FormControl
                                     fullWidth
@@ -304,6 +342,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     )}
                                 </FormControl>
                             </Grid>
+
                             <Grid item xs={12} sm={12}>
                                 <FormControl
                                     fullWidth

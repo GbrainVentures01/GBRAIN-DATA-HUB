@@ -13,6 +13,7 @@ import ExamPin from 'views/exam';
 import Histories from 'views/histories/Transaction_History';
 import ForgetPswdWrapper from 'views/pages/authentication/authentication3/ForgetPswd';
 import Login from 'views/pages/authentication/authentication3/Login3';
+import ResetPswdWrapper from 'views/pages/authentication/authentication3/ResetPswd';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
 import Funding from 'views/payments/Funding';
 import Profile from 'views/profile';
@@ -42,6 +43,10 @@ const MainRoutes = {
         {
             path: '/',
             element: <DashboardDefault />
+        },
+        {
+            path: '/reset-pwd',
+            element: <ResetPswdWrapper />
         },
         {
             path: '/pages/login',

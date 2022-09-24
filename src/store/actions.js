@@ -61,6 +61,9 @@ import {
     REGISTER_USER_FAIL,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
+    RESET_PASSWORD_FAIL,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
     SELL_AIRTIME_FAIL,
     SELL_AIRTIME_REQUEST,
     SELL_AIRTIME_SUCCESS,
@@ -375,6 +378,41 @@ export const ForgetPasswordAction =
             console.log(error);
             dispatch({
                 type: FORGET_PASSWORD_FAIL,
+                payload: error.response?.data?.error?.message || error?.message
+            });
+        }
+    };
+
+export const ResetPasswordAction =
+    ({ body, enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: RESET_PASSWORD_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                requestBody: body,
+                path: 'auth/reset-password'
+            });
+            dispatch({
+                type: RESET_PASSWORD_SUCCESS,
+                payload: data
+            });
+
+            console.log(data);
+            data &&
+                enqueueSnackbar(data?.message, {
+                    variant: 'success'
+                });
+        } catch (error) {
+            console.log(error);
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error'
+                });
+            dispatch({
+                type: RESET_PASSWORD_FAIL,
                 payload: error.response?.data?.error?.message || error?.message
             });
         }

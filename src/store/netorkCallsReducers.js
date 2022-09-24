@@ -57,6 +57,9 @@ import {
     REGISTER_USER_FAIL,
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
+    RESET_PASSWORD_FAIL,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
     SELL_AIRTIME_FAIL,
     SELL_AIRTIME_REQUEST,
     SELL_AIRTIME_SUCCESS,
@@ -101,6 +104,11 @@ export const initialUserUpdate = {
 };
 
 export const initialLoginState = {
+    loading: false,
+    error: null,
+    user: {}
+};
+export const initialresetState = {
     loading: false,
     error: null,
     user: {}
@@ -296,6 +304,26 @@ export const logoutReducer = (state = initialLogoutState, action) => {
             return { ...state, loading: false, user: action.payload };
 
         case LOGOUT_USER_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+//RESET PASSWORD REDUCER
+export const resetPasswordReducer = (state = initialresetState, action) => {
+    switch (action.type) {
+        case RESET_PASSWORD_REQUEST:
+            return { ...state, loading: true };
+
+        case RESET_PASSWORD_SUCCESS: {
+            Cookies.set('user', action?.payload?.jwt, { expires: 1 });
+            Cookies.set('user_id', action?.payload?.user?.id, { expires: 1 });
+            window.location.replace('/');
+            return { ...state, loading: false };
+        }
+        case RESET_PASSWORD_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:

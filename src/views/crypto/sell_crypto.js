@@ -63,7 +63,7 @@ const SellCrypto = () => {
             >
                 {({ values, setFieldValue }) => (
                     <Form>
-                        <Box sx={{ maxWidth: 500, height: '60vh' }}>
+                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
                                     <CustomSelect name="coin_name" options={coinList} label="Select Coin" />

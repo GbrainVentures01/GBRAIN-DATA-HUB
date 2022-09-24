@@ -37,13 +37,15 @@ const SellAirtime = ({ title }) => {
         account_name: '',
         amount: '',
         network: '',
-        recharge_number: ''
+        recharge_number: '',
+        pin: ''
     };
     const VALIDATIONS = yup.object().shape({
         phone_number: yup.string().required('Please enter phone number').typeError('phone number must be a number'),
         amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
+        pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number'),
         account_number: yup.string().required('Enter account number to be credited').typeError('This must be a string')
     });
 
@@ -54,7 +56,8 @@ const SellAirtime = ({ title }) => {
             account_number: values.account_number,
             request_id: generateRequestId(),
             amount: values.amount,
-            network: values.network
+            network: values.network,
+            pin: values.pin
         };
         dispatch(
             sellAirtime({
@@ -166,6 +169,9 @@ const SellAirtime = ({ title }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField name="phone_number" label="Sender Phone Number" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>

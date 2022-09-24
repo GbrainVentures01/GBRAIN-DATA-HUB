@@ -36,13 +36,15 @@ const ExamPin = ({ title }) => {
         examType: '',
         plan: '',
         price: '',
-        beneficiaryNum: ''
+        beneficiaryNum: '',
+        pin: ''
     };
     const VALIDATIONS = yup.object().shape({
         examType: yup.string(),
         plan: yup.object(),
         price: yup.number().integer().typeError('price must be a number'),
-        beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
+        beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
+        pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number')
     });
 
     const handleSubmit = (values) => {
@@ -51,7 +53,8 @@ const ExamPin = ({ title }) => {
             request_id: generateRequestId(),
             amount: values.price,
             phone: values.beneficiaryNum,
-            variation_code: values.plan.variation_code
+            variation_code: values.plan.variation_code,
+            pin: values.pin
         };
         console.log(body);
         dispatch(
@@ -70,7 +73,7 @@ const ExamPin = ({ title }) => {
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
-                        <Box sx={{ maxWidth: 500, height: '60vh' }}>
+                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
                                     <CustomSelect
@@ -101,6 +104,9 @@ const ExamPin = ({ title }) => {
 
                                 <Grid item xs={12}>
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
