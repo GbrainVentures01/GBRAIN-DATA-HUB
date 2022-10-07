@@ -28,6 +28,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { registerAction } from 'store/actions';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import PinInput from 'react-pin-input';
 // third party
 import * as Yup from 'yup';
 
@@ -44,6 +45,7 @@ const FirebaseRegister = ({ ...others }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
+    const [tpin, settpin] = useState('');
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -59,19 +61,17 @@ const FirebaseRegister = ({ ...others }) => {
         setLevel(strengthColor(temp));
     };
 
+    console.log(tpin);
+
     useEffect(() => {
         changePassword('123456');
     }, []);
     const dispatch = useDispatch();
     const handleSubmit = (values) => {
-        console.log({
-            first_name: values.first_name,
-            last_name: values.last_name,
-            email: values.email,
-            password: values.confirm_password,
-            phone_number: values.phone_number,
-            username: values.username
-        });
+        if (tpin === '') {
+            alert('please set your transaction pin');
+            return;
+        }
         dispatch(
             registerAction({
                 user: {
@@ -81,7 +81,7 @@ const FirebaseRegister = ({ ...others }) => {
                     password: values.confirm_password,
                     phone_number: values.phone_number,
                     username: values.username,
-                    pin: values.pin
+                    pin: tpin
                 },
                 navigate,
                 enqueueSnackbar
@@ -266,42 +266,7 @@ const FirebaseRegister = ({ ...others }) => {
                                     )}
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <FormControl fullWidth error={Boolean(touched.pin && errors.pin)} sx={{ ...theme.typography.customInput }}>
-                                    <InputLabel htmlFor="outlined-adornment-password-register">Set Transaction Pin</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-pin-register"
-                                        type={showPassword ? 'text' : 'password'}
-                                        value={values.pin}
-                                        name="pin"
-                                        label="Transaction Pin"
-                                        onBlur={handleBlur}
-                                        onChange={(e) => {
-                                            handleChange(e);
-                                            changePassword(e.target.value);
-                                        }}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                    edge="end"
-                                                    size="large"
-                                                >
-                                                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        }
-                                        inputProps={{}}
-                                    />
-                                    {touched.pin && errors.pin && (
-                                        <FormHelperText error id="standard-weight-helper-text-pin-register">
-                                            {errors.pin}
-                                        </FormHelperText>
-                                    )}
-                                </FormControl>
-                            </Grid>
+
                             <Grid item xs={12} sm={12}>
                                 <FormControl
                                     fullWidth
@@ -404,6 +369,29 @@ const FirebaseRegister = ({ ...others }) => {
                                     </FormControl>
                                 )}
                             </Grid>
+                            <Grid item xs={12} sm={12}>
+                                <>
+                                    <Typography>Set Transaction Pin</Typography>
+                                    <PinInput
+                                        style={{
+                                            margin: 'auto'
+                                        }}
+                                        length={4}
+                                        initialValue=""
+                                        secret
+                                        onChange={(value, index) => {
+                                            settpin(value);
+                                        }}
+                                        type="numeric"
+                                        inputMode="number"
+                                        inputStyle={{ borderColor: 'black' }}
+                                        inputFocusStyle={{ borderColor: 'blue' }}
+                                        onComplete={(value, index) => {}}
+                                        autoSelect={true}
+                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                    />
+                                </>
+                            </Grid>
                             <Grid container alignItems="center" justifyContent="space-between">
                                 <Grid item>
                                     <FormControlLabel
@@ -442,6 +430,7 @@ const FirebaseRegister = ({ ...others }) => {
                                         type="submit"
                                         variant="contained"
                                         color="secondary"
+                                        onClick={() => handleSubmit(values)}
                                     >
                                         Sign up
                                     </Button>

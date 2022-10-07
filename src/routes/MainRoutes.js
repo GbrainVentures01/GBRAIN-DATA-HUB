@@ -156,6 +156,7 @@ const MainRoutes = {
             path: '/contact-us',
             element: <Contact />
         }
+
         // {
         //     path: '/sell-crypto',
         //     element: <SellCrypto />

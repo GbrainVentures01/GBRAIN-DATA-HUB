@@ -1,9 +1,10 @@
 // material-ui
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
+import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyData, giftData, getAirtelData, getGloData, getMtnData, userAction } from 'store/actions';
@@ -29,6 +30,7 @@ const BuyData = ({ title, network, sme }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
+    const [tpin, settpin] = useState('');
 
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
@@ -48,7 +50,7 @@ const BuyData = ({ title, network, sme }) => {
     const VALIDATIONS = yup.object().shape({
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
         amount: yup.number().integer().typeError('Amount Value must be a number'),
-        pin: yup.number().integer().typeError('Pin Value must be a number').required('Please enter transaction pin'),
+
         plan: yup.object().required('Please select data plan'),
         network: yup.string().required('Please select data plan')
     });
@@ -68,13 +70,17 @@ const BuyData = ({ title, network, sme }) => {
         }
     };
     const sendGiftData = (values) => {
+        if (tpin === '') {
+            alert('provide transaction pin to proceed');
+            return;
+        }
         const body = {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan.Plan,
             network: network,
             request_id: generateRequestId(),
-            pin: values.pin
+            pin: tpin
         };
         dispatch(
             giftData({
@@ -88,12 +94,16 @@ const BuyData = ({ title, network, sme }) => {
         );
     };
     const handleSubmit = (values) => {
+        if (tpin === '') {
+            alert('provide transaction pin to proceed');
+            return;
+        }
         const body = {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan,
             network: values.network,
-            pin: values.pin
+            pin: tpin
         };
 
         dispatch(
@@ -137,7 +147,25 @@ const BuyData = ({ title, network, sme }) => {
                                     <CustomTextField name="network" disabled value={(values.network = network)} placeholder="Amount" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
+                                    <Typography>Enter Transaction Pin</Typography>
+                                    <PinInput
+                                        style={{
+                                            margin: 'auto'
+                                        }}
+                                        length={4}
+                                        initialValue=""
+                                        secret
+                                        onChange={(value, index) => {
+                                            settpin(value);
+                                        }}
+                                        type="numeric"
+                                        inputMode="number"
+                                        inputStyle={{ borderColor: 'black' }}
+                                        inputFocusStyle={{ borderColor: 'blue' }}
+                                        onComplete={(value, index) => {}}
+                                        autoSelect={true}
+                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading || dataGiftloading ? true : false}>Submit</CustomButton>

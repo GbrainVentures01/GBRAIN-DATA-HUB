@@ -20,7 +20,7 @@ const EditProfile = () => {
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch]);
     const { loggedInUser } = useSelector((state) => state);
-    const { user } = loggedInUser;
+    const { user, loading } = loggedInUser;
     const matches = useMediaQuery('(min-width:600px)');
 
     const INITIAL_FORM_VALUES = {
@@ -28,14 +28,18 @@ const EditProfile = () => {
         last_name: user?.last_name,
         username: user?.username,
         email: user?.email,
-        phone_number: user?.phone_number
+        phone_number: user?.phone_number,
+        prev_pin: '',
+        pin: ''
     };
     const VALIDATIONS = yup.object().shape({
         first_name: yup.string().typeError('First name must be a strinig'),
         last_name: yup.string().typeError('First name must be a strinig'),
         username: yup.string().typeError('Usrname name must be a strinig'),
         email: yup.string().email('Must be a valid email').max(255),
-        phone_number: yup.string()
+        phone_number: yup.string(),
+        prev_pin: yup.number().integer().typeError('pin must be a number'),
+        pin: yup.number().integer().typeError('pin must be a number')
     });
 
     const handleUpdate = (values) => {
@@ -67,8 +71,20 @@ const EditProfile = () => {
                             <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
                                 <CustomTextField name="phone_number" label="Phone Number" />
                             </Grid>
+                            {/* <Grid item xs={12} sx={{ mt: 2 }}>
+                                <Typography variant="h4">Transaction Pin Reset</Typography>
+                            
+                            </Grid>
+
                             <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
-                                <CustomButton>Submit</CustomButton>
+                                <CustomTextField name="prev_pin" label="Previous Pin" />
+                            </Grid>
+                            <Grid item xs={12} sm={6} sx={{ mt: 2 }}>
+                                <CustomTextField name="pin" label="New Pin" />
+                            </Grid>
+                            */}
+                            <Grid item xs={12} sx={{ mt: 2 }}>
+                                <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
                             </Grid>
                         </Grid>
                     </Form>

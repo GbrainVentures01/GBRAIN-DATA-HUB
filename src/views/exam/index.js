@@ -1,8 +1,9 @@
 // material-ui
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyExamPin, getVariants, userAction } from 'store/actions';
@@ -26,6 +27,7 @@ const ExamPin = ({ title }) => {
     const [value, setvalue] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [tpin, settpin] = useState('');
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
@@ -43,18 +45,21 @@ const ExamPin = ({ title }) => {
         examType: yup.string(),
         plan: yup.object(),
         price: yup.number().integer().typeError('price must be a number'),
-        beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
-        pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number')
+        beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
     });
 
     const handleSubmit = (values) => {
+        if (tpin === '') {
+            alert('provide transaction pin to proceed');
+            return;
+        }
         const body = {
             serviceID: values.examType,
             request_id: generateRequestId(),
             amount: values.price,
             phone: values.beneficiaryNum,
             variation_code: values.plan.variation_code,
-            pin: values.pin
+            pin: tpin
         };
         console.log(body);
         dispatch(
@@ -106,7 +111,25 @@ const ExamPin = ({ title }) => {
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
+                                    <Typography>Enter Transaction Pin</Typography>
+                                    <PinInput
+                                        style={{
+                                            margin: 'auto'
+                                        }}
+                                        length={4}
+                                        initialValue=""
+                                        secret
+                                        onChange={(value, index) => {
+                                            settpin(value);
+                                        }}
+                                        type="numeric"
+                                        inputMode="number"
+                                        inputStyle={{ borderColor: 'black' }}
+                                        inputFocusStyle={{ borderColor: 'blue' }}
+                                        onComplete={(value, index) => {}}
+                                        autoSelect={true}
+                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading ? true : false}>Submit</CustomButton>

@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
+import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSellAirtimeDetails, sellAirtime, userAction } from 'store/actions';
@@ -25,6 +26,7 @@ const SellAirtime = ({ title }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [tpin, settpin] = useState('');
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
@@ -50,6 +52,10 @@ const SellAirtime = ({ title }) => {
     });
 
     const handleSubmit = (values) => {
+        if (tpin === '') {
+            alert('provide transaction pin to proceed');
+            return;
+        }
         const body = {
             phone_number: values.phone_number,
             account_name: values.account_name,
@@ -57,7 +63,7 @@ const SellAirtime = ({ title }) => {
             request_id: generateRequestId(),
             amount: values.amount,
             network: values.network,
-            pin: values.pin
+            pin: tpin
         };
         dispatch(
             sellAirtime({
@@ -97,8 +103,8 @@ const SellAirtime = ({ title }) => {
                 container
                 spacing={12}
                 sx={{
-                    marginBottom: '30px',
-                    overflowY: 'scroll'
+                    marginBottom: '30px'
+                    // overflowY: 'scroll'
                 }}
             >
                 {airtimeDetails.map((details) => {
@@ -171,7 +177,25 @@ const SellAirtime = ({ title }) => {
                                     <CustomTextField name="phone_number" label="Sender Phone Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
+                                    <Typography>Enter Transaction Pin</Typography>
+                                    <PinInput
+                                        style={{
+                                            margin: 'auto'
+                                        }}
+                                        length={4}
+                                        initialValue=""
+                                        secret
+                                        onChange={(value, index) => {
+                                            settpin(value);
+                                        }}
+                                        type="numeric"
+                                        inputMode="number"
+                                        inputStyle={{ borderColor: 'black' }}
+                                        inputFocusStyle={{ borderColor: 'blue' }}
+                                        onComplete={(value, index) => {}}
+                                        autoSelect={true}
+                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>

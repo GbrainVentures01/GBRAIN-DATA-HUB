@@ -1,8 +1,9 @@
 // material-ui
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyTvCables, getVariants, userAction } from 'store/actions';
@@ -18,7 +19,7 @@ import FeedBack from '../feedBack';
 
 const SubTv = ({ title }) => {
     const { vtuVariations, tvCablesOrder } = useSelector((state) => state);
-
+    const [tpin, settpin] = useState('');
     const { variations } = vtuVariations;
 
     const { error, loading, data } = tvCablesOrder;
@@ -54,6 +55,10 @@ const SubTv = ({ title }) => {
     });
 
     const handleSubmit = (values) => {
+        if (tpin === '') {
+            alert('provide transaction pin to proceed');
+            return;
+        }
         const body = {
             serviceID: values.provider,
             request_id: generateRequestId(),
@@ -62,7 +67,7 @@ const SubTv = ({ title }) => {
             phone: values.beneficiaryNum,
             variation_code: values.plan.variation_code,
             subscription_type: 'renew',
-            pin: values.pin
+            pin: tpin
         };
         dispatch(
             buyTvCables({
@@ -114,7 +119,25 @@ const SubTv = ({ title }) => {
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomTextField type="password" name="pin" label="Transaction Pin" />
+                                    <Typography>Enter Transaction Pin</Typography>
+                                    <PinInput
+                                        style={{
+                                            margin: 'auto'
+                                        }}
+                                        length={4}
+                                        initialValue=""
+                                        secret
+                                        onChange={(value, index) => {
+                                            settpin(value);
+                                        }}
+                                        type="numeric"
+                                        inputMode="number"
+                                        inputStyle={{ borderColor: 'black' }}
+                                        inputFocusStyle={{ borderColor: 'blue' }}
+                                        onComplete={(value, index) => {}}
+                                        autoSelect={true}
+                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomButton disabled={loading ? true : false}>Submit</CustomButton>

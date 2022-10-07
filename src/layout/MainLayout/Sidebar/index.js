@@ -8,11 +8,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { drawerWidth } from 'store/constant';
 import LogoSection from '../LogoSection';
 import MenuCard from './MenuCard';
-// project imports
 import MenuList from './MenuList';
-
-
-
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
@@ -37,12 +33,14 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
                     }}
                 >
                     <MenuList />
+
                     <MenuCard />
                 </PerfectScrollbar>
             </BrowserView>
             <MobileView>
                 <Box sx={{ px: 2 }}>
                     <MenuList />
+
                     <MenuCard />
                 </Box>
             </MobileView>
