@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyTvCables, getVariants, userAction } from 'store/actions';
-import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
+import { CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { generateRequestId } from 'utils/generateRequestId';
@@ -69,6 +69,7 @@ const SubTv = ({ title }) => {
             subscription_type: 'renew',
             pin: tpin
         };
+
         dispatch(
             buyTvCables({
                 reqBody: {
@@ -140,7 +141,16 @@ const SubTv = ({ title }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
+                                    <Button
+                                        color="secondary"
+                                        disabled={loading ? true : false}
+                                        variant="contained"
+                                        fullWidth={true}
+                                        onClick={() => handleSubmit(values)}
+                                    >
+                                        Submit
+                                    </Button>
+                                    {/* <CustomButton disabled={loading ? true : false}>Submit</CustomButton> */}
                                 </Grid>
                             </Grid>
                         </Box>

@@ -58,7 +58,7 @@ const BuyAirtime = ({ title, network }) => {
             network: values.network,
             pin: tpin
         };
-        console.log(body);
+
         dispatch(
             buyAirtime({
                 orderDetails: {

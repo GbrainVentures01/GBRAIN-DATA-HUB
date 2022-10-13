@@ -406,7 +406,7 @@ export const ResetPasswordAction =
                     variant: 'success'
                 });
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error'
