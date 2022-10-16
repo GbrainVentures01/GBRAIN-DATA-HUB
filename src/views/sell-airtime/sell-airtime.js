@@ -46,6 +46,7 @@ const SellAirtime = ({ title }) => {
         phone_number: yup.string().required('Please enter phone number').typeError('phone number must be a number'),
         amount: yup
             .number()
+            .integer()
             .required('Please enter airtime amount')
             .typeError('amount must be a number')
             .min(500, 'minimum sellable amount is 500')
