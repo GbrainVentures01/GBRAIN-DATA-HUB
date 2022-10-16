@@ -46,18 +46,25 @@ const SellAirtime = ({ title }) => {
         phone_number: yup.string().required('Please enter phone number').typeError('phone number must be a number'),
         amount: yup
             .number()
-            .min(500, 'minimum sellable amount is 500')
-            .max(100000, 'maximum sellable amount is 100000')
-
+            .min(500, 'min - 500')
+            .max(100000, 'max - 100000')
             .required('Please enter airtime amount')
             .typeError('amount must be a number'),
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
         pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number'),
-        account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a string')
+        account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a number')
     });
 
     const handleSubmit = (values) => {
+        if (Number(values.account_number) < 500) {
+            alert('minimum amount is 500');
+            return;
+        }
+        if (Number(values.account_number) > 100000) {
+            alert('maximum amount is 100000');
+            return;
+        }
         if (tpin === '') {
             alert('provide transaction pin to proceed');
             return;
