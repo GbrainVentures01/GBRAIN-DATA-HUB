@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -48,7 +48,7 @@ const SellAirtime = ({ title }) => {
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
         pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number'),
-        account_number: yup.string().required('Enter account number to be credited').typeError('This must be a string')
+        account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a string')
     });
 
     const handleSubmit = (values) => {
@@ -199,9 +199,18 @@ const SellAirtime = ({ title }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
+                                    <Button
+                                        color="secondary"
+                                        disabled={loading || airtimeLoading ? true : false}
+                                        variant="contained"
+                                        fullWidth={true}
+                                        onClick={() => handleSubmit(values)}
+                                    >
                                         Submit
-                                    </CustomButton>
+                                    </Button>
+                                    {/* <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
+                                        Submit
+                                    </CustomButton> */}
                                 </Grid>
                             </Grid>
                         </Box>
