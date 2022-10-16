@@ -44,7 +44,12 @@ const SellAirtime = ({ title }) => {
     };
     const VALIDATIONS = yup.object().shape({
         phone_number: yup.string().required('Please enter phone number').typeError('phone number must be a number'),
-        amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
+        amount: yup
+            .number()
+            .required('Please enter airtime amount')
+            .typeError('amount must be a number')
+            .min(500, 'minimum sellable amount is 500')
+            .max(100000, 'maximum sellable amount is 100000'),
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
         pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number'),
