@@ -57,6 +57,10 @@ const SellAirtime = ({ title }) => {
     });
 
     const handleSubmit = (values) => {
+        if (!values.phone_number || !values.account_name || !values.account_number || !values.amount || !values.network || !tpin) {
+            alert('please enter all values to proceed');
+            return;
+        }
         if (Number(values.account_number) < 500) {
             alert('minimum amount is 500');
             return;
@@ -65,6 +69,7 @@ const SellAirtime = ({ title }) => {
             alert('maximum amount is 100000');
             return;
         }
+
         if (tpin === '') {
             alert('provide transaction pin to proceed');
             return;
