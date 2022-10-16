@@ -56,6 +56,17 @@ const SubTv = ({ title }) => {
                 })
             );
         }
+        if (code === 'startimes' && decoderNumber.length === 11) {
+            console.log('fecthing');
+            dispatch(
+                verifyData({
+                    body: {
+                        billersCode: decoderNumber,
+                        serviceID: code
+                    }
+                })
+            );
+        }
         if (code === 'gotv' && decoderNumber.length === 10) {
             console.log('fecthing');
             dispatch(
@@ -92,17 +103,6 @@ const SubTv = ({ title }) => {
         setdecoderNumber(e.target.value);
         setcode(code);
 
-        // if (code === 'startimes' && decoderNumber.length === 11) {
-        //     console.log('fecthing');
-        //     dispatch(
-        //         verifyData({
-        //             body: {
-        //                 billersCode: decoderNumber,
-        //                 serviceID: code
-        //             }
-        //         })
-        //     );
-        // }
         // if (code === 'showmax' && decoderNumber.length === 11) {
         //     console.log('fecthing');
         //     dispatch(
