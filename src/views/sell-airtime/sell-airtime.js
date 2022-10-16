@@ -103,8 +103,9 @@ const SellAirtime = ({ title }) => {
                 container
                 spacing={12}
                 sx={{
-                    marginBottom: '30px'
-                    // overflowY: 'scroll'
+                    marginBottom: '30px',
+                    overflowY: 'scroll',
+                    overflowX: 'hidden'
                 }}
             >
                 {airtimeDetails.map((details) => {

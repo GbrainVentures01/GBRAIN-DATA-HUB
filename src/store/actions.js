@@ -69,7 +69,10 @@ import {
     SELL_AIRTIME_SUCCESS,
     UPDATE_USER_FAIL,
     UPDATE_USER_REQUEST,
-    UPDATE_USER_SUCCESS
+    UPDATE_USER_SUCCESS,
+    VERIFY_DETAILS_FAIL,
+    VERIFY_DETAILS_REQUEST,
+    VERIFY_DETAILS_SUCCESS
 } from './constant';
 
 // action - customization reducer
@@ -575,6 +578,38 @@ export const getVariants =
         } catch (error) {
             dispatch({
                 type: GET_VARIANTS_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+export const verifyData =
+    ({ body, enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            console.log('trying');
+            dispatch({
+                type: VERIFY_DETAILS_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: `buy-tv-cables/verify/`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                requestBody: body
+            });
+
+            dispatch({
+                type: VERIFY_DETAILS_SUCCESS,
+                payload: data
+            });
+        } catch (error) {
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error'
+                });
+            dispatch({
+                type: VERIFY_DETAILS_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
         }

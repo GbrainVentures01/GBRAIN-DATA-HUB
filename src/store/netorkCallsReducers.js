@@ -65,7 +65,10 @@ import {
     SELL_AIRTIME_SUCCESS,
     UPDATE_USER_FAIL,
     UPDATE_USER_REQUEST,
-    UPDATE_USER_SUCCESS
+    UPDATE_USER_SUCCESS,
+    VERIFY_DETAILS_FAIL,
+    VERIFY_DETAILS_REQUEST,
+    VERIFY_DETAILS_SUCCESS
 } from './constant';
 
 export const initialGloDataState = {
@@ -183,6 +186,11 @@ export const initialAirtimeDetailState = {
 export const initialBtcDetailState = {
     btcDetails: [],
     loading: false,
+    error: null
+};
+export const verifyDetailsState = {
+    verifyDetails: null,
+    verifyLoading: false,
     error: null
 };
 // get data plans reducers starts here
@@ -461,6 +469,21 @@ export const getVariationsReducer = (state = initialVariationsState, action) => 
             return { ...state, loading: false, variations: action.payload };
         case GET_VARIANTS_FAIL:
             return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const verifyDetailsReducers = (state = verifyDetailsState, action) => {
+    switch (action.type) {
+        case VERIFY_DETAILS_REQUEST:
+            return { ...state, verifyLoading: true };
+
+        case VERIFY_DETAILS_SUCCESS:
+            return { ...state, verifyLoading: false, verifyDetails: action.payload };
+        case VERIFY_DETAILS_FAIL:
+            return { ...state, verifyLoading: false, error: action.payload };
 
         default:
             return state;

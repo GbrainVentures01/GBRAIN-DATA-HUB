@@ -24,7 +24,8 @@ import {
     sellAirtimeReducer,
     tvCablesPurchase,
     userReducer,
-    userUpdateReducer
+    userUpdateReducer,
+    verifyDetailsReducers
 } from './netorkCallsReducers';
 
 // ==============================|| COMBINE REDUCER ||============================== //
@@ -53,7 +54,8 @@ const reducer = combineReducers({
     examPinOrder: examPinPurchase,
     transactionHistory: getHistoriesReducer,
     sellAirtimeDetails: getSellAirtimeDetailsReducer,
-    sellBtcDetails: getBtcDetailsReducer
+    sellBtcDetails: getBtcDetailsReducer,
+    verifyDetailsData: verifyDetailsReducers
 });
 
 export default reducer;
