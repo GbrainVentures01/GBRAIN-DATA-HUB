@@ -63,7 +63,8 @@ const SubTv = ({ title }) => {
                     body: {
                         billersCode: decoderNumber,
                         serviceID: code
-                    }
+                    },
+                    enqueueSnackbar
                 })
             );
         }
