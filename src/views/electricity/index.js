@@ -2,7 +2,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ const Electricity = ({ title }) => {
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
     const dispatch = useDispatch();
-    const [tpin, settpin] = useState('');
+    const pinRef = useRef();
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -53,7 +53,7 @@ const Electricity = ({ title }) => {
     });
 
     const handleSubmit = (values) => {
-        if (tpin === '') {
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -64,7 +64,7 @@ const Electricity = ({ title }) => {
             amount: values.amount,
             phone: values.beneficiaryNum,
             variation_code: values.variation_code,
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
         dispatch(
             buyElectricity({
@@ -109,9 +109,7 @@ const Electricity = ({ title }) => {
                                         length={4}
                                         initialValue=""
                                         secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
+                                        ref={(n) => (pinRef.current = n)}
                                         type="numeric"
                                         inputMode="number"
                                         inputStyle={{ borderColor: 'black' }}

@@ -1,14 +1,14 @@
 // material-ui
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSellAirtimeDetails, sellAirtime, userAction } from 'store/actions';
-import { CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
+import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { generateRequestId } from 'utils/generateRequestId';
@@ -24,9 +24,10 @@ const SellAirtime = ({ title }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [tpin, settpin] = useState('');
+    const pinRef = useRef();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
@@ -52,25 +53,32 @@ const SellAirtime = ({ title }) => {
             .typeError('amount must be a number'),
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
-        pin: yup.number().integer().required('Please enter transaction pin').typeError('pin must be a number'),
+
         account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a number')
     });
 
     const handleSubmit = (values) => {
-        if (!values.phone_number || !values.account_name || !values.account_number || !values.amount || !values.network || !tpin) {
-            alert('please enter all values to proceed');
-            return;
-        }
-        if (Number(values.amount) < 500) {
-            alert('minimum amount is 500');
-            return;
-        }
-        if (Number(values.amount) > 100000) {
-            alert('maximum amount is 100000');
-            return;
-        }
+        // if (
+        //     !values.phone_number ||
+        //     !values.account_name ||
+        //     !values.account_number ||
+        //     !values.amount ||
+        //     !values.network ||
+        //     !pinRef.current.values
+        // ) {
+        //     alert('please enter all values to proceed');
+        //     return;
+        // }
+        // if (Number(values.amount) < 500) {
+        //     alert('minimum amount is 500');
+        //     return;
+        // }
+        // if (Number(values.amount) > 100000) {
+        //     alert('maximum amount is 100000');
+        //     return;
+        // }
 
-        if (tpin === '') {
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -81,7 +89,7 @@ const SellAirtime = ({ title }) => {
             request_id: generateRequestId(),
             amount: values.amount,
             network: values.network,
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
         dispatch(
             sellAirtime({
@@ -150,7 +158,12 @@ const SellAirtime = ({ title }) => {
                     );
                 })}
             </Grid>
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
+            <Formik
+                initialValues={{ ...INITIAL_FORM_VALUES }}
+                validateOnChange={true}
+                onSubmit={handleSubmit}
+                validationSchema={VALIDATIONS}
+            >
                 {({ values, setFieldValue }) => (
                     <Form>
                         <Box sx={{ maxWidth: 500, height: '60vh' }}>
@@ -204,9 +217,7 @@ const SellAirtime = ({ title }) => {
                                         length={4}
                                         initialValue=""
                                         secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
+                                        ref={(n) => (pinRef.current = n)}
                                         type="numeric"
                                         inputMode="number"
                                         inputStyle={{ borderColor: 'black' }}
@@ -217,18 +228,9 @@ const SellAirtime = ({ title }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button
-                                        color="secondary"
-                                        disabled={loading || airtimeLoading ? true : false}
-                                        variant="contained"
-                                        fullWidth={true}
-                                        onClick={() => handleSubmit(values)}
-                                    >
+                                    <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
                                         Submit
-                                    </Button>
-                                    {/* <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
-                                        Submit
-                                    </CustomButton> */}
+                                    </CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>

@@ -1,14 +1,15 @@
 // material-ui
-import { Box, Button, Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Paper, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
+
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { buyTvCables, getVariants, userAction, verifyData } from 'store/actions';
-import { CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
+import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { generateRequestId } from 'utils/generateRequestId';
@@ -20,7 +21,7 @@ import FeedBack from '../feedBack';
 
 const SubTv = ({ title }) => {
     const { vtuVariations, tvCablesOrder, verifyDetailsData } = useSelector((state) => state);
-    const [tpin, settpin] = useState('');
+
     const { variations } = vtuVariations;
     const { verifyDetails, verifyLoading } = verifyDetailsData;
 
@@ -34,16 +35,17 @@ const SubTv = ({ title }) => {
     const [decoderNumber, setdecoderNumber] = useState('');
     const [code, setcode] = useState('');
 
+    const pinRef = useRef();
+
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch]);
     useEffect(() => {
         value && dispatch(getVariants({ provider: value }));
-    }, [value, dispatch, decoderNumber]);
+    }, [value, dispatch]);
 
     useEffect(() => {
-        console.log('called');
         if (code === 'dstv' && decoderNumber.length === 10) {
             console.log('fecthing');
             dispatch(
@@ -57,7 +59,6 @@ const SubTv = ({ title }) => {
             );
         }
         if (code === 'startimes' && decoderNumber.length === 11) {
-            console.log('fecthing');
             dispatch(
                 verifyData({
                     body: {
@@ -94,7 +95,7 @@ const SubTv = ({ title }) => {
         provider: yup.string(),
         plan: yup.object(),
         price: yup.number().integer().typeError('amount must be a number'),
-        pin: yup.number().integer().typeError('Pin must be a number').required('Please enter transaction pin'),
+
         cardNumber: yup.string().required('Please enter card number'),
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
     });
@@ -117,7 +118,7 @@ const SubTv = ({ title }) => {
         // }
     };
     const handleSubmit = (values) => {
-        if (tpin === '') {
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -129,7 +130,7 @@ const SubTv = ({ title }) => {
             phone: values.beneficiaryNum,
             variation_code: values.plan.variation_code,
             subscription_type: 'renew',
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
 
         dispatch(
@@ -150,7 +151,12 @@ const SubTv = ({ title }) => {
             }}
             title={title}
         >
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
+            <Formik
+                initialValues={{ ...INITIAL_FORM_VALUES }}
+                validateOnChange={true}
+                onSubmit={handleSubmit}
+                validationSchema={VALIDATIONS}
+            >
                 {({ values, setFieldValue }) => (
                     <Form>
                         <Box sx={{ maxWidth: 500, height: '100vh' }}>
@@ -186,7 +192,7 @@ const SubTv = ({ title }) => {
                                         disabled={verifyLoading}
                                         onChange={(e) => handleDecoderNumber(e, values.provider)}
                                         name="cardNumber"
-                                        label="Card Number"
+                                        label="Card Number/ Phone number for showmax"
                                     />
                                 </Grid>
                                 {verifyDetails && (
@@ -260,6 +266,27 @@ const SubTv = ({ title }) => {
                                                 </Typography>
                                             )}
 
+                                            {verifyDetails.Balance && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Balance: {verifyDetails.Balance}
+                                                </Typography>
+                                            )}
+                                            {verifyDetails.Smartcard_Number && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Smartcard Number: {verifyDetails.Smartcard_Number}
+                                                </Typography>
+                                            )}
+
                                             {verifyDetails.Status && <Typography variant="h4">Status: {verifyDetails.Status}</Typography>}
                                         </Paper>
                                     </Grid>
@@ -276,9 +303,7 @@ const SubTv = ({ title }) => {
                                         length={4}
                                         initialValue=""
                                         secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
+                                        ref={(n) => (pinRef.current = n)}
                                         type="numeric"
                                         inputMode="number"
                                         inputStyle={{ borderColor: 'black' }}
@@ -289,16 +314,9 @@ const SubTv = ({ title }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button
-                                        color="secondary"
-                                        disabled={loading ? true : false}
-                                        variant="contained"
-                                        fullWidth={true}
-                                        onClick={() => handleSubmit(values)}
-                                    >
+                                    <CustomButton fullWidth={true} disabled={loading ? true : false}>
                                         Submit
-                                    </Button>
-                                    {/* <CustomButton disabled={loading ? true : false}>Submit</CustomButton> */}
+                                    </CustomButton>
                                 </Grid>
                             </Grid>
                         </Box>

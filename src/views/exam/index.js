@@ -2,7 +2,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const ExamPin = ({ title }) => {
     const [value, setvalue] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [tpin, settpin] = useState('');
+    const pinRef = useRef();
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
@@ -49,7 +49,7 @@ const ExamPin = ({ title }) => {
     });
 
     const handleSubmit = (values) => {
-        if (tpin === '') {
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -59,7 +59,7 @@ const ExamPin = ({ title }) => {
             amount: values.price,
             phone: values.beneficiaryNum,
             variation_code: values.plan.variation_code,
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
         console.log(body);
         dispatch(
@@ -119,9 +119,7 @@ const ExamPin = ({ title }) => {
                                         length={4}
                                         initialValue=""
                                         secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
+                                        ref={(n) => (pinRef.current = n)}
                                         type="numeric"
                                         inputMode="number"
                                         inputStyle={{ borderColor: 'black' }}

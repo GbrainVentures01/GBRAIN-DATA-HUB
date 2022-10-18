@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,8 @@ const BuyData = ({ title, network, sme }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
-    const [tpin, settpin] = useState('');
+
+    const pinRef = useRef('');
 
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
@@ -70,7 +71,8 @@ const BuyData = ({ title, network, sme }) => {
         }
     };
     const sendGiftData = (values) => {
-        if (tpin === '') {
+        console.log(pinRef.current.values);
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -80,7 +82,7 @@ const BuyData = ({ title, network, sme }) => {
             plan: values.plan.Plan,
             network: network,
             request_id: generateRequestId(),
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
         dispatch(
             giftData({
@@ -94,7 +96,7 @@ const BuyData = ({ title, network, sme }) => {
         );
     };
     const handleSubmit = (values) => {
-        if (tpin === '') {
+        if (!pinRef.current.values) {
             alert('provide transaction pin to proceed');
             return;
         }
@@ -103,7 +105,7 @@ const BuyData = ({ title, network, sme }) => {
             amount: values.amount,
             plan: values.plan,
             network: values.network,
-            pin: tpin
+            pin: pinRef.current.values.join('')
         };
 
         dispatch(
@@ -116,6 +118,7 @@ const BuyData = ({ title, network, sme }) => {
                 setErrorAlert: setshowErrorAlert
             })
         );
+        pinRef.current = '';
     };
     return (
         <MainCard title={title}>
@@ -154,10 +157,11 @@ const BuyData = ({ title, network, sme }) => {
                                         }}
                                         length={4}
                                         initialValue=""
+                                        ref={(n) => (pinRef.current = n)}
                                         secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
+                                        // onChange={(value, index) => {
+                                        //     settpin(value);
+                                        // }}
                                         type="numeric"
                                         inputMode="number"
                                         inputStyle={{ borderColor: 'black' }}
