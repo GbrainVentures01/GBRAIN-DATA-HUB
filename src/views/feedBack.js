@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useNavigate } from 'react-router';
-const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
+const FeedBack = ({ message, disableTopup, purchasePin, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
     const onClickSuccess = (setshowAlert, goHome) => {
         setshowAlert((prevAlert) => !prevAlert);
@@ -30,6 +30,7 @@ const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, show
                 }
             >
                 <Typography variant="subtitle1">{message}</Typography>
+                {purchasePin && <Typography variant="subtitle1">{purchasePin}</Typography>}
             </SweetAlert>
         );
     };

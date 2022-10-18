@@ -59,14 +59,6 @@ const Histories = () => {
             }
         },
         {
-            name: 'network',
-            label: 'Network',
-            options: {
-                filter: true,
-                sort: false
-            }
-        },
-        {
             name: 'beneficiary',
             label: 'Beneficiary',
             options: {
@@ -74,6 +66,24 @@ const Histories = () => {
                 sort: false
             }
         },
+        {
+            name: 'network',
+            label: 'Network',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+
+        {
+            name: 'exam_pin',
+            label: 'Serial No / Pin',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+
         {
             name: 'status',
             label: 'Status',
@@ -84,9 +94,8 @@ const Histories = () => {
         }
     ];
     histories.histories?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    console.log(histories);
+
     const data = histories.histories?.map((serv, i) => {
-        console.log(serv);
         const strDate = new Date(serv?.createdAt);
         function convert(strDate) {
             var date = new Date(strDate),
@@ -100,8 +109,9 @@ const Histories = () => {
             ref: `${serv.request_id || serv?.ref || serv?.tx_ref || '-'}`,
             amount: `${serv.amount}`,
             network: `${serv.network ? serv.network : '-'}`,
-            beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || '-'}`,
+            beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || serv?.phone || '-'}`,
             status: `${serv.status}`,
+            exam_pin: `${serv.purchased_pin || '-'}`,
             date: convert(strDate)
         };
     });

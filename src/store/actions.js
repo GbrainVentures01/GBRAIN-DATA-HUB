@@ -191,7 +191,8 @@ export const buyAirtime =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             setErrorAlert((prevState) => !prevState);
         }
@@ -219,7 +220,8 @@ export const sellAirtime =
 
             data &&
                 enqueueSnackbar(data?.data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
             setshowAlert((prevState) => !prevState);
         } catch (error) {
@@ -229,7 +231,8 @@ export const sellAirtime =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             setErrorAlert((prevState) => !prevState);
         }
@@ -256,7 +259,8 @@ export const buyData =
             });
             data &&
                 enqueueSnackbar(data?.data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
             setshowAlert((prevState) => !prevState);
         } catch (error) {
@@ -266,7 +270,8 @@ export const buyData =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             setErrorAlert((prevState) => !prevState);
         }
@@ -294,7 +299,8 @@ export const giftData =
             });
             data &&
                 enqueueSnackbar(data?.data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
             setshowAlert((prevState) => !prevState);
         } catch (error) {
@@ -304,7 +310,8 @@ export const giftData =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             setErrorAlert((prevState) => !prevState);
         }
@@ -350,7 +357,8 @@ export const LoginAction =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };
@@ -375,7 +383,8 @@ export const ForgetPasswordAction =
             console.log(data);
             data &&
                 enqueueSnackbar(data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
         } catch (error) {
             console.log(error);
@@ -406,13 +415,15 @@ export const ResetPasswordAction =
             console.log(data);
             data &&
                 enqueueSnackbar(data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
         } catch (error) {
             console.log(error.message);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             dispatch({
                 type: RESET_PASSWORD_FAIL,
@@ -443,7 +454,8 @@ export const registerAction =
             console.log(error.response);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             dispatch({
                 type: REGISTER_USER_FAIL,
@@ -475,7 +487,8 @@ export const UpdateUserAction =
             });
             data &&
                 enqueueSnackbar(data?.data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
         } catch (error) {
             dispatch({
@@ -484,7 +497,8 @@ export const UpdateUserAction =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };
@@ -547,7 +561,8 @@ export const fundWalletWithMonnify =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };
@@ -606,7 +621,8 @@ export const verifyData =
         } catch (error) {
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
             dispatch({
                 type: VERIFY_DETAILS_FAIL,
@@ -747,7 +763,8 @@ export const getHistories =
             });
             data &&
                 enqueueSnackbar(data?.message, {
-                    variant: 'success'
+                    variant: 'success',
+                    autoHideDuration: 2000
                 });
             console.log(data);
         } catch (error) {
@@ -758,7 +775,8 @@ export const getHistories =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };
@@ -789,7 +807,8 @@ export const getSellAirtimeDetails =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };
@@ -820,7 +839,8 @@ export const getSellBTCDetails =
             });
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error'
+                    variant: 'error',
+                    autoHideDuration: 2000
                 });
         }
     };

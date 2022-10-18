@@ -138,7 +138,15 @@ const ExamPin = ({ title }) => {
                 )}
             </Formik>
 
-            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={data?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowAlert={setshowAlert}
+                    showAlert={showAlert}
+                    purchasePin={data?.data}
+                    message={data?.message}
+                    variant="success"
+                />
+            }
             {
                 <FeedBack
                     setshowErrorAlert={setshowErrorAlert}
