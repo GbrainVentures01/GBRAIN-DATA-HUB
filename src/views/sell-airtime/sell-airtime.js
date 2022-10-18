@@ -61,11 +61,11 @@ const SellAirtime = ({ title }) => {
             alert('please enter all values to proceed');
             return;
         }
-        if (Number(values.account_number) < 500) {
+        if (Number(values.amount) < 500) {
             alert('minimum amount is 500');
             return;
         }
-        if (Number(values.account_number) > 100000) {
+        if (Number(values.amount) > 100000) {
             alert('maximum amount is 100000');
             return;
         }
