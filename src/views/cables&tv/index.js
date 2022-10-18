@@ -205,47 +205,62 @@ const SubTv = ({ title }) => {
                                             >
                                                 Customer Name: {verifyDetails.Customer_Name}
                                             </Typography>
-                                            <Typography
-                                                sx={{
-                                                    marginBottom: '15px'
-                                                }}
-                                                variant="h4"
-                                            >
-                                                Current Bouquet: {verifyDetails.Current_Bouquet}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    marginBottom: '15px'
-                                                }}
-                                                variant="h4"
-                                            >
-                                                Customer Type: {verifyDetails.Customer_Type}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    marginBottom: '15px'
-                                                }}
-                                                variant="h4"
-                                            >
-                                                Customer Number: {verifyDetails.Customer_Number}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    marginBottom: '15px'
-                                                }}
-                                                variant="h4"
-                                            >
-                                                Due Date: {verifyDetails.Due_Date}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
-                                                    marginBottom: '15px'
-                                                }}
-                                                variant="h4"
-                                            >
-                                                Renewal Amount: {verifyDetails.Renewal_Amount}
-                                            </Typography>
-                                            <Typography variant="h4">Status: {verifyDetails.Status}</Typography>
+                                            {verifyDetails.Current_Bouquet && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Current Bouquet: {verifyDetails.Current_Bouquet}
+                                                </Typography>
+                                            )}
+
+                                            {verifyDetails.Customer_Type && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Customer Type: {verifyDetails.Customer_Type}
+                                                </Typography>
+                                            )}
+
+                                            {verifyDetails.Customer_Number && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Customer Number: {verifyDetails.Customer_Number}
+                                                </Typography>
+                                            )}
+
+                                            {verifyDetails.Due_Date && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Due Date: {verifyDetails.Due_Date}
+                                                </Typography>
+                                            )}
+
+                                            {verifyDetails.Renewal_Amount && (
+                                                <Typography
+                                                    sx={{
+                                                        marginBottom: '15px'
+                                                    }}
+                                                    variant="h4"
+                                                >
+                                                    Renewal Amount: {verifyDetails.Renewal_Amount}
+                                                </Typography>
+                                            )}
+
+                                            {verifyDetails.Status && <Typography variant="h4">Status: {verifyDetails.Status}</Typography>}
                                         </Paper>
                                     </Grid>
                                 )}

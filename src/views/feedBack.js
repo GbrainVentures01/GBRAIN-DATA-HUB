@@ -49,11 +49,11 @@ const FeedBack = ({ message, disableTopup, goHome, showAlert, setshowAlert, show
                         <Button onClick={onClickFailure} sx={{ mr: 2 }} variant="contained" color="primary">
                             Ok
                         </Button>
-                        {!disableTopup && (
+                        {/* {!disableTopup && (
                             <Button onClick={() => navigate('/fund-wallet')} variant="contained" color="primary">
                                 Top up now
                             </Button>
-                        )}
+                        )} */}
                     </>
                 }
             >
