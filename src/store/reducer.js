@@ -14,6 +14,7 @@ import {
     getGloDataReducer,
     getHistoriesReducer,
     getMtnDataReducer,
+    getMtnSmeDataReducer,
     getSellAirtimeDetailsReducer,
     getVariationsReducer,
     loginUserReducer,
@@ -33,6 +34,7 @@ import {
 const reducer = combineReducers({
     customization: customizationReducer,
     myMtnDataPlans: getMtnDataReducer,
+    myMtnSmeDataPlans: getMtnSmeDataReducer,
     myGloDataPlans: getGloDataReducer,
     myAirtelDataPlans: getAirtelDataReducer,
     dataOrder: dataOrderReducer,

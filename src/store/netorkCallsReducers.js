@@ -36,6 +36,9 @@ import {
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_DATA_PLAN_FAIL,
+    GET_MTN_SME_DATA_PLAN_REQUEST,
+    GET_MTN_SME_DATA_PLAN_SUCCESS,
     GET_SELL_AIRTIME_DETAILS_FAIL,
     GET_SELL_AIRTIME_DETAILS_REQUEST,
     GET_SELL_AIRTIME_DETAILS_SUCCESS,
@@ -82,7 +85,11 @@ export const initialMtnDataState = {
     loading: false,
     error: null
 };
-
+export const initialMtnSmeDataState = {
+    mtnSmeDataPlans: [],
+    loading: false,
+    error: null
+};
 export const initialAirtelDataState = {
     airtelDataPlans: [],
     loading: false,
@@ -203,6 +210,21 @@ export const getGloDataReducer = (state = initialGloDataState, action) => {
         case GET_GLO_DATA_PLAN_SUCCESS:
             return { ...state, loading: false, gloDataPlans: action.payload };
         case GET_GLO_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getMtnSmeDataReducer = (state = initialMtnSmeDataState, action) => {
+    switch (action.type) {
+        case GET_MTN_SME_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_MTN_SME_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, mtnSmeDataPlans: action.payload };
+        case GET_MTN_SME_DATA_PLAN_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:

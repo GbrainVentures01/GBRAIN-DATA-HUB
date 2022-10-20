@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyData, giftData, getAirtelData, getGloData, getMtnData, userAction } from 'store/actions';
+import { buyData, giftData, getAirtelData, getGloData, getMtnData, userAction, getMtnSmeData } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -18,10 +18,13 @@ import * as yup from 'yup';
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const BuyData = ({ title, network, sme }) => {
-    const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder, dataGiftingOrder } = useSelector((state) => state);
+    const { myGloDataPlans, myMtnDataPlans, myAirtelDataPlans, dataOrder, dataGiftingOrder, myMtnSmeDataPlans } = useSelector(
+        (state) => state
+    );
 
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
+    const { mtnSmeDataPlans } = myMtnSmeDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
     const { loading, data, error } = dataOrder;
     const { dataGiftloading, dataGiftData, dataGiftError } = dataGiftingOrder;
@@ -38,6 +41,7 @@ const BuyData = ({ title, network, sme }) => {
         dispatch(userAction({ navigate }));
         dispatch(getGloData());
         dispatch(getMtnData());
+        dispatch(getMtnSmeData());
         dispatch(getAirtelData());
     }, [dispatch, navigate]);
 
@@ -56,13 +60,16 @@ const BuyData = ({ title, network, sme }) => {
         network: yup.string().required('Please select data plan')
     });
 
-    const returnPlan = (network) => {
+    const returnPlan = (network, sme) => {
+        console.log(mtnSmeDataPlans);
+        console.log(mtnDataPlans);
+
         switch (network) {
             case 'Glo':
                 return gloDataPlans;
 
             case 'Mtn':
-                return mtnDataPlans;
+                return sme ? mtnSmeDataPlans : mtnDataPlans;
             case 'Airtel':
                 return airtelDataPlans;
 
@@ -136,7 +143,7 @@ const BuyData = ({ title, network, sme }) => {
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomSelect name="plan" options={returnPlan(network)} label="Select Plan" />
+                                    <CustomSelect name="plan" options={returnPlan(network, sme)} label="Select Plan" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField

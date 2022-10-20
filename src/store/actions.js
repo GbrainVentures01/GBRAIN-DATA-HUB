@@ -40,6 +40,9 @@ import {
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_DATA_PLAN_FAIL,
+    GET_MTN_SME_DATA_PLAN_REQUEST,
+    GET_MTN_SME_DATA_PLAN_SUCCESS,
     GET_SELL_AIRTIME_DETAILS_FAIL,
     GET_SELL_AIRTIME_DETAILS_REQUEST,
     GET_SELL_AIRTIME_DETAILS_SUCCESS,
@@ -104,6 +107,31 @@ export const getGloData = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: GET_GLO_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+
+export const getMtnSmeData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_MTN_SME_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'mtn-sme-plan-models',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        dispatch({
+            type: GET_MTN_SME_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_MTN_SME_DATA_PLAN_FAIL,
             payload: error.response?.data?.error?.message || error?.messag
         });
     }
