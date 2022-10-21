@@ -25,7 +25,7 @@ const Contact = ({ title }) => {
                     <a
                         target="_blank"
                         rel="noreferrer"
-                        href="https://wa.me/+2348106361767"
+                        href="https://wa.me/+2347042500308"
                         style={{
                             textDecoration: 'none'
                         }}
@@ -39,12 +39,12 @@ const Contact = ({ title }) => {
                     }}
                 >
                     <a
-                        href="tel: +2347039039384"
+                        href="tel: +2347042500308"
                         style={{
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">+2348106361767</Typography>
+                        <Typography variant="h4">+234 704 250 0308</Typography>
                     </a>
                 </li>
                 <li
@@ -53,12 +53,12 @@ const Contact = ({ title }) => {
                     }}
                 >
                     <a
-                        href="tel: +2348106361767"
+                        href="tel: +2347054794170"
                         style={{
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">+2348106361767</Typography>
+                        <Typography variant="h4">+234 705 479 4170</Typography>
                     </a>
                 </li>
                 <li
@@ -73,6 +73,34 @@ const Contact = ({ title }) => {
                         }}
                     >
                         <Typography variant="h4">gbrainventures@gmail.com </Typography>
+                    </a>
+                </li>
+                <li
+                    style={{
+                        marginBottom: '10px'
+                    }}
+                >
+                    <a
+                        href="https://chat.whatsapp.com/I1W2va6Zt26BDizKm98Ddu"
+                        style={{
+                            textDecoration: 'none'
+                        }}
+                    >
+                        <Typography variant="h4">Join Gbrain Reseller's whatsapp Group</Typography>
+                    </a>
+                </li>
+                <li
+                    style={{
+                        marginBottom: '10px'
+                    }}
+                >
+                    <a
+                        href="https://chat.whatsapp.com/COXwAY0D4MSAV6sa17MOqP"
+                        style={{
+                            textDecoration: 'none'
+                        }}
+                    >
+                        <Typography variant="h4"> Gbrain Website Update</Typography>
                     </a>
                 </li>
             </ul>

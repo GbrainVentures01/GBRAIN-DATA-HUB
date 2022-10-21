@@ -61,9 +61,6 @@ const BuyData = ({ title, network, sme }) => {
     });
 
     const returnPlan = (network, sme) => {
-        console.log(mtnSmeDataPlans);
-        console.log(mtnDataPlans);
-
         switch (network) {
             case 'Glo':
                 return gloDataPlans;
