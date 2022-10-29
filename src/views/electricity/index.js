@@ -19,7 +19,7 @@ import FeedBack from '../feedBack';
 
 const Electricity = ({ title }) => {
     const { electricityOrder, electricityProviders } = useSelector((state) => state);
-
+    // const { verifyMeterLoading, verifyMeter } = verifyMeterData;
     const { providers } = electricityProviders;
     const { loading, data, error } = electricityOrder;
     // const { enqueueSnackbar } = useSnackbar();
@@ -128,7 +128,15 @@ const Electricity = ({ title }) => {
                 )}
             </Formik>
 
-            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={data?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowAlert={setshowAlert}
+                    showAlert={showAlert}
+                    purchasePin={data?.data}
+                    message={data?.message}
+                    variant="success"
+                />
+            }
             {
                 <FeedBack
                     setshowErrorAlert={setshowErrorAlert}

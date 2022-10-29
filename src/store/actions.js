@@ -75,7 +75,10 @@ import {
     UPDATE_USER_SUCCESS,
     VERIFY_DETAILS_FAIL,
     VERIFY_DETAILS_REQUEST,
-    VERIFY_DETAILS_SUCCESS
+    VERIFY_DETAILS_SUCCESS,
+    VERIFY_METER_FAIL,
+    VERIFY_METER_REQUEST,
+    VERIFY_METER_SUCCESS
 } from './constant';
 
 // action - customization reducer
@@ -658,6 +661,41 @@ export const verifyData =
             });
         }
     };
+
+export const verifyMeter =
+    ({ body, enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            console.log('trying');
+            dispatch({
+                type: VERIFY_METER_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: `buy-electricity/verify/`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                requestBody: body
+            });
+
+            dispatch({
+                type: VERIFY_METER_SUCCESS,
+                payload: data
+            });
+        } catch (error) {
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+            dispatch({
+                type: VERIFY_METER_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+
 export const getElectricProviders = () => async (dispatch) => {
     try {
         dispatch({

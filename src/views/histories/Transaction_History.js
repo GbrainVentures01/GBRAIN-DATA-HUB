@@ -83,6 +83,14 @@ const Histories = () => {
                 sort: false
             }
         },
+        {
+            name: 'electricity',
+            label: 'Token',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
 
         {
             name: 'status',
@@ -112,6 +120,8 @@ const Histories = () => {
             beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || serv?.phone || '-'}`,
             status: `${serv.status}`,
             exam_pin: `${serv.purchased_pin || '-'}`,
+            electricity: `${serv.purchased_token || '-'}`,
+
             date: convert(strDate)
         };
     });

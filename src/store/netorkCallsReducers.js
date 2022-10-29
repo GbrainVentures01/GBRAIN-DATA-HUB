@@ -71,7 +71,10 @@ import {
     UPDATE_USER_SUCCESS,
     VERIFY_DETAILS_FAIL,
     VERIFY_DETAILS_REQUEST,
-    VERIFY_DETAILS_SUCCESS
+    VERIFY_DETAILS_SUCCESS,
+    VERIFY_METER_FAIL,
+    VERIFY_METER_REQUEST,
+    VERIFY_METER_SUCCESS
 } from './constant';
 
 export const initialGloDataState = {
@@ -198,6 +201,11 @@ export const initialBtcDetailState = {
 export const verifyDetailsState = {
     verifyDetails: null,
     verifyLoading: false,
+    error: null
+};
+export const verifyMeterState = {
+    verifyMeter: null,
+    verifyMeterLoading: false,
     error: null
 };
 // get data plans reducers starts here
@@ -512,6 +520,20 @@ export const verifyDetailsReducers = (state = verifyDetailsState, action) => {
     }
 };
 
+export const verifyMeterReducers = (state = verifyMeterState, action) => {
+    switch (action.type) {
+        case VERIFY_METER_REQUEST:
+            return { ...state, verifyMeterLoading: true };
+
+        case VERIFY_METER_SUCCESS:
+            return { ...state, verifyMeterLoading: false, verifyMeter: action.payload };
+        case VERIFY_METER_FAIL:
+            return { ...state, verifyMeterLoading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
 export const getelectricityProvidersReducer = (state = initialElectriProvidersState, action) => {
     switch (action.type) {
         case GET_ELECTRICITY_PROVIDERS_REQUEST:
