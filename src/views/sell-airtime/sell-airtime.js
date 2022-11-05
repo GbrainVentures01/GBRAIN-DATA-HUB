@@ -38,6 +38,7 @@ const SellAirtime = ({ title }) => {
         account_number: '',
         phone_number: '',
         account_name: '',
+        bank_name: '',
         amount: '',
         network: '',
         recharge_number: '',
@@ -53,6 +54,7 @@ const SellAirtime = ({ title }) => {
             .typeError('amount must be a number'),
         network: yup.string().required('please select a airtime network').typeError('This must be a string'),
         account_name: yup.string().required('Enter account name to be credited').typeError('This must be a string'),
+        bank_name: yup.string().required('Enter your bank name').typeError('This must be a string'),
 
         account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a number')
     });
@@ -85,6 +87,7 @@ const SellAirtime = ({ title }) => {
         const body = {
             phone_number: values.phone_number,
             account_name: values.account_name,
+            bank_name: values.bank_name,
             account_number: values.account_number,
             request_id: generateRequestId(),
             amount: values.amount,
@@ -201,6 +204,9 @@ const SellAirtime = ({ title }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField name="account_name" label="Beneficiary Account Name" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomTextField name="bank_name" label="Beneficiary Bank Name" />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField name="account_number" label="Beneficiary Account Number" />
