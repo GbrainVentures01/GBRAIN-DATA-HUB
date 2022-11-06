@@ -10,7 +10,6 @@ import MainCard from 'ui-component/cards/MainCard';
 const Profile = () => {
     const { loggedInUser } = useSelector((state) => state);
     const { user } = loggedInUser;
-    console.log(user);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

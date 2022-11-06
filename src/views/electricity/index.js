@@ -2,6 +2,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +23,7 @@ const Electricity = ({ title }) => {
     // const { verifyMeterLoading, verifyMeter } = verifyMeterData;
     const { providers } = electricityProviders;
     const { loading, data, error } = electricityOrder;
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
     const dispatch = useDispatch();
@@ -54,7 +55,10 @@ const Electricity = ({ title }) => {
 
     const handleSubmit = (values) => {
         if (!pinRef.current.values) {
-            alert('provide transaction pin to proceed');
+            enqueueSnackbar('provide transaction pin to proceed', {
+                variant: 'error',
+                autoHideDuration: 2000
+            });
             return;
         }
         const body = {

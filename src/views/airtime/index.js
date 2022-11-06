@@ -47,7 +47,10 @@ const BuyAirtime = ({ title, network }) => {
 
     const handleSubmit = (values) => {
         if (tpin === '') {
-            alert('provide transaction pin to proceed');
+            enqueueSnackbar('provide transaction pin to proceed', {
+                variant: 'error',
+                autoHideDuration: 2000
+            });
             return;
         }
         const body = {

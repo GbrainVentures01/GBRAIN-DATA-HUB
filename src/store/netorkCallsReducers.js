@@ -111,7 +111,7 @@ export const initialRegisterState = {
     user: {}
 };
 export const initialUserUpdate = {
-    loading: false,
+    Update_user_loading: false,
     error: null,
     user: {}
 };
@@ -315,13 +315,13 @@ export const userReducer = (state = initialUserState, action) => {
 export const userUpdateReducer = (state = initialUserUpdate, action) => {
     switch (action.type) {
         case UPDATE_USER_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, Update_user_loading: true };
 
         case UPDATE_USER_SUCCESS: {
-            return { ...state, loading: false, user: action.payload };
+            return { ...state, Update_user_loading: false, user: action.payload };
         }
         case UPDATE_USER_FAIL:
-            return { ...state, loading: false, error: action.payload };
+            return { ...state, Update_user_loading: false, error: action.payload };
 
         default:
             return state;
