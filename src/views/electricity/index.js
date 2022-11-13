@@ -125,7 +125,11 @@ const Electricity = ({ title }) => {
                                         >
                                             Verify
                                         </Button>
-                                        <Typography variant="caption">Please verify your details before proceeding</Typography>
+                                    </Grid>
+                                )}
+                                {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
+                                    <Grid item xs={12}>
+                                        <Typography variant="body1">Please verify your details before proceeding</Typography>
                                     </Grid>
                                 )}
                                 {meterVerify && (
