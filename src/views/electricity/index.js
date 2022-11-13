@@ -96,7 +96,12 @@ const Electricity = ({ title }) => {
     };
 
     return (
-        <MainCard title={title}>
+        <MainCard
+            title={title}
+            sx={{
+                overflowY: 'scroll'
+            }}
+        >
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
