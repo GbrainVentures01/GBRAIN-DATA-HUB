@@ -157,7 +157,19 @@ const Electricity = ({ title }) => {
                                             }}
                                             variant="h4"
                                         >
-                                            Meter Number: {meterVerify.Meter_Number}
+                                            Meter Number: {meterVerify.MeterNumber}
+                                        </Typography>
+                                    </Grid>
+                                )}
+                                {meterVerify && (
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{
+                                                marginBottom: '15px'
+                                            }}
+                                            variant="h4"
+                                        >
+                                            Meter Type: {meterVerify.Meter_Type}
                                         </Typography>
                                     </Grid>
                                 )}
