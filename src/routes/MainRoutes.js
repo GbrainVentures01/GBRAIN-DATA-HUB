@@ -16,6 +16,8 @@ import Login from 'views/pages/authentication/authentication3/Login3';
 import ResetPswdWrapper from 'views/pages/authentication/authentication3/ResetPswd';
 import { SuccessPAyment } from 'views/payments/ConfirmPayment';
 import Funding from 'views/payments/Funding';
+import PinResetEmail from 'views/pin_reset/pin_reset_email';
+import PinReset from 'views/pin_reset/pin_reset_page';
 import Profile from 'views/profile';
 import EditProfile from 'views/profile/edit_profile';
 import SellAirtime from 'views/sell-airtime/sell-airtime';
@@ -47,6 +49,14 @@ const MainRoutes = {
         {
             path: '/reset-pwd',
             element: <ResetPswdWrapper />
+        },
+        {
+            path: '/reset-pin',
+            element: <PinReset />
+        },
+        {
+            path: '/forget-pin',
+            element: <PinResetEmail />
         },
         {
             path: '/pages/login',

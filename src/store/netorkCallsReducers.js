@@ -18,6 +18,9 @@ import {
     FORGET_PASSWORD_FAIL,
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_SUCCESS,
+    FORGET_PIN_FAIL,
+    FORGET_PIN_REQUEST,
+    FORGET_PIN_SUCCESS,
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
@@ -107,6 +110,12 @@ export const initialUserState = {
 
 export const initialRegisterState = {
     loading: false,
+    error: null,
+    user: {}
+};
+
+export const initialPinResetState = {
+    pin_reset_loading: false,
     error: null,
     user: {}
 };
@@ -204,7 +213,7 @@ export const verifyDetailsState = {
     error: null
 };
 export const verifyMeterState = {
-    verifyMeter: null,
+    meterVerify: null,
     verifyMeterLoading: false,
     error: null
 };
@@ -368,6 +377,22 @@ export const resetPasswordReducer = (state = initialresetState, action) => {
             return state;
     }
 };
+//forget pin reducer
+export const forgetPinReducer = (state = initialPinResetState, action) => {
+    switch (action.type) {
+        case FORGET_PIN_REQUEST:
+            return { ...state, pin_reset_loading: true };
+
+        case FORGET_PIN_SUCCESS: {
+            return { ...state, pin_reset_loading: false };
+        }
+        case FORGET_PIN_FAIL:
+            return { ...state, pin_reset_loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
 
 //FORGET PASSWORD REDUCER
 export const forgetPasswordReducer = (state = initialLoginState, action) => {
@@ -526,7 +551,7 @@ export const verifyMeterReducers = (state = verifyMeterState, action) => {
             return { ...state, verifyMeterLoading: true };
 
         case VERIFY_METER_SUCCESS:
-            return { ...state, verifyMeterLoading: false, verifyMeter: action.payload };
+            return { ...state, verifyMeterLoading: false, meterVerify: action.payload };
         case VERIFY_METER_FAIL:
             return { ...state, verifyMeterLoading: false, error: action.payload };
 

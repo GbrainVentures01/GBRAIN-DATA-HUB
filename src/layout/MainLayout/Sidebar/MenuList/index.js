@@ -39,6 +39,7 @@ const MenuList = () => {
     return (
         <>
             {navItems}
+
             {user.username && (
                 <ListItemButton
                     sx={{

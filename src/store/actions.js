@@ -19,6 +19,9 @@ import {
     FORGET_PASSWORD_FAIL,
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_SUCCESS,
+    FORGET_PIN_FAIL,
+    FORGET_PIN_REQUEST,
+    FORGET_PIN_SUCCESS,
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
@@ -394,6 +397,46 @@ export const LoginAction =
         }
     };
 
+export const ForgetPinAction =
+    ({ email, enqueueSnackbar }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: FORGET_PIN_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                requestBody: email,
+                path: 'auth/forgot-pin',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: FORGET_PIN_SUCCESS,
+                payload: data
+            });
+
+            console.log(data);
+            data &&
+                enqueueSnackbar(data?.message, {
+                    variant: 'success',
+                    autoHideDuration: 2000
+                });
+        } catch (error) {
+            console.log(error);
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+            dispatch({
+                type: FORGET_PIN_FAIL,
+                payload: error.response?.data?.error?.message || error?.message
+            });
+        }
+    };
+
 export const ForgetPasswordAction =
     ({ email, enqueueSnackbar }) =>
     async (dispatch) => {
@@ -419,6 +462,11 @@ export const ForgetPasswordAction =
                 });
         } catch (error) {
             console.log(error);
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
             dispatch({
                 type: FORGET_PASSWORD_FAIL,
                 payload: error.response?.data?.error?.message || error?.message
@@ -443,7 +491,6 @@ export const ResetPasswordAction =
                 payload: data
             });
 
-            console.log(data);
             data &&
                 enqueueSnackbar(data?.message, {
                     variant: 'success',
@@ -683,6 +730,7 @@ export const verifyMeter =
                 type: VERIFY_METER_SUCCESS,
                 payload: data
             });
+            console.log(data);
         } catch (error) {
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {

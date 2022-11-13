@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { buyElectricity, getElectricProviders, userAction } from 'store/actions';
+import { buyElectricity, getElectricProviders, userAction, verifyMeter } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -19,8 +19,9 @@ import FeedBack from '../feedBack';
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const Electricity = ({ title }) => {
-    const { electricityOrder, electricityProviders } = useSelector((state) => state);
-    // const { verifyMeterLoading, verifyMeter } = verifyMeterData;
+    const { electricityOrder, electricityProviders, verifyMeterData } = useSelector((state) => state);
+    const { verifyMeterLoading, meterVerify } = verifyMeterData;
+    console.log(meterVerify);
     const { providers } = electricityProviders;
     const { loading, data, error } = electricityOrder;
     const { enqueueSnackbar } = useSnackbar();
@@ -52,6 +53,19 @@ const Electricity = ({ title }) => {
         meterNumber: yup.string().required('Please enter card number'),
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
     });
+    const handleVerifyDetails = (values) => {
+        dispatch(
+            verifyMeter({
+                body: {
+                    serviceID: values.discoName,
+                    billersCode: values.meterNumber,
+                    variation_code: values.variation_code
+                },
+
+                enqueueSnackbar
+            })
+        );
+    };
 
     const handleSubmit = (values) => {
         if (!pinRef.current.values) {
@@ -101,6 +115,57 @@ const Electricity = ({ title }) => {
                                 <Grid item xs={12}>
                                     <CustomTextField name="meterNumber" label="Meter Number" />
                                 </Grid>
+                                {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
+                                    <Grid item xs={12}>
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            disabled={verifyMeterLoading}
+                                            onClick={() => handleVerifyDetails(values)}
+                                        >
+                                            Verify
+                                        </Button>
+                                        <Typography variant="caption">Please verify your details before proceeding</Typography>
+                                    </Grid>
+                                )}
+                                {meterVerify && (
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{
+                                                marginBottom: '15px'
+                                            }}
+                                            variant="h4"
+                                        >
+                                            Customer Name: {meterVerify.Customer_Name}
+                                        </Typography>
+                                    </Grid>
+                                )}
+                                {meterVerify && (
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{
+                                                marginBottom: '15px'
+                                            }}
+                                            variant="h4"
+                                        >
+                                            Meter Number: {meterVerify.Meter_Number}
+                                        </Typography>
+                                    </Grid>
+                                )}
+
+                                {meterVerify && (
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{
+                                                marginBottom: '15px'
+                                            }}
+                                            variant="h4"
+                                        >
+                                            Address : {meterVerify.Address}
+                                        </Typography>
+                                    </Grid>
+                                )}
+
                                 <Grid item xs={12}>
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                 </Grid>

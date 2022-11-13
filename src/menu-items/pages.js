@@ -10,6 +10,7 @@ import { FaGraduationCap } from 'react-icons/fa';
 import { FaUser } from 'react-icons/fa';
 import { FaMoneyBill } from 'react-icons/fa';
 import { FaFacebookMessenger } from 'react-icons/fa';
+import { FaUserSecret } from 'react-icons/fa';
 
 // constant
 const icons = {
@@ -23,7 +24,9 @@ const icons = {
     FaClock,
     FaUser,
     FaMoneyBill,
-    FaFacebookMessenger
+    FaFacebookMessenger,
+
+    FaUserSecret
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -167,6 +170,14 @@ const pages = {
             url: '/contact-us',
             target: false,
             icon: icons.FaFacebookMessenger
+        },
+        {
+            id: 'pin_reset',
+            title: 'Reset Transaction Pin',
+            type: 'item',
+            url: '/forget-pin',
+            target: false,
+            icon: icons.FaUserSecret
         }
     ]
 };
