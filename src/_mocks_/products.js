@@ -63,15 +63,27 @@ export const dataProducts = [
     },
     {
         id: 3,
-        name: 'Glo Data (Gifting)',
+        name: 'Glo Data',
         image: gloLogo,
         url: '/buy-glo-data'
     },
     {
         id: 4,
-        name: 'Airtel Data (Gifting)',
+        name: 'Glo Corporate Gifting',
+        image: gloLogo,
+        url: '/buy-glo-cg-data'
+    },
+    {
+        id: 5,
+        name: 'Airtel Data',
         image: airtelLogo,
         url: '/buy-airtel-data'
+    },
+    {
+        id: 6,
+        name: 'Airtel Corporate Gifting ',
+        image: airtelLogo,
+        url: '/buy-airtel-cg-data'
     }
 ];
 

@@ -19,6 +19,7 @@ export const CustomTextField = ({ name, fullWidth, ...other }) => {
 // custom select box
 
 export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...other }) => {
+    console.log(options);
     const [field, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
 
@@ -57,7 +58,11 @@ export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...
                                   option?.name
                         }
                     >
-                        {option?.attributes?.Plan || option?.attributes?.provider || option?.name || option?.attributes?.network}
+                        {option?.attributes?.Plan ||
+                            option?.attributes?.plan ||
+                            option?.attributes?.provider ||
+                            option?.name ||
+                            option?.attributes?.network}
                     </MenuItem>
                 );
             })}

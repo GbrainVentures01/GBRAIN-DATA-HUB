@@ -4,6 +4,9 @@ import {
     BUY_AIRTIME_FAIL,
     BUY_AIRTIME_REQUEST,
     BUY_AIRTIME_SUCCESS,
+    BUY_CG_DATA_FAIL,
+    BUY_CG_DATA_REQUEST,
+    BUY_CG_DATA_SUCCESS,
     BUY_DATA_FAIL,
     BUY_DATA_REQUEST,
     BUY_DATA_SUCCESS,
@@ -25,6 +28,9 @@ import {
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
+    GET_AIRTEL_CG_DATA_PLAN_FAIL,
+    GET_AIRTEL_CG_DATA_PLAN_REQUEST,
+    GET_AIRTEL_CG_DATA_PLAN_SUCCESS,
     GET_AIRTEL_DATA_PLAN_FAIL,
     GET_AIRTEL_DATA_PLAN_REQUEST,
     GET_AIRTEL_DATA_PLAN_SUCCESS,
@@ -34,6 +40,9 @@ import {
     GET_ELECTRICITY_PROVIDERS_FAIL,
     GET_ELECTRICITY_PROVIDERS_REQUEST,
     GET_ELECTRICITY_PROVIDERS_SUCCESS,
+    GET_GLO_CG_DATA_PLAN_FAIL,
+    GET_GLO_CG_DATA_PLAN_REQUEST,
+    GET_GLO_CG_DATA_PLAN_SUCCESS,
     GET_GLO_DATA_PLAN_FAIL,
     GET_GLO_DATA_PLAN_REQUEST,
     GET_GLO_DATA_PLAN_SUCCESS,
@@ -193,6 +202,56 @@ export const getAirtelData = () => async (dispatch) => {
     }
 };
 
+export const getGloCgData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_GLO_CG_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'glo-cg-data-plans',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        dispatch({
+            type: GET_GLO_CG_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_GLO_CG_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+
+export const getAirtelCgData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_AIRTEL_CG_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'airtel-cg-data-plans',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        dispatch({
+            type: GET_AIRTEL_CG_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_AIRTEL_CG_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+
 export const buyAirtime =
     ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
@@ -233,31 +292,54 @@ export const buyAirtime =
     };
 
 export const sellAirtime =
-    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert, file }) =>
     async (dispatch) => {
         try {
             dispatch({
                 type: SELL_AIRTIME_REQUEST
             });
+
             const { data } = await makeNetworkCall({
                 method: 'POST',
                 path: 'sell-airtimes',
-                requestBody: orderDetails,
+                requestBody: {
+                    data: orderDetails
+                },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            dispatch({
-                type: SELL_AIRTIME_SUCCESS,
-                payload: data
-            });
-
-            data &&
-                enqueueSnackbar(data?.data?.message, {
-                    variant: 'success',
-                    autoHideDuration: 2000
+            if (data) {
+                console.log(data);
+                file.append('ref', 'api::sell-airtime.sell-airtime');
+                file.append('refId', data.data.Order.id);
+                file.append('field', 'screenshot');
+                const res = await makeNetworkCall({
+                    method: 'POST',
+                    path: 'upload',
+                    requestBody: file,
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 });
-            setshowAlert((prevState) => !prevState);
+
+                console.log('====================================');
+                console.log(res.data);
+                console.log('====================================');
+
+                if (res.data) {
+                    dispatch({
+                        type: SELL_AIRTIME_SUCCESS,
+                        payload: data
+                    });
+
+                    enqueueSnackbar(data?.data?.message, {
+                        variant: 'success',
+                        autoHideDuration: 2000
+                    });
+                    setshowAlert((prevState) => !prevState);
+                }
+            }
         } catch (error) {
             dispatch({
                 type: SELL_AIRTIME_FAIL,
@@ -300,6 +382,46 @@ export const buyData =
         } catch (error) {
             dispatch({
                 type: BUY_DATA_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+            setErrorAlert((prevState) => !prevState);
+        }
+    };
+
+export const buyCgData =
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: BUY_CG_DATA_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: 'cg-data-orders',
+                requestBody: orderDetails,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: BUY_CG_DATA_SUCCESS,
+                payload: data
+            });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success',
+                    autoHideDuration: 2000
+                });
+            setshowAlert((prevState) => !prevState);
+        } catch (error) {
+            dispatch({
+                type: BUY_CG_DATA_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
             error &&

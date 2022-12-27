@@ -119,6 +119,10 @@ const MainRoutes = {
             element: <BuyData title="Glo Data" sme={false} network="Glo" />
         },
         {
+            path: '/buy-glo-cg-data',
+            element: <BuyData title="Glo CG Data" cg={true} network="Glo" />
+        },
+        {
             path: '/buy-mtn-data',
             element: <BuyData title="Mtn Data" sme={true} network="Mtn" />
         },
@@ -129,6 +133,10 @@ const MainRoutes = {
         {
             path: '/buy-airtel-data',
             element: <BuyData title="Airtel Data" sme={false} network="Airtel" />
+        },
+        {
+            path: '/buy-airtel-cg-data',
+            element: <BuyData title="Airtel CG Data" cg={true} network="Airtel" />
         },
         {
             path: '/cable-tv-sub',

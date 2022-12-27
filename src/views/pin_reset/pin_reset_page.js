@@ -1,5 +1,4 @@
 import { Button, Grid, Typography, useMediaQuery } from '@mui/material';
-import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 import { useEffect, useRef } from 'react';
 import PinInput from 'react-pin-input';
@@ -13,7 +12,7 @@ const PinReset = () => {
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
-        !Cookies.get('user') && navigate('/pages/login');
+        // !Cookies.get('user') && navigate('/pages/login');
 
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch]);

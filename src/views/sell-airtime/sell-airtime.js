@@ -1,5 +1,6 @@
 // material-ui
 import { Box, Grid, Typography } from '@mui/material';
+import FormData from 'form-data';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -24,6 +25,7 @@ const SellAirtime = ({ title }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
+    const [file, setfile] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,26 +61,14 @@ const SellAirtime = ({ title }) => {
         account_number: yup.number().integer().required('Enter account number to be credited').typeError('This must be a number')
     });
 
-    const handleSubmit = (values) => {
-        // if (
-        //     !values.phone_number ||
-        //     !values.account_name ||
-        //     !values.account_number ||
-        //     !values.amount ||
-        //     !values.network ||
-        //     !pinRef.current.values
-        // ) {
-        //     alert('please enter all values to proceed');
-        //     return;
-        // }
-        // if (Number(values.amount) < 500) {
-        //     alert('minimum amount is 500');
-        //     return;
-        // }
-        // if (Number(values.amount) > 100000) {
-        //     alert('maximum amount is 100000');
-        //     return;
-        // }
+    const handleSubmit = async (values) => {
+        if (!file) {
+            enqueueSnackbar('provide screenhot proof to proceed', {
+                variant: 'error',
+                autoHideDuration: 2000
+            });
+            return;
+        }
 
         if (!pinRef.current.values) {
             enqueueSnackbar('provide transaction pin to proceed', {
@@ -87,6 +77,11 @@ const SellAirtime = ({ title }) => {
             });
             return;
         }
+        const formData = new FormData();
+        console.log(file);
+
+        formData.append('files', file);
+
         const body = {
             phone_number: values.phone_number,
             account_name: values.account_name,
@@ -97,11 +92,11 @@ const SellAirtime = ({ title }) => {
             network: values.network,
             pin: pinRef.current.values.join('')
         };
+
         dispatch(
             sellAirtime({
-                orderDetails: {
-                    data: body
-                },
+                orderDetails: body,
+                file: formData,
                 enqueueSnackbar,
                 setshowAlert,
                 setErrorAlert: setshowErrorAlert
@@ -216,6 +211,21 @@ const SellAirtime = ({ title }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField name="phone_number" label="Sender Phone Number" />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography style={{ marginBottom: '20px' }} variant="body1">
+                                        Upload Screenshot
+                                    </Typography>
+                                    <input
+                                        id="file"
+                                        name="screenshot"
+                                        placeholder="Upload screenshot of successful airtime transfer"
+                                        type="file"
+                                        onChange={(event) => {
+                                            console.log(event.target.files);
+                                            setfile(event.target.files[0]);
+                                        }}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography>Enter Transaction Pin</Typography>

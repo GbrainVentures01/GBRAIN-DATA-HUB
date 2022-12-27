@@ -3,6 +3,9 @@ import {
     BUY_AIRTIME_FAIL,
     BUY_AIRTIME_REQUEST,
     BUY_AIRTIME_SUCCESS,
+    BUY_CG_DATA_FAIL,
+    BUY_CG_DATA_REQUEST,
+    BUY_CG_DATA_SUCCESS,
     BUY_DATA_FAIL,
     BUY_DATA_REQUEST,
     BUY_DATA_SUCCESS,
@@ -24,12 +27,18 @@ import {
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
+    GET_AIRTEL_CG_DATA_PLAN_FAIL,
+    GET_AIRTEL_CG_DATA_PLAN_REQUEST,
+    GET_AIRTEL_CG_DATA_PLAN_SUCCESS,
     GET_AIRTEL_DATA_PLAN_FAIL,
     GET_AIRTEL_DATA_PLAN_REQUEST,
     GET_AIRTEL_DATA_PLAN_SUCCESS,
     GET_ELECTRICITY_PROVIDERS_FAIL,
     GET_ELECTRICITY_PROVIDERS_REQUEST,
     GET_ELECTRICITY_PROVIDERS_SUCCESS,
+    GET_GLO_CG_DATA_PLAN_FAIL,
+    GET_GLO_CG_DATA_PLAN_REQUEST,
+    GET_GLO_CG_DATA_PLAN_SUCCESS,
     GET_GLO_DATA_PLAN_FAIL,
     GET_GLO_DATA_PLAN_REQUEST,
     GET_GLO_DATA_PLAN_SUCCESS,
@@ -86,6 +95,12 @@ export const initialGloDataState = {
     error: null
 };
 
+export const initialGloCgDataState = {
+    gloCgDataPlans: [],
+    loading: false,
+    error: null
+};
+
 export const initialMtnDataState = {
     mtnDataPlans: [],
     loading: false,
@@ -98,6 +113,11 @@ export const initialMtnSmeDataState = {
 };
 export const initialAirtelDataState = {
     airtelDataPlans: [],
+    loading: false,
+    error: null
+};
+export const initialAirtelCgDataState = {
+    airtelCgDataPlans: [],
     loading: false,
     error: null
 };
@@ -161,6 +181,11 @@ export const initialDataGiftingOrderState = {
     dataGiftData: {},
     dataGiftloading: false,
     dataGiftError: null
+};
+export const initialCgOrderState = {
+    CgData: {},
+    Cgdataloading: false,
+    CgdataError: null
 };
 export const initialFundingState = {
     paymentStatus: {},
@@ -234,6 +259,21 @@ export const getGloDataReducer = (state = initialGloDataState, action) => {
     }
 };
 
+export const getGloCgDataReducer = (state = initialGloCgDataState, action) => {
+    switch (action.type) {
+        case GET_GLO_CG_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_GLO_CG_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, gloCgDataPlans: action.payload };
+        case GET_GLO_CG_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
 export const getMtnSmeDataReducer = (state = initialMtnSmeDataState, action) => {
     switch (action.type) {
         case GET_MTN_SME_DATA_PLAN_REQUEST:
@@ -272,6 +312,21 @@ export const getAirtelDataReducer = (state = initialAirtelDataState, action) => 
         case GET_AIRTEL_DATA_PLAN_SUCCESS:
             return { ...state, loading: false, airtelDataPlans: action.payload };
         case GET_AIRTEL_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getAirtelcgDataReducer = (state = initialAirtelCgDataState, action) => {
+    switch (action.type) {
+        case GET_AIRTEL_CG_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_AIRTEL_CG_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, airtelCgDataPlans: action.payload };
+        case GET_AIRTEL_CG_DATA_PLAN_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:
@@ -492,6 +547,21 @@ export const dataGiftingOrderReducer = (state = initialDataGiftingOrderState, ac
             return { ...state, dataGiftloading: false, dataGiftData: action.payload };
         case GIFT_DATA_FAIL:
             return { ...state, dataGiftloading: false, dataGiftError: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const CgOrderReducer = (state = initialCgOrderState, action) => {
+    switch (action.type) {
+        case BUY_CG_DATA_REQUEST:
+            return { ...state, Cgdataloading: true };
+
+        case BUY_CG_DATA_SUCCESS:
+            return { ...state, Cgdataloading: false, CgData: action.payload };
+        case BUY_CG_DATA_FAIL:
+            return { ...state, Cgdataloading: false, CgdataError: action.payload };
 
         default:
             return state;

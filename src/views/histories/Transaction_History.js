@@ -114,7 +114,7 @@ const Histories = () => {
         return {
             id: `${serv._id}`,
             name: `${serv.TRX_Name ? serv?.TRX_Name : serv?.plan || '-'}`,
-            ref: `${serv.request_id || serv?.ref || serv?.tx_ref || '-'}`,
+            ref: `${serv.request_id || serv?.ref || serv?.tx_ref || serv?.request_Id || '-'}`,
             amount: `${serv.amount}`,
             network: `${serv.network ? serv.network : '-'}`,
             beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || serv?.phone || '-'}`,

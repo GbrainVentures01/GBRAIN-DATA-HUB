@@ -92,17 +92,30 @@ const pages = {
                 },
                 {
                     id: 'glo',
-                    title: 'Glo Data (Gifting)',
+                    title: 'Glo Data ',
                     type: 'item',
                     url: '/buy-glo-data',
                     target: false
                 },
-
+                {
+                    id: 'glo-cg',
+                    title: 'Glo Corporate Gifting ',
+                    type: 'item',
+                    url: '/buy-glo-cg-data',
+                    target: false
+                },
                 {
                     id: 'airtel',
-                    title: 'Airtel Data (Gifting)',
+                    title: 'Airtel Data',
                     type: 'item',
                     url: '/buy-airtel-data',
+                    target: false
+                },
+                {
+                    id: 'airtel-cg',
+                    title: 'Airtel Corporate Gifting ',
+                    type: 'item',
+                    url: '/buy-airtel-cg-data',
                     target: false
                 }
             ]
