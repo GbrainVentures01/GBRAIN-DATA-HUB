@@ -63,7 +63,7 @@ const SellAirtime = ({ title }) => {
 
     const handleSubmit = async (values) => {
         if (!file) {
-            enqueueSnackbar('provide screenhot proof to proceed', {
+            enqueueSnackbar('provide screenshot proof to proceed', {
                 variant: 'error',
                 autoHideDuration: 2000
             });
