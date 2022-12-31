@@ -30,7 +30,7 @@ const Register = () => {
                                                 textDecoration: 'none'
                                             }}
                                         >
-                                            <Typography variant="h2"> Gbrain Ventures</Typography>
+                                            <Typography variant="h2"> GBRAIN CORPORATE BUSINESS VENTURES</Typography>
                                             {/* <Logo /> */}
                                         </Link>
                                     </Grid>
