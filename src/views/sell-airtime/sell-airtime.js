@@ -214,12 +214,12 @@ const SellAirtime = ({ title }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography style={{ marginBottom: '20px' }} variant="body1">
-                                        Upload Screenshot
+                                        UPLOAD SCREENSHOT OF SUCCESSFUL AIRTIME SENT
                                     </Typography>
                                     <input
                                         id="file"
                                         name="screenshot"
-                                        placeholder="Upload screenshot of successful airtime transfer"
+                                        placeholder="Upload screenshot of successful airtime sent"
                                         type="file"
                                         onChange={(event) => {
                                             console.log(event.target.files);
