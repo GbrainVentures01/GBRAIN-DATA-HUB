@@ -30,7 +30,7 @@ const Contact = ({ title }) => {
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">Whatsaap </Typography>
+                        <Typography variant="h4">Whatsaap or Call</Typography>
                     </a>
                 </li>
                 <li
@@ -53,12 +53,12 @@ const Contact = ({ title }) => {
                     }}
                 >
                     <a
-                        href="tel: +2347054794170"
+                        href="tel: +2348123210297"
                         style={{
                             textDecoration: 'none'
                         }}
                     >
-                        <Typography variant="h4">+234 705 479 4170</Typography>
+                        <Typography variant="h4">+234 812 321 0297</Typography>
                     </a>
                 </li>
                 <li
