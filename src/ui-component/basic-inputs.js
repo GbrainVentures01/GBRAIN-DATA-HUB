@@ -19,7 +19,7 @@ export const CustomTextField = ({ name, fullWidth, ...other }) => {
 // custom select box
 
 export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...other }) => {
-    console.log(options);
+ 
     const [field, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
 

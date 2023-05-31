@@ -145,11 +145,16 @@ const BuyData = ({ title, network, sme, cg }) => {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan.Plan,
-            plan_id: values.plan.Plan_id,
+            plan_id: values.plan.plan_id,        
             network: network,
+            network_id: values.plan.network_id,
             request_id: generateRequestId(),
             pin: pinRef.current.values.join('')
         };
+
+        console.log("from body") 
+        console.log(body) 
+        
         dispatch(
             giftData({
                 orderDetails: {
