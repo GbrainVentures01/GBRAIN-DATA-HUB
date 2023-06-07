@@ -1,20 +1,26 @@
 // material-ui
 import { Grid } from '@mui/material';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState,  } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { userAction } from 'store/actions';
+import { getNotificationDetails, userAction } from 'store/actions';
 import { gridSpacing } from 'store/constant';
 // project imports
 import EarningCard from './EarningCard';
 import ProductListing from './ProductListing';
+import { useSnackbar } from 'notistack';
+import FeedBack from 'views/feedBack';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-
+    const { notificationDetails } = useSelector((state) => state);
+    const { notification } = notificationDetails;
+    const { enqueueSnackbar } = useSnackbar();
+    const [showAlert, setshowAlert] = useState(false);
+    // const [ setshowErrorAlert] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -25,7 +31,12 @@ const Dashboard = () => {
             return;
         }
         dispatch(userAction({ navigate }));
-    }, [dispatch, navigate]);
+        dispatch(getNotificationDetails({ enqueueSnackbar, setshowAlert,
+             }));
+
+       
+        
+    }, [dispatch, navigate,enqueueSnackbar]);
 
     return (
         <Grid container spacing={gridSpacing}>
@@ -59,6 +70,7 @@ const Dashboard = () => {
                     </Grid> */}
                 </Grid>
             </Grid>
+            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} title={notification?.title} message={notification?.message} variant="success" />}
         </Grid>
     );
 };

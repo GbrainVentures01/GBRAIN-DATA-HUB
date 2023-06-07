@@ -51,6 +51,9 @@ import {
     GET_MTN_SME_DATA_PLAN_FAIL,
     GET_MTN_SME_DATA_PLAN_REQUEST,
     GET_MTN_SME_DATA_PLAN_SUCCESS,
+    GET_NOTIFICATION_FAIL,
+    GET_NOTIFICATION_REQUEST,
+    GET_NOTIFICATION_SUCCESS,
     GET_SELL_AIRTIME_DETAILS_FAIL,
     GET_SELL_AIRTIME_DETAILS_REQUEST,
     GET_SELL_AIRTIME_DETAILS_SUCCESS,
@@ -240,6 +243,12 @@ export const verifyDetailsState = {
 export const verifyMeterState = {
     meterVerify: null,
     verifyMeterLoading: false,
+    error: null
+};
+
+export const initialNotificationState = {
+    notification: {},
+    notificationLoading: false,
     error: null
 };
 // get data plans reducers starts here
@@ -728,6 +737,21 @@ export const getBtcDetailsReducer = (state = initialBtcDetailState, action) => {
             return { ...state, loading: false, btcDetails: action.payload };
         case GET_SELL_AIRTIME_DETAILS_FAIL:
             return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const getNotificationReducer = (state = initialNotificationState, action) => {
+    switch (action.type) {
+        case GET_NOTIFICATION_REQUEST:
+            return { ...state, notificationLoading: true };
+
+        case GET_NOTIFICATION_SUCCESS:
+            return { ...state, notificationLoading: false, notification: action.payload };
+        case GET_NOTIFICATION_FAIL:
+            return { ...state, notificationLoading: false, error: action.payload };
 
         default:
             return state;

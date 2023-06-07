@@ -59,6 +59,22 @@ const Histories = () => {
             }
         },
         {
+            name: 'previous_balance',
+            label: 'Previous Balance',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+        {
+            name: 'current_balance',
+            label: 'Current Balance',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+        {
             name: 'beneficiary',
             label: 'Beneficiary',
             options: {
@@ -116,12 +132,13 @@ const Histories = () => {
             name: `${serv.TRX_Name ? serv?.TRX_Name : serv?.plan || '-'}`,
             ref: `${serv.request_id || serv?.ref || serv?.tx_ref || serv?.request_Id || '-'}`,
             amount: `${serv.amount}`,
+            previous_balance: `${serv?.previous_balance}`,
+            current_balance: `${serv?.current_balance}`,
             network: `${serv.network ? serv.network : '-'}`,
             beneficiary: `${serv.beneficiary ? serv?.beneficiary : serv?.phone_number || serv?.phone || '-'}`,
             status: `${serv.status}`,
             exam_pin: `${serv.purchased_pin || '-'}`,
             electricity: `${serv.purchased_token || '-'}`,
-
             date: convert(strDate)
         };
     });

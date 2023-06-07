@@ -55,6 +55,9 @@ import {
     GET_MTN_SME_DATA_PLAN_FAIL,
     GET_MTN_SME_DATA_PLAN_REQUEST,
     GET_MTN_SME_DATA_PLAN_SUCCESS,
+    GET_NOTIFICATION_FAIL,
+    GET_NOTIFICATION_REQUEST,
+    GET_NOTIFICATION_SUCCESS,
     GET_SELL_AIRTIME_DETAILS_FAIL,
     GET_SELL_AIRTIME_DETAILS_REQUEST,
     GET_SELL_AIRTIME_DETAILS_SUCCESS,
@@ -1078,5 +1081,41 @@ export const getSellBTCDetails =
                     variant: 'error',
                     autoHideDuration: 2000
                 });
+        }
+    };
+
+
+    export const getNotificationDetails =
+    ({ enqueueSnackbar, setshowAlert}) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_NOTIFICATION_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `notification`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            console.log("notification", data?.data?.attributes);
+
+            dispatch({
+                type: GET_NOTIFICATION_SUCCESS,
+                payload: data?.data?.attributes
+            });
+            setshowAlert((prevState) => !prevState);
+        } catch (error) {
+            dispatch({
+                type: GET_NOTIFICATION_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            // error &&
+            //     enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+            //         variant: 'error',
+            //         autoHideDuration: 2000
+            //     });
         }
     };

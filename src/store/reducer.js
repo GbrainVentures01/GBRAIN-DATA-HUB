@@ -31,7 +31,8 @@ import {
     userReducer,
     userUpdateReducer,
     verifyDetailsReducers,
-    verifyMeterReducers
+    verifyMeterReducers,
+    getNotificationReducer
 } from './netorkCallsReducers';
 
 // ==============================|| COMBINE REDUCER ||============================== //
@@ -67,7 +68,8 @@ const reducer = combineReducers({
     sellAirtimeDetails: getSellAirtimeDetailsReducer,
     sellBtcDetails: getBtcDetailsReducer,
     verifyDetailsData: verifyDetailsReducers,
-    verifyMeterData: verifyMeterReducers
+    verifyMeterData: verifyMeterReducers,
+    notificationDetails: getNotificationReducer
 });
 
 export default reducer;

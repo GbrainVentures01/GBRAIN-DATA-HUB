@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useNavigate } from 'react-router';
-const FeedBack = ({ message, disableTopup, purchasePin, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
+const FeedBack = ({title, message, disableTopup, purchasePin, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
     const navigate = useNavigate();
     const onClickSuccess = (setshowAlert, goHome) => {
         setshowAlert((prevAlert) => !prevAlert);
@@ -13,11 +13,12 @@ const FeedBack = ({ message, disableTopup, purchasePin, goHome, showAlert, setsh
         setshowErrorAlert(false);
     };
 
-    const SuccessFullAlert = ({ message }) => {
+    const SuccessFullAlert = ({title, message }) => {
         return (
             <SweetAlert
-                success
-                title="Successful!"
+        
+                  type= {title ? "info": "success"}
+                title= {title || "Successful!"}
                 show={showAlert}
                 onConfirm={() => onClickSuccess(setshowAlert, goHome)}
                 onCancel={() => setshowAlert(false)}
@@ -29,6 +30,7 @@ const FeedBack = ({ message, disableTopup, purchasePin, goHome, showAlert, setsh
                     </>
                 }
             >
+                <br/>
                 <Typography variant="subtitle1">{message}</Typography>
                 {purchasePin && <Typography variant="subtitle1">{purchasePin}</Typography>}
             </SweetAlert>
@@ -64,7 +66,7 @@ const FeedBack = ({ message, disableTopup, purchasePin, goHome, showAlert, setsh
     };
 
     if (showAlert) {
-        return <SuccessFullAlert message={message} />;
+        return <SuccessFullAlert title={title} message={message} />;
     } else if (showErrorAlert) {
         return <FailureAlert message={message} />;
     } else {
