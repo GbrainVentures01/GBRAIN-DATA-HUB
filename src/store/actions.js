@@ -823,13 +823,13 @@ export const verifyData =
             });
         } catch (error) {
             error &&
-                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error',
                     autoHideDuration: 2000
                 });
             dispatch({
                 type: VERIFY_DETAILS_FAIL,
-                payload: error.response?.data?.error?.message || error?.messag
+                payload: error.response?.data?.error?.message || error?.message
             });
         }
     };
@@ -1084,9 +1084,8 @@ export const getSellBTCDetails =
         }
     };
 
-
-    export const getNotificationDetails =
-    ({ enqueueSnackbar, setshowAlert}) =>
+export const getNotificationDetails =
+    ({ enqueueSnackbar, setshowAlert }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -1100,7 +1099,7 @@ export const getSellBTCDetails =
                 }
             });
 
-            console.log("notification", data?.data?.attributes);
+            console.log('notification', data?.data?.attributes);
 
             dispatch({
                 type: GET_NOTIFICATION_SUCCESS,

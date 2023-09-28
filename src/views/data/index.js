@@ -51,7 +51,7 @@ const BuyData = ({ title, network, sme, cg }) => {
     const { loading, data, error } = dataOrder;
     const { dataGiftloading, dataGiftData, dataGiftError } = dataGiftingOrder;
     const { Cgdataloading, CgData, CgdataError } = cgDataOrder;
-    console.log(CgData);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -79,8 +79,13 @@ const BuyData = ({ title, network, sme, cg }) => {
         pin: ''
     };
     const VALIDATIONS = yup.object().shape({
-        beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
-        amount: yup.number().integer().typeError('Amount Value must be a number'),
+        beneficiaryNum: yup
+            .string()
+            .matches(/^\d+$/, 'Only numbers are allowed')
+            .max(11, 'Maximum 11 characters allowed')
+            .min(11, 'number is not complete')
+            .required('Please enter beneficiary number'),
+        amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
 
         plan: yup.object().required('Please select data plan'),
         network: yup.string().required('Please select data plan')
@@ -145,16 +150,16 @@ const BuyData = ({ title, network, sme, cg }) => {
             beneficiary: values.beneficiaryNum,
             amount: values.amount,
             plan: values.plan.Plan,
-            plan_id: values.plan.plan_id,        
+            plan_id: values.plan.plan_id,
             network: network,
             network_id: values.plan.network_id,
             request_id: generateRequestId(),
             pin: pinRef.current.values.join('')
         };
 
-        console.log("from body") 
-        console.log(body) 
-        
+        console.log('from body');
+        console.log(body);
+
         dispatch(
             giftData({
                 orderDetails: {

@@ -39,7 +39,12 @@ const BuyAirtime = ({ title, network }) => {
         pin: ''
     };
     const VALIDATIONS = yup.object().shape({
-        beneficiary: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number'),
+        beneficiary: yup
+            .string()
+            .matches(/^\d+$/, 'Only numbers are allowed')
+            .max(11, 'Maximum 11 characters allowed')
+            .min(11, 'number is not complete')
+            .required('Please enter beneficiary number'),
         amount: yup.number().integer().required('Please enter airtime amount').typeError('amount must be a number'),
 
         network: yup.string()
