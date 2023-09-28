@@ -1,9 +1,9 @@
 import axios from 'axios';
 // import Cookies from 'js-cookie';
-// const liveUrl = 'https://gbrain-backend.herokuapp.com/api/';
+const liveUrl = 'https://gbrain-backend.herokuapp.com/api/';
 // const liveUrl_prod = 'https://gbrain-backend-live.herokuapp.com/api/';
 
-const testUrl = 'https://8914-105-112-188-154.ngrok.io/api/';
+// const testUrl = 'https://gbrain-backend-live.herokuapp.com/api/';
 
 // const baseUrl = `${liveUrl}/api`;
 
@@ -27,7 +27,7 @@ export const makeNetworkCall = async ({ method, target, path, requestBody, param
 
     const config = {
         method,
-        url: `${testUrl}${path}`,
+        url: `${liveUrl}${path}`,
         params: params,
         headers: headers,
         data: requestBody
