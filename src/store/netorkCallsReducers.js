@@ -583,7 +583,12 @@ export const monnifyFundingReducer = (state = initialFundingState, action) => {
             return { ...state, loading: true };
 
         case FUND_WALLET_BY_MONNIFY_SUCCESS:
-            window.open(action.payload.response.data.link || action.payload.response.data.authorizationUrl, '_blank');
+            window.open(
+                action.payload.response.data?.link ||
+                    action.payload.response.data?.authorizationUrl ||
+                    action.payload.response?.responseBody?.checkoutUrl,
+                '_blank'
+            );
             return { ...state, loading: false, paymentStatus: action.payload.message };
         case FUND_WALLET_BY_MONNIFY_FAIL:
             return { ...state, loading: false, error: action.payload };

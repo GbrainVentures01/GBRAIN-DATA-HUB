@@ -758,6 +758,7 @@ export const fundWalletWithMonnify =
             });
             console.log(data);
         } catch (error) {
+            console.log('ERROR: ', error);
             dispatch({
                 type: FUND_WALLET_BY_MONNIFY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag

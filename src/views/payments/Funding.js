@@ -40,7 +40,49 @@ const Funding = () => {
     };
 
     return (
-        <MainCard title="Fund Wallet With Credo or Flutter Wave ">
+        <MainCard title="Fund Wallet With Monnify, Credo or Flutter Wave ">
+            <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
+                Monnify
+            </Typography>
+            {/* <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 2.5, mb: 1.75 }}>
+                Card Payment
+            </Typography> */}
+            <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
+                Enter amount to fund and you will be redirected to monnify payment gateway.
+            </Typography>
+            <br />
+            <br />
+            <Typography variant="subtile" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
+                You can choose any payment method you are comfortable with, after payment is successful, you will be redirected back to our
+                website.
+            </Typography>
+            <Formik
+                initialValues={{ ...INITIAL_FORM_VALUES }}
+                onSubmit={handleSubmit}
+                validationSchema={VALIDATIONS}
+                enableReinitialize={true}
+            >
+                {({ values, setFieldValue }) => (
+                    <Form>
+                        <Grid container spacing={4}>
+                            <Grid item xs={6} sx={{ mt: 2 }}>
+                                <CustomTextField fullWidth={true} name="amount" label="Amount" />
+                            </Grid>
+                        </Grid>
+
+                        <Button
+                            disabled={loading ? true : false}
+                            onClick={() => handleSubmit({ values, gateway: 'monify' })}
+                            variant="contained"
+                            color="primary"
+                            sx={{ mt: 2 }}
+                        >
+                            Pay Now
+                        </Button>
+                    </Form>
+                )}
+            </Formik>
+            <br /> <br />
             <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
                 Flutter Wave
             </Typography>
