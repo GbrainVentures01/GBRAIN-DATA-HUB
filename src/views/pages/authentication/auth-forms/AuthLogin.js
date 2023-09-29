@@ -59,7 +59,7 @@ const FirebaseLogin = ({ ...others }) => {
 
     return (
         <>
-            <Grid container direction="column" justifyContent="center" spacing={2}>
+            <Grid container direction="column" justifyContent="center" alignItems="center" spacing={2}>
                 <Grid item xs={12}>
                     <Box
                         sx={{
@@ -69,7 +69,7 @@ const FirebaseLogin = ({ ...others }) => {
                     >
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
 
-                        <Button
+                        {/* <Button
                             variant="outlined"
                             sx={{
                                 cursor: 'unset',
@@ -85,14 +85,29 @@ const FirebaseLogin = ({ ...others }) => {
                             disabled
                         >
                             OR
-                        </Button>
+                        </Button> */}
+                        <Grid item xs={12} container alignItems="center" justifyContent="center">
+                            <Box>
+                                <Typography variant="caption" fontSize="16px">
+                                    OR
+                                </Typography>
+                            </Box>
+                        </Grid>
 
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
                     </Box>
                 </Grid>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Sign in with Email address</Typography>
+                        <Typography
+                            variant="caption"
+                            style={{
+                                textTransform: 'uppercase'
+                            }}
+                            fontSize="16px"
+                        >
+                            register with Email address
+                        </Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -192,15 +207,24 @@ const FirebaseLogin = ({ ...others }) => {
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>
                                 <Button
+                                    sx={{
+                                        textTransform: 'uppercase',
+                                        borderRadius: '30px',
+                                        backgroundColor: {
+                                            backgroundColor: '#83529f',
+                                            ':hover': {
+                                                backgroundColor: '#83529f'
+                                            }
+                                        }
+                                    }}
                                     disabled={login.loading ? true : false}
                                     disableElevation
                                     fullWidth
                                     size="large"
                                     type="submit"
                                     variant="contained"
-                                    color="secondary"
                                 >
-                                    Sign in
+                                    &#9660; Sign in
                                 </Button>
                             </AnimateButton>
                         </Box>

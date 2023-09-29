@@ -1,19 +1,29 @@
 // material-ui
 import logo from 'assets/images/GBRAIN LOGO NEW.png';
 
-
 // ==============================|| LOGO SVG ||============================== //
 
 const Logo = () => {
-   
-
     return (
         /**
          * if you want to use image instead of svg uncomment following, and comment out <svg> element.
          *
          *
          */
-        <img src={logo} alt="Gbrain" width="65" />
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: '#f1f0f5',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                width: '100px',
+                height: '100px',
+                zIndex: 1000
+            }}
+        >
+            <img src={logo} alt="Gbrain" width="65" />
+        </div>
 
         // <svg width="92" height="32" viewBox="0 0 92 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         //     <path

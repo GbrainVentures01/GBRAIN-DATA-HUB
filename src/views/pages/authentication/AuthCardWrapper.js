@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 // project import
 import MainCard from 'ui-component/cards/MainCard';
 
-
-
 // ==============================|| AUTHENTICATION CARD WRAPPER ||============================== //
 
 const AuthCardWrapper = ({ children, ...other }) => (

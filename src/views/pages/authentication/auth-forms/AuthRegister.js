@@ -23,12 +23,12 @@ import { Form, Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 // project imports
 import { useEffect, useState } from 'react';
+import PinInput from 'react-pin-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerAction } from 'store/actions';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
-import PinInput from 'react-pin-input';
 // third party
 import * as Yup from 'yup';
 
@@ -38,7 +38,7 @@ const FirebaseRegister = ({ ...others }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const { customization, register } = useSelector((state) => state);
+    const { register } = useSelector((state) => state);
     const [showPassword, setShowPassword] = useState(false);
     const [checked, setChecked] = useState(true);
 
@@ -95,7 +95,7 @@ const FirebaseRegister = ({ ...others }) => {
                 <Grid item xs={12}>
                     <Box sx={{ alignItems: 'center', display: 'flex' }}>
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
-                        <Button
+                        {/* <Button
                             variant="outlined"
                             sx={{
                                 cursor: 'unset',
@@ -111,13 +111,22 @@ const FirebaseRegister = ({ ...others }) => {
                             disabled
                         >
                             OR
-                        </Button>
+                        </Button> */}
+                        <Grid item xs={12} container alignItems="center" justifyContent="center">
+                            <Box>
+                                <Typography variant="caption" fontSize="16px">
+                                    OR
+                                </Typography>
+                            </Box>
+                        </Grid>
                         <Divider sx={{ flexGrow: 1 }} orientation="horizontal" />
                     </Box>
                 </Grid>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>
-                        <Typography variant="subtitle1">Sign up with Email address</Typography>
+                        <Typography style={{ textTransform: 'uppercase' }} variant="caption" fontSize="16px">
+                            Sign in with Email address
+                        </Typography>
                     </Box>
                 </Grid>
             </Grid>
@@ -423,6 +432,27 @@ const FirebaseRegister = ({ ...others }) => {
                             <Box sx={{ mt: 2 }}>
                                 <AnimateButton>
                                     <Button
+                                        sx={{
+                                            borderRadius: '30px',
+                                            backgroundColor: {
+                                                backgroundColor: '#83529f',
+                                                ':hover': {
+                                                    backgroundColor: '#83529f'
+                                                }
+                                            },
+                                            textTransform: 'uppercase'
+                                        }}
+                                        disabled={register.loading ? true : false}
+                                        disableElevation
+                                        fullWidth
+                                        size="large"
+                                        type="submit"
+                                        variant="contained"
+                                        onClick={() => handleSubmit(values)}
+                                    >
+                                        &#9660; register
+                                    </Button>
+                                    {/* <Button
                                         disabled={register.loading ? true : false}
                                         disableElevation
                                         fullWidth
@@ -433,7 +463,7 @@ const FirebaseRegister = ({ ...others }) => {
                                         onClick={() => handleSubmit(values)}
                                     >
                                         Sign up
-                                    </Button>
+                                    </Button> */}
                                 </AnimateButton>
                             </Box>
                         </container>
