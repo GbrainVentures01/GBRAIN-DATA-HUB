@@ -35,7 +35,7 @@ const FirebaseLogin = ({ ...others }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const theme = useTheme();
-    const { customization, login } = useSelector((state) => state);
+    const { login } = useSelector((state) => state);
     const [checked, setChecked] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
