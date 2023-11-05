@@ -28,6 +28,9 @@ import {
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
+    GENERATE_mONNIFY_ACCOUNT_FAIL,
+    GENERATE_mONNIFY_ACCOUNT_REQUEST,
+    GENERATE_mONNIFY_ACCOUNT_SUCCESS,
     GET_AIRTEL_CG_DATA_PLAN_FAIL,
     GET_AIRTEL_CG_DATA_PLAN_REQUEST,
     GET_AIRTEL_CG_DATA_PLAN_SUCCESS,
@@ -295,7 +298,7 @@ export const buyAirtime =
     };
 
 export const sellAirtime =
-    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert, file }) =>
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert, navigate, from }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -304,7 +307,7 @@ export const sellAirtime =
 
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: 'sell-airtimes',
+                path: from === 'otp' ? 'verify-airtime-otp' : from === 'get-otp' ? 'sell-airtime' : 'finalize-sell-airtime',
                 requestBody: {
                     data: orderDetails
                 },
@@ -312,37 +315,38 @@ export const sellAirtime =
                     Authorization: `Bearer ${token}`
                 }
             });
-            if (data) {
-                console.log(data);
-                file.append('ref', 'api::sell-airtime.sell-airtime');
-                file.append('refId', data.data.Order.id);
-                file.append('field', 'screenshot');
-                const res = await makeNetworkCall({
-                    method: 'POST',
-                    path: 'upload',
-                    requestBody: file,
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+            // if (data) {
+            // console.log(data);
+            // file.append('ref', 'api::sell-airtime.sell-airtime');
+            // file.append('refId', data.data.Order.id);
+            // file.append('field', 'screenshot');
+            // const res = await makeNetworkCall({
+            //     method: 'POST',
+            //     path: 'upload',
+            //     requestBody: file,
+            //     headers: {
+            //         Authorization: `Bearer ${token}`
+            //     }
+            // });
 
-                console.log('====================================');
-                console.log(res.data);
-                console.log('====================================');
+            // console.log('====================================');
+            // console.log(res.data);
+            // console.log('====================================');
 
-                if (res.data) {
-                    dispatch({
-                        type: SELL_AIRTIME_SUCCESS,
-                        payload: data
-                    });
+            // if (res.data) {
+            dispatch({
+                type: SELL_AIRTIME_SUCCESS,
+                payload: data
+            });
 
-                    enqueueSnackbar(data?.data?.message, {
-                        variant: 'success',
-                        autoHideDuration: 2000
-                    });
-                    setshowAlert((prevState) => !prevState);
-                }
-            }
+            enqueueSnackbar(data?.data?.message, {
+                variant: 'success',
+                autoHideDuration: 2000
+            });
+            setshowAlert((prevState) => !prevState);
+            navigate(`/sell-airtime-otp?phone_number=${orderDetails.phone_number}&network=${orderDetails.network}`);
+            // }
+            // }
         } catch (error) {
             dispatch({
                 type: SELL_AIRTIME_FAIL,
@@ -761,6 +765,46 @@ export const fundWalletWithMonnify =
             console.log('ERROR: ', error);
             dispatch({
                 type: FUND_WALLET_BY_MONNIFY_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+        }
+    };
+
+export const generateMonnifyAccount =
+    ({ enqueueSnackbar, navigate }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GENERATE_mONNIFY_ACCOUNT_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: `create-reserved-account`,
+                requestBody: {},
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: GENERATE_mONNIFY_ACCOUNT_SUCCESS,
+                payload: data
+            });
+            console.log(data);
+            enqueueSnackbar('Account Created Successfully', {
+                variant: 'sucess',
+                autoHideDuration: 2000
+            });
+            navigate('/');
+            navigate('/fund-wallet');
+        } catch (error) {
+            console.log('ERROR: ', error);
+            dispatch({
+                type: GENERATE_mONNIFY_ACCOUNT_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
             });
             error &&

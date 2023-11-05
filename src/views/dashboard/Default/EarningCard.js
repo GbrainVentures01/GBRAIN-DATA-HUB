@@ -53,10 +53,9 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const EarningCard = ({ isLoading, message }) => {
     const { loggedInUser } = useSelector((state) => state);
     const { user } = loggedInUser;
-    console.log(user);
 
     const theme = useTheme();
 
@@ -149,7 +148,7 @@ const EarningCard = ({ isLoading }) => {
                                         </div>
 
                                         {Cookies.get('user') ? (
-                                            <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 1.75 }}>
+                                            <>
                                                 <Link
                                                     to={'/fund-wallet'}
                                                     style={{
@@ -160,10 +159,41 @@ const EarningCard = ({ isLoading }) => {
                                                         bottom: 0
                                                     }}
                                                 >
-                                                    {' '}
-                                                    Fund Wallet
+                                                    <Grid container columnSpacing={-11}>
+                                                        <Grid item xs={6}>
+                                                            <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mb: 1.75, mt: 1.75 }}>
+                                                                Fund Wallet
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <Avatar
+                                                                sx={{
+                                                                    mb: 1.75,
+                                                                    mt: 1.75,
+                                                                    // position: 'relative',
+                                                                    // top: 6,
+                                                                    // bottom: 0,
+                                                                    cursor: 'pointer',
+                                                                    ...theme.typography.smallAvatar,
+                                                                    backgroundColor: theme.palette.secondary[200],
+                                                                    color: theme.palette.secondary.dark
+                                                                }}
+                                                            >
+                                                                <ArrowUpwardIcon
+                                                                    fontSize="inherit"
+                                                                    sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
+                                                                />
+                                                            </Avatar>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Link>
-                                            </Typography>
+
+                                                <marquee>
+                                                    <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mt: 1.75, mb: 0.25 }}>
+                                                        {message ? message : ''}
+                                                    </Typography>
+                                                </marquee>
+                                            </>
                                         ) : (
                                             <Link to={'/pages/login'}>
                                                 <Typography variant="subtitle1" color={'white'}>
@@ -172,18 +202,9 @@ const EarningCard = ({ isLoading }) => {
                                             </Link>
                                         )}
                                     </Grid>
-                                    <Grid item>
-                                        <Avatar
-                                            sx={{
-                                                cursor: 'pointer',
-                                                ...theme.typography.smallAvatar,
-                                                backgroundColor: theme.palette.secondary[200],
-                                                color: theme.palette.secondary.dark
-                                            }}
-                                        >
-                                            <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
-                                        </Avatar>
-                                    </Grid>
+                                    {/* <Grid item>
+                                  
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
                         </Grid>

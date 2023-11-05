@@ -1,7 +1,22 @@
 import { Button, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-const FeedBack = ({title, message, disableTopup, purchasePin, goHome, showAlert, setshowAlert, showErrorAlert, setshowErrorAlert }) => {
+import { generateMonnifyAccount } from 'store/actions';
+const FeedBack = ({
+    title,
+    type,
+    message,
+    from,
+    disableTopup,
+    purchasePin,
+    goHome,
+    showAlert,
+    setshowAlert,
+    showErrorAlert,
+    setshowErrorAlert
+}) => {
     const navigate = useNavigate();
     const onClickSuccess = (setshowAlert, goHome) => {
         setshowAlert((prevAlert) => !prevAlert);
@@ -9,28 +24,42 @@ const FeedBack = ({title, message, disableTopup, purchasePin, goHome, showAlert,
             navigate('/');
         }
     };
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+    const { monnifyAccountGeneration } = useSelector((state) => state);
+    const { loading } = monnifyAccountGeneration;
+
+    const generateAccount = async (setshowAlert) => {
+        await dispatch(generateMonnifyAccount({ enqueueSnackbar, navigate }));
+        setshowAlert((prevAlert) => !prevAlert);
+    };
     const onClickFailure = () => {
         setshowErrorAlert(false);
     };
 
-    const SuccessFullAlert = ({title, message }) => {
+    const SuccessFullAlert = ({ title, message }) => {
         return (
             <SweetAlert
-        
-                  type= {title ? "info": "success"}
-                title= {title || "Successful!"}
+                type={type ? 'info' : 'success'}
+                title={title || 'Successful!'}
                 show={showAlert}
-                onConfirm={() => onClickSuccess(setshowAlert, goHome)}
+                onConfirm={() => (from === 'fund' ? generateAccount(setshowAlert) : onClickSuccess(setshowAlert, goHome))}
                 onCancel={() => setshowAlert(false)}
                 customButtons={
                     <>
-                        <Button fullWidth onClick={() => onClickSuccess(setshowAlert, goHome)} variant="contained" color="primary">
-                            Ok
+                        <Button
+                            fullWidth
+                            onClick={() => (from === 'fund' ? generateAccount(setshowAlert) : onClickSuccess(setshowAlert, goHome))}
+                            variant="contained"
+                            color="primary"
+                            disabled={loading}
+                        >
+                            {from === 'fund' ? 'Generate now' : 'Ok'}
                         </Button>
                     </>
                 }
             >
-                <br/>
+                <br />
                 <Typography variant="subtitle1">{message}</Typography>
                 {purchasePin && <Typography variant="subtitle1">{purchasePin}</Typography>}
             </SweetAlert>

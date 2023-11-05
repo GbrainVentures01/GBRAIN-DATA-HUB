@@ -22,6 +22,7 @@ import Profile from 'views/profile';
 import EditProfile from 'views/profile/edit_profile';
 import SellAirtime from 'views/sell-airtime/sell-airtime';
 import { airtimeProducts, dataProducts } from '../_mocks_/products';
+import SellAirtimeOtp from 'views/sell-airtime/sell-airtime-otp';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -97,6 +98,10 @@ const MainRoutes = {
         {
             path: '/sell-airtime',
             element: <SellAirtime title="Convert Excess Airtime To Cash" />
+        },
+        {
+            path: '/sell-airtime-otp',
+            element: <SellAirtimeOtp title="Enter The Otp That Was Sent To  " />
         },
         {
             path: '/buy-data',

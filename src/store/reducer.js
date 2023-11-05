@@ -32,7 +32,8 @@ import {
     userUpdateReducer,
     verifyDetailsReducers,
     verifyMeterReducers,
-    getNotificationReducer
+    getNotificationReducer,
+    generateMonnifyAccountReducer
 } from './netorkCallsReducers';
 
 // ==============================|| COMBINE REDUCER ||============================== //
@@ -69,7 +70,8 @@ const reducer = combineReducers({
     sellBtcDetails: getBtcDetailsReducer,
     verifyDetailsData: verifyDetailsReducers,
     verifyMeterData: verifyMeterReducers,
-    notificationDetails: getNotificationReducer
+    notificationDetails: getNotificationReducer,
+    monnifyAccountGeneration: generateMonnifyAccountReducer
 });
 
 export default reducer;

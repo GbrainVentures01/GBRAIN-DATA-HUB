@@ -27,6 +27,9 @@ import {
     FUND_WALLET_BY_MONNIFY_FAIL,
     FUND_WALLET_BY_MONNIFY_REQUEST,
     FUND_WALLET_BY_MONNIFY_SUCCESS,
+    GENERATE_mONNIFY_ACCOUNT_FAIL,
+    GENERATE_mONNIFY_ACCOUNT_REQUEST,
+    GENERATE_mONNIFY_ACCOUNT_SUCCESS,
     GET_AIRTEL_CG_DATA_PLAN_FAIL,
     GET_AIRTEL_CG_DATA_PLAN_REQUEST,
     GET_AIRTEL_CG_DATA_PLAN_SUCCESS,
@@ -192,6 +195,11 @@ export const initialCgOrderState = {
 };
 export const initialFundingState = {
     paymentStatus: {},
+    loading: false,
+    error: null
+};
+export const initialAccountGenerationState = {
+    accountStatus: {},
     loading: false,
     error: null
 };
@@ -591,6 +599,20 @@ export const monnifyFundingReducer = (state = initialFundingState, action) => {
             );
             return { ...state, loading: false, paymentStatus: action.payload.message };
         case FUND_WALLET_BY_MONNIFY_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+export const generateMonnifyAccountReducer = (state = initialAccountGenerationState, action) => {
+    switch (action.type) {
+        case GENERATE_mONNIFY_ACCOUNT_REQUEST:
+            return { ...state, loading: true };
+
+        case GENERATE_mONNIFY_ACCOUNT_SUCCESS:
+            return { ...state, loading: false, accountStatus: action.payload };
+        case GENERATE_mONNIFY_ACCOUNT_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:

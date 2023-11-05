@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Paper, Typography } from '@mui/material';
 
 import MainCard from 'ui-component/cards/MainCard';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,18 +10,28 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { fundWalletWithMonnify, userAction } from 'store/actions';
 import { useSnackbar } from 'notistack';
+import FeedBack from 'views/feedBack';
+import { gridSpacing } from 'store/constant';
+import { Box } from '@mui/system';
 
 const Funding = () => {
-    const { fundWithMonnify } = useSelector((state) => state);
-    // const { user } = loggedInUser;
+    const { fundWithMonnify, loggedInUser } = useSelector((state) => state);
+    const { user } = loggedInUser;
     const { loading } = fundWithMonnify;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const [showAlert, setshowAlert] = useState(false);
+
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
+
         dispatch(userAction({ navigate }));
-    }, [navigate, dispatch]);
+        if (!user?.hasAccountNum) {
+            setshowAlert((prevAlert) => !prevAlert);
+        }
+    }, [navigate, dispatch, setshowAlert]);
+
     const INITIAL_FORM_VALUES = {
         amount: ''
     };
@@ -40,7 +50,38 @@ const Funding = () => {
     };
 
     return (
-        <MainCard title="Fund Wallet With Monnify, Credo or Flutter Wave ">
+        <MainCard title="Fund Wallet By Transferring To Your Unique Account Number Or With Monnify, Credo or Flutter Wave  ">
+            {user?.hasAccountNum && (
+                <>
+                    <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
+                        Bank Transfer
+                    </Typography>
+                    <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
+                        These are your unique monnify vitual accounts, you can always transfer to it anytime and it will reflect immediately
+                        and automatically in your wallet.
+                    </Typography>
+                </>
+            )}
+            {user?.hasAccountNum ? (
+                <Grid container spacing={3}>
+                    {user.monnify_bank_details.map((acc, index) => (
+                        <Grid key={index} item xs={12} md={3}>
+                            <Paper variant="outlined" sx={{ mt: 2, py: 1.5, textAlign: 'center' }}>
+                                <Typography variant="subtitle1">Bank Name: {acc.bank_name}</Typography>
+                                <Typography variant="subtitle1">Account Number: {acc.account_number}</Typography>
+                            </Paper>
+                        </Grid>
+                    ))}
+                </Grid>
+            ) : (
+                <></>
+            )}
+            {user?.hasAccountNum && (
+                <>
+                    <br />
+                    <br />
+                </>
+            )}
             <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
                 Monnify
             </Typography>
@@ -161,6 +202,15 @@ const Funding = () => {
                     </Form>
                 )}
             </Formik>
+            <FeedBack
+                title={'Account Transfer Now Available'}
+                message={'Generate your monnify funding bank account number now'}
+                type="info"
+                setshowAlert={setshowAlert}
+                showAlert={showAlert}
+                goHome={false}
+                from={'fund'}
+            />
         </MainCard>
     );
 };

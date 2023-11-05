@@ -1,8 +1,8 @@
 // material-ui
 import { Grid } from '@mui/material';
 import Cookies from 'js-cookie';
-import { useEffect, useState,  } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getNotificationDetails, userAction } from 'store/actions';
 import { gridSpacing } from 'store/constant';
@@ -31,19 +31,17 @@ const Dashboard = () => {
             return;
         }
         dispatch(userAction({ navigate }));
-        dispatch(getNotificationDetails({ enqueueSnackbar, setshowAlert,
-             }));
-
-       
-        
-    }, [dispatch, navigate,enqueueSnackbar]);
+        dispatch(getNotificationDetails({ enqueueSnackbar, setshowAlert }));
+    }, [dispatch, navigate, enqueueSnackbar]);
 
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
+                        <br />
+                        <br />
+                        <EarningCard isLoading={isLoading} message={notification?.message} />
                     </Grid>
                     {/* <Grid item lg={4} md={6} sm={6} xs={12}>
                         <TotalOrderLineChartCard isLoading={isLoading} />
@@ -70,7 +68,15 @@ const Dashboard = () => {
                     </Grid> */}
                 </Grid>
             </Grid>
-            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} title={notification?.title} message={notification?.message} variant="success" />}
+            {
+                <FeedBack
+                    setshowAlert={setshowAlert}
+                    showAlert={showAlert}
+                    title={notification?.title}
+                    message={notification?.message}
+                    variant="success"
+                />
+            }
         </Grid>
     );
 };
