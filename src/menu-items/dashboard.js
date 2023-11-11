@@ -15,6 +15,7 @@ const dashboard = {
             id: 'default',
             title: 'Dashboard',
             type: 'item',
+            color: 'brown',
             url: '/',
             icon: icons.FaHome,
             breadcrumbs: false

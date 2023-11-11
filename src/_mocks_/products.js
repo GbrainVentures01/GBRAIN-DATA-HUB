@@ -1,50 +1,64 @@
-import CallIcon from '@mui/icons-material/Call';
-import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
-import TvIcon from '@mui/icons-material/Tv';
-import PaidIcon from '@mui/icons-material/Paid';
-import SchoolIcon from '@mui/icons-material/School';
 import mtnLogo from '../assets/images/network/mtn-logo.png';
 import gloLogo from '../assets/images/network/glo-log.png';
 import airtelLogo from '../assets/images/network/airtel-logo.png';
+import data from '../assets/images/data4.svg';
+import airtime from '../assets/images/airtime.svg';
+import tv from '../assets/images/tv.svg';
+import education from '../assets/images/education.svg';
+import convert from '../assets/images/convert.svg';
+import elect from '../assets/images/electric.svg';
+import transaction from '../assets/images/transaction.svg';
+import wallet from '../assets/images/wallet.svg';
 // import etisalat from '../assets/images/network/9mobile-logo.jpg';
-
+//  <NetworkCheckIcon style={{ color: 'blue', fontSize: '35px' }} />, <NetworkCheckIcon style={{ color: 'blue', fontSize: '35px' }} />,
 export const products = [
     {
         id: 1,
         name: 'Buy Airtime',
-        icon: <CallIcon style={{ color: 'green', fontSize: '35px' }} />,
+        image: airtime,
         url: '/buy-airtime'
     },
     {
         id: 2,
         name: 'Data Bundle',
-        icon: <NetworkCheckIcon style={{ color: 'blue', fontSize: '35px' }} />,
+        image: data,
         url: '/buy-data'
     },
     {
         id: 3,
-        name: 'Pay Electricity Bills',
-        icon: <EmojiObjectsIcon style={{ color: 'orange', fontSize: '35px' }} />,
+        name: 'Electricity Bills',
+        image: elect,
         url: '/electricity-sub'
     },
     {
         id: 4,
-        name: 'Cable Tv Subscription',
-        icon: <TvIcon style={{ color: 'brown', fontSize: '35px' }} />,
+        name: 'Cable Sub',
+        image: tv,
         url: '/cable-tv-sub'
     },
     {
         id: 5,
-        name: 'Education/Card Pin',
-        icon: <SchoolIcon style={{ color: 'teal', fontSize: '35px' }} />,
+        name: 'WAEC/NECO Pin',
+        image: education,
         url: '/exam-pin'
     },
     {
         id: 6,
-        name: 'Convert Airtime To Cash ',
-        icon: <PaidIcon style={{ color: 'purple', fontSize: '35px' }} />,
+        name: 'Airtime To Cash ',
+        image: convert,
         url: '/sell-airtime'
+    },
+    {
+        id: 7,
+        name: 'Fund Wallet ',
+        image: wallet,
+        url: '/fund-wallet'
+    },
+    {
+        id: 8,
+        name: 'Trans. History ',
+        image: transaction,
+        url: '/trx-histories'
     }
 ];
 

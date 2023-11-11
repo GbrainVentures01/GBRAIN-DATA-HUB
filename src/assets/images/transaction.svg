@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2018 (64-Bit Evaluation Version) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="5.84039in" height="6.59958in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 5721.13 6464.82"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <font id="FontID0" horiz-adv-x="722" font-variant="normal" style="fill-rule:nonzero" font-style="normal,italic" font-weight="700">
+	<font-face 
+		font-family="Arvo">
+		<font-face-src>
+			<font-face-name name="Arvo Bold Italic"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="N" horiz-adv-x="871" d="M663.166 740.166l298.833 0 -30.832 -134.168 -63.501 0 -139.666 -605.999 -168.001 0 -188.5 456.501 -74.6659 -322.668 63.0003 0 -30.6662 -133.833 -299.333 0 31.1669 133.833 65.998 0 108.834 472.166 -79.998 0 31.1669 134.168 251.998 0 182.502 -456.998 75.3324 322.831 -64.9998 0 31.3327 134.168z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Arvo";font-variant:normal;font-style:normal,italic;font-weight:bold;src:url("#FontID0") format(svg)}
+    .str7 {stroke:#944FC2;stroke-width:90.38;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str8 {stroke:#944FC2;stroke-width:90.38;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str0 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str2 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str1 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str3 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str4 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str6 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str5 {stroke:#F58634;stroke-width:125.14;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .fil4 {fill:none}
+    .fil1 {fill:#944FC2}
+    .fil3 {fill:#ECEBFE}
+    .fil2 {fill:#EEEBFC}
+    .fil5 {fill:#F58634;fill-rule:nonzero}
+    .fil9 {fill:#944FC2;fill-rule:nonzero}
+    .fil8 {fill:url(#id0)}
+    .fil7 {fill:url(#id1)}
+    .fil0 {fill:url(#id2)}
+    .fil6 {fill:url(#id3)}
+    .fnt0 {font-style:italic;font-weight:bold;font-size:1186.18px;font-family:'Arvo'}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="3030.21" y1="4391.92" x2="5278.59" y2="4391.92">
+   <stop offset="0" style="stop-opacity:1; stop-color:#FA8A4B"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FDE85D"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="269.1" y1="1397.94" x2="1486.37" y2="1397.94">
+   <stop offset="0" style="stop-opacity:1; stop-color:#FD924B"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FDE85D"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="9576.69" y1="4860.2" x2="-1950.3" y2="1910.78">
+   <stop offset="0" style="stop-opacity:1; stop-color:#A69CF3"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FEFEFE"/>
+  </linearGradient>
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" xlink:href="#id2" x1="5890.68" y1="6568.72" x2="4439.7" y2="4158.77">
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1929239238704">
+   <rect class="fil0" x="999.79" y="-0" width="3994.49" height="6464.82" rx="346.79" ry="301.47"/>
+   <rect class="fil1" x="999.79" y="703.43" width="3994.49" height="4912.82"/>
+   <rect class="fil2" x="999.79" y="1518.68" width="3088.35" height="3606.52"/>
+   <path class="fil3" d="M999.79 1141.46l3397.29 0c124.37,0 226.13,101.75 226.13,226.13l0 223.63 -3623.42 0 0 -449.77z"/>
+   <g>
+    <line class="fil4 str0" x1="1971.14" y1="2300.17" x2="3522.05" y2= "2300.17" />
+   </g>
+   <g>
+    <line class="fil4 str1" x1="1971.14" y1="2816.29" x2="3522.05" y2= "2816.29" />
+   </g>
+   <g>
+    <line class="fil4 str2" x1="1971.14" y1="3320.29" x2="3522.05" y2= "3320.29" />
+   </g>
+   <g>
+    <path class="fil5" d="M1971.14 3904.57c-34.56,0 -62.57,-28.01 -62.57,-62.57 0,-34.56 28.01,-62.57 62.57,-62.57l0 125.14zm1023.61 0l-1023.61 0 0 -125.14 1023.61 0 0 125.14zm0 -125.14c34.56,0 62.57,28.01 62.57,62.57 0,34.56 -28.01,62.57 -62.57,62.57l0 -125.14z"/>
+   </g>
+   <g>
+    <polyline class="fil4 str3" points="1327.98,2309.65 1458.67,2434.4 1699.73,2207.11 "/>
+   </g>
+   <g>
+    <polyline class="fil4 str4" points="1327.98,2814.87 1458.67,2939.62 1699.73,2712.33 "/>
+   </g>
+   <g>
+    <polyline class="fil4 str5" points="1327.98,3321.27 1458.67,3446.02 1699.73,3218.73 "/>
+   </g>
+   <g>
+    <polyline class="fil4 str6" points="1327.98,3811.94 1458.67,3936.69 1699.73,3709.4 "/>
+   </g>
+   <path class="fil6" d="M4951.45 5011.31l719.37 896.85c79.13,98.65 63.16,244.1 -35.49,323.23l-0.01 0c-98.66,79.13 -244.1,63.16 -323.23,-35.49l-719.37 -896.85c-79.13,-98.65 -63.16,-244.1 35.5,-323.23l0.01 -0c98.65,-79.13 244.1,-63.16 323.23,35.5z"/>
+   <g>
+    <path class="fil4 str7" d="M1061.84 586c379.24,85.99 648.44,423.07 648.44,811.94 0,459.81 -372.74,832.55 -832.55,832.55 -459.81,0 -832.55,-372.75 -832.55,-832.55 0,-385.84 265.1,-721.12 640.54,-810.11m-195.57 -103.97l195.57 103.97 -103.81 214.77"/>
+   </g>
+   <circle class="fil7" cx="877.74" cy="1397.94" r="608.64"/>
+   <g>
+    <polyline class="fil4 str8" points="1008.44,1491.15 858.28,1492.36 858.11,1133.9 "/>
+   </g>
+   <circle class="fil8" cx="4154.4" cy="4391.92" r="1124.19"/>
+   <g>
+    <text x="3566.15" y="4830.9"  class="fil1 fnt0">N</text>
+    <g>
+     <path class="fil9" d="M3593.63 4583.42c-29.61,0 -53.61,-26.38 -53.61,-58.91 0,-32.53 24,-58.91 53.61,-58.91l0 117.81zm1121.55 0l-1121.55 0 0 -117.81 1121.55 0 0 117.81zm0 -117.81c29.61,0 53.61,26.38 53.61,58.91 0,32.53 -24,58.91 -53.61,58.91l0 -117.81z"/>
+    </g>
+    <g>
+     <path class="fil9" d="M3593.63 4353.95c-29.61,0 -53.61,-26.38 -53.61,-58.91 0,-32.53 24,-58.91 53.61,-58.91l0 117.81zm1121.55 0l-1121.55 0 0 -117.81 1121.55 0 0 117.81zm0 -117.81c29.61,0 53.61,26.38 53.61,58.91 0,32.53 -24,58.91 -53.61,58.91l0 -117.81z"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

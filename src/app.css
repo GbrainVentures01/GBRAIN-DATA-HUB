@@ -1,0 +1,6 @@
+@font-face {
+    font-family: "Avant";
+    /*Can be any text*/
+    src: local("AirbnbCerealLight"),
+        url("assets/fonts/avant.otf") format("truetype");
+}

@@ -53,7 +53,7 @@ const MenuList = () => {
                     onClick={Logout}
                 >
                     <ListItemIcon sx={{ my: 'auto', minWidth: 36 }}>
-                        <LogoutRounded></LogoutRounded>
+                        <LogoutRounded sx={{ color: 'red' }}></LogoutRounded>
                     </ListItemIcon>
                     {/* <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon> */}
                     <ListItemText

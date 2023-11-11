@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2018 (64-Bit Evaluation Version) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="9.54672in" height="10.0916in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 10411.54 11005.74"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <font id="FontID0" horiz-adv-x="722" font-variant="normal" style="fill-rule:nonzero" font-style="italic" font-weight="700">
+	<font-face 
+		font-family="Arvo">
+		<font-face-src>
+			<font-face-name name="Arvo Bold Italic"/>
+		</font-face-src>
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="N" horiz-adv-x="871" d="M663.167 740.167l298.834 0 -30.8343 -134.166 -63.4998 0 -139.666 -606.001 -168.001 0 -188.5 456.5 -74.6664 -322.667 63 0 -30.6663 -133.833 -299.334 0 31.1661 133.833 66.0002 0 108.834 472.167 -80.0005 0 31.1661 134.166 252.001 0 182.5 -457.001 75.3329 322.834 -64.9992 0 31.3327 134.166z"/>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Arvo";font-variant:normal;font-style:italic;font-weight:bold;src:url("#FontID0") format(svg)}
+    .str1 {stroke:#FEFEFE;stroke-width:151.47;stroke-miterlimit:2.61313}
+    .str0 {stroke:#00A859;stroke-width:151.47;stroke-miterlimit:2.61313}
+    .fil1 {fill:none}
+    .fil2 {fill:#FEFEFE}
+    .fil0 {fill:#00A859}
+    .fnt0 {font-style:italic;font-weight:bold;font-size:3144.11px;font-family:'Arvo'}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1929256144384">
+   <g>
+    <path class="fil0" d="M3430.57 5656.82l547.25 -190.72 3569.88 -12.99c520.7,115.88 618.87,372.6 262.27,780.83l-2030.48 42.68c-357.85,263.53 -348.33,493.71 8.51,692.37l1866.43 33.61 2060.99 -2028.02c485.58,-89.15 697.92,40.29 696.1,341.02l-2253.85 2814.4 -3362.71 58.88 -998.91 1025.45 -1998.07 -1900.6 1632.59 -1656.93z"/>
+    <path class="fil0" d="M1379.27 7304.17l2462.68 2407.26c81.39,79.46 72.62,215.29 -10.62,292.7l-1019.25 947.87c-83.28,77.36 -211.32,68.93 -292.7,-10.62l-2462.64 -2407.21c-81.38,-79.55 -72.89,-215.12 10.58,-292.75l1019.25 -947.87c83.43,-77.58 211.41,-68.83 292.7,10.62z"/>
+   </g>
+   <circle class="fil1 str0" cx="5402.28" cy="2574.71" r="2498.97"/>
+   <circle class="fil0" cx="5402.28" cy="2574.71" r="2278.88"/>
+   <text x="3843.16" y="3738.3"  class="fil2 fnt0">N</text>
+   <line class="fil1 str1" x1="3827.26" y1="2357.13" x2="7093.63" y2= "2357.13" />
+   <line class="fil1 str1" x1="3827.26" y1="2971.4" x2="7093.63" y2= "2971.4" />
+  </g>
+ </g>
+</svg>

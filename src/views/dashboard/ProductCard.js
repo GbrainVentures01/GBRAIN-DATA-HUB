@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
         <Grid item xs={6}>
             {product.external ? (
                 <Link to={url} style={{ textDecoration: 'none' }}>
-                    <Paper variant="elevation" elevation={3} sx={{ py: 2.5, textAlign: 'center' }}>
+                    <Paper variant="elevation" elevation={3} sx={{ py: 2.2, textAlign: 'center' }}>
                         {icon ? (
                             <Box sx={{ mb: 0.5 }}>{icon}</Box>
                         ) : (
@@ -16,8 +16,8 @@ const ProductCard = ({ product }) => {
                                 alt="icon"
                                 src={image}
                                 style={{
-                                    width: '50px',
-                                    height: '50px',
+                                    width: '70px',
+                                    height: '70px',
                                     marginTop: '8px',
                                     marginBottom: '8px'
                                 }}
@@ -25,12 +25,14 @@ const ProductCard = ({ product }) => {
                         )}
 
                         {/* <Typography variant="h6">h6</Typography> */}
-                        <Typography variant="subtitle1">{name}</Typography>
+                        <Typography sx={{ fontSize: '.8rem', fontFamily: 'Avant', textTransform: 'uppercase' }} variant="subtitle1">
+                            {name}
+                        </Typography>
                     </Paper>
                 </Link>
             ) : (
                 <Link to={url} style={{ textDecoration: 'none' }}>
-                    <Paper variant="elevation" elevation={3} sx={{ py: 2.5, textAlign: 'center' }}>
+                    <Paper variant="elevation" elevation={3} sx={{ py: 2.2, textAlign: 'center' }}>
                         {icon ? (
                             <Box sx={{ mb: 0.5 }}>{icon}</Box>
                         ) : (
@@ -38,15 +40,25 @@ const ProductCard = ({ product }) => {
                                 alt="icon"
                                 src={image}
                                 style={{
-                                    width: '50px',
-                                    height: '50px',
+                                    width: '70px',
+                                    height: '70px',
                                     marginTop: '8px',
                                     marginBottom: '8px'
                                 }}
                             />
                         )}
                         {/* <Typography variant="h6">h6</Typography> */}
-                        <Typography variant="subtitle1">{name}</Typography>
+                        <Typography
+                            sx={{
+                                // fontWeight: 'bold',
+                                fontSize: '.8rem',
+                                fontFamily: 'Avant',
+                                textTransform: 'uppercase'
+                            }}
+                            variant="subtitle1"
+                        >
+                            {name}
+                        </Typography>
                     </Paper>
                 </Link>
             )}

@@ -40,6 +40,7 @@ const pages = {
         {
             id: 'airtime',
             title: 'Airtime',
+            color: 'blue',
             type: 'collapse',
             icon: icons.FaPhone,
 
@@ -73,6 +74,7 @@ const pages = {
             id: 'data',
             title: 'Data Subscription',
             type: 'collapse',
+            color: 'teal',
             icon: icons.FaMobile,
 
             children: [
@@ -125,6 +127,7 @@ const pages = {
             title: 'Convert Airtime To Cash',
             type: 'item',
             url: '/sell-airtime',
+            color: 'teal',
             target: false,
             icon: icons.FaMoneyBill
         },
@@ -132,6 +135,7 @@ const pages = {
             id: 'cable&tv',
             title: 'Cable And Tv Subscription',
             type: 'item',
+            color: 'brown',
             url: '/cable-tv-sub',
             target: false,
             icon: icons.FaTv
@@ -140,6 +144,7 @@ const pages = {
             id: 'Electricity',
             title: 'Electricity and Power Subscription ',
             type: 'item',
+            color: 'teal',
             url: '/electricity-sub',
             target: false,
             icon: icons.FaLightbulb
@@ -148,6 +153,7 @@ const pages = {
             id: 'Exam Pin',
             title: 'Examination Scratch Card and pins',
             type: 'item',
+            color: 'purple',
             url: '/exam-pin',
             target: false,
             icon: icons.FaGraduationCap
@@ -156,6 +162,7 @@ const pages = {
             id: 'fund wallet',
             title: 'Fund Wallet',
             type: 'item',
+            color: 'green',
             url: '/fund-wallet',
             target: false,
             icon: icons.FaWallet
@@ -164,6 +171,7 @@ const pages = {
             id: 'Transaction History',
             title: 'Transaction History',
             type: 'item',
+            color: 'brown',
             url: '/trx-histories',
             target: false,
             icon: icons.FaClock
@@ -171,6 +179,7 @@ const pages = {
         {
             id: 'Profile',
             title: 'Profile',
+            color: 'blue',
             type: 'item',
             url: '/profile',
             target: false,
@@ -179,6 +188,7 @@ const pages = {
         {
             id: 'Contact',
             title: 'Contact Us',
+            color: 'gold',
             type: 'item',
             url: '/contact-us',
             target: false,
@@ -189,6 +199,7 @@ const pages = {
             title: 'Reset Transaction Pin',
             type: 'item',
             url: '/forget-pin',
+            color: 'red',
             target: false,
             icon: icons.FaUserSecret
         }
