@@ -8,13 +8,13 @@ const TransactionStat = ({ stat }) => {
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
     return (
-        <div>
+        <div style={{ textAlign: 'center' }}>
             <Typography variant="body1" sx={{ fontSize: '1rem', mb: 2, mt: 2, fontWeight: 500, textAlign: 'center' }}>
                 TRANSACTION STATISTICS
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <StatisticCard title={' WALLET BALANCE'} value={`₦ ${stat?.walletBal}`} icon={<FaWallet size={30} color="#83529f" />} />
+                    <StatisticCard title={'WALLET BALANCE'} value={`₦ ${stat?.walletBal}`} icon={<FaWallet size={30} color="#83529f" />} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <StatisticCard

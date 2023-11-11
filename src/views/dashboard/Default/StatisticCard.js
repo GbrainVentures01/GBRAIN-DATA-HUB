@@ -7,7 +7,7 @@ const StatisticCard = ({ title, value, icon }) => {
             elevation={5}
             sx={{
                 backgroundColor: 'white',
-                maxWidth: '220px',
+                maxWidth: '300px',
                 p: 1.5,
                 textAlign: 'center',
                 display: 'flex',
