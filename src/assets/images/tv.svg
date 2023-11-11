@@ -2,44 +2,44 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW 2018 (64-Bit Evaluation Version) -->
 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="8.29946in" height="8.20704in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 8299.46 8207.04"
+viewBox="0 0 8646.74 8550.45"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <font id="FontID0" horiz-adv-x="398" font-variant="normal" style="fill-rule:nonzero" font-weight="400">
+  <font id="FontID0" horiz-adv-x="722" font-variant="normal" style="fill-rule:nonzero" font-style="italic" font-weight="700">
 	<font-face 
-		font-family="BadaBoom BB">
+		font-family="Arvo">
 		<font-face-src>
-			<font-face-name name="BadaBoom BB"/>
+			<font-face-name name="Arvo Bold Italic"/>
 		</font-face-src>
 	</font-face>
    <missing-glyph><path d="M0 0z"/></missing-glyph>
-   <glyph unicode="T" horiz-adv-x="356" d="M439 730l-5.83307 -181.5c-45.4997,-2.66713 -88.8332,-5.83379 -129.833,-9.83376 -42.9998,-180.166 -72,-345.833 -87.0001,-496.666l-165 -42.9998 89.833 519.5c-17.4999,-2.49989 -35.1664,-5.50004 -52.6663,-8.66671l-51.8337 -9.83376 -11.6661 182.334 413.999 47.6665z"/>
-   <glyph unicode="V" horiz-adv-x="388" d="M483.833 721c-77.5001,-212.334 -146.833,-440 -208,-683.167l-259.833 -46.8332c16.3336,92.4994 26.3331,205.167 30.3338,338 1.8331,113.333 3.83272,226.666 5.83307,340l195.334 43.8331 -84.0007 -623 1.00054 0 142.5 599 176.833 32.1669z"/>
+   <glyph unicode="T" horiz-adv-x="668" d="M167 133.833l76.6669 0 109.834 472.167 -94.6665 0 -21.0009 -90.8333 -168 0 52.1663 225 695.833 0 -51.6669 -225 -168 0 20.9999 90.8333 -94.6665 0 -110 -472.167 82.5006 0 -31.1673 -133.833 -329.666 0 30.8328 133.833z"/>
+   <glyph unicode="V" horiz-adv-x="683" d="M544 740.166l298.833 0 -30.8328 -134.167 -58.5004 0 -346.333 -606 -199.167 0 -52.1663 606 -75.8339 0 30.8337 134.167 299.334 0 -31.3341 -134.167 -55.1665 0 30.3334 -382.833 216.334 382.833 -57.1661 0 30.8328 134.167z"/>
   </font>
   <style type="text/css">
    <![CDATA[
-    @font-face { font-family:"BadaBoom BB";font-variant:normal;font-weight:normal;src:url("#FontID0") format(svg)}
-    .str1 {stroke:#4791FE;stroke-width:607.93;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
-    .str0 {stroke:#4791FE;stroke-width:607.93;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    @font-face { font-family:"Arvo";font-variant:normal;font-style:italic;font-weight:bold;src:url("#FontID0") format(svg)}
+    .str1 {stroke:#4791FE;stroke-width:633.37;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str0 {stroke:#4791FE;stroke-width:633.37;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
     .fil0 {fill:none}
     .fil2 {fill:#FEFEFE}
     .fil1 {fill:#4791FE}
-    .fnt0 {font-weight:normal;font-size:5414.42px;font-family:'BadaBoom BB'}
+    .fnt0 {font-style:italic;font-weight:bold;font-size:4205.28px;font-family:'Arvo'}
    ]]>
   </style>
  </defs>
  <g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <g id="_1921640366128">
+  <g id="_1929239271696">
    <g>
-    <line class="fil0 str0" x1="6676.63" y1="303.92" x2="4778.31" y2= "2471.14" />
+    <line class="fil0 str0" x1="6956.01" y1="316.63" x2="4978.25" y2= "2574.54" />
    </g>
    <g>
-    <line class="fil0 str1" x1="2193.96" y1="1119.33" x2="4329.47" y2= "3053.26" />
+    <line class="fil0 str1" x1="2285.76" y1="1166.17" x2="4510.63" y2= "3181.02" />
    </g>
-   <rect class="fil1" x="0" y="2062.72" width="8299.46" height="6144.32" rx="1534.13" ry="1534.13"/>
-   <text x="1942.73" y="7086.78"  class="fil2 fnt0">T</text>
-   <text x="3601.69" y="7086.78"  class="fil2 fnt0">V</text>
+   <rect class="fil1" x="0" y="2149.03" width="8646.73" height="6401.42" rx="1598.32" ry="1598.32"/>
+   <text x="1111.72" y="6906.05"  class="fil2 fnt0">T</text>
+   <text x="3697" y="6906.05"  class="fil2 fnt0">V</text>
   </g>
  </g>
 </svg>
