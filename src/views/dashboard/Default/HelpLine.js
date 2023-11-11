@@ -26,7 +26,7 @@ const HelpLine = () => {
             </Typography>
 
             <a
-                href="#"
+                href="https://wa.me/+2348132247359"
                 style={{
                     textDecoration: 'none',
                     display: 'flex',
@@ -36,7 +36,7 @@ const HelpLine = () => {
                     marginTop: '10px'
                 }}
             >
-                <img src={whatsapp} height="30px" width="30px" />
+                <img src={whatsapp} height="30px" width="30px" alt="whatsapp" />
                 <Typography variant="subtitle1" color="white" sx={{ ml: 1, fontSize: '.8rem' }}>
                     WhatsApp Us
                 </Typography>

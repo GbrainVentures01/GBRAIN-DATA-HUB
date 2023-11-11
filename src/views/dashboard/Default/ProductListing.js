@@ -12,7 +12,6 @@ import { products } from '_mocks_/products';
 import ProductCard from '../ProductCard';
 import HelpLine from './HelpLine';
 import TransactionStat from './TransactionStat';
-import TransactionTable from './TransactionTable';
 
 // const status = [
 //     {

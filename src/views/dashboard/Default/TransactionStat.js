@@ -1,6 +1,5 @@
-import { Money } from '@mui/icons-material';
-import { Grid, Paper, Typography } from '@mui/material';
-import { FaAnchor, FaDollarSign, FaLink, FaPiggyBank, FaRemoveFormat, FaSalesforce, FaUpload, FaWallet } from 'react-icons/fa';
+import { Grid, Typography } from '@mui/material';
+import { FaDollarSign, FaLink, FaSalesforce, FaUpload, FaWallet } from 'react-icons/fa';
 import StatisticCard from './StatisticCard';
 
 const TransactionStat = ({ stat }) => {

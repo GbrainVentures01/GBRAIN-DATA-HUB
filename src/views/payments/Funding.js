@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router';
 import { Button, Grid, Paper, Typography } from '@mui/material';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
-import MainCard from 'ui-component/cards/MainCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { CustomTextField } from 'ui-component/basic-inputs';
 import { Form, Formik } from 'formik';
-import * as yup from 'yup';
-import { fundWalletWithMonnify, userAction } from 'store/actions';
 import { useSnackbar } from 'notistack';
+import { useDispatch, useSelector } from 'react-redux';
+import { fundWalletWithMonnify, userAction } from 'store/actions';
+import { CustomTextField } from 'ui-component/basic-inputs';
+import MainCard from 'ui-component/cards/MainCard';
 import FeedBack from 'views/feedBack';
-import { gridSpacing } from 'store/constant';
-import { Box } from '@mui/system';
+import * as yup from 'yup';
 
 const Funding = () => {
     const { fundWithMonnify, loggedInUser } = useSelector((state) => state);
