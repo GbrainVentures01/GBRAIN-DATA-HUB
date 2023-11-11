@@ -4,20 +4,22 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { getNotificationDetails, userAction } from 'store/actions';
+import { getNotificationDetails, userAction, userTransactionStat } from 'store/actions';
 import { gridSpacing } from 'store/constant';
 // project imports
 import EarningCard from './EarningCard';
 import ProductListing from './ProductListing';
 import { useSnackbar } from 'notistack';
 import FeedBack from 'views/feedBack';
+import PopularCard from './PopularCard';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
     const [isLoading, setLoading] = useState(true);
-    const { notificationDetails } = useSelector((state) => state);
+    const { notificationDetails, userStat } = useSelector((state) => state);
     const { notification } = notificationDetails;
+    const { stat } = userStat;
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     // const [ setshowErrorAlert] = useState(false);
@@ -31,6 +33,8 @@ const Dashboard = () => {
             return;
         }
         dispatch(userAction({ navigate }));
+        dispatch(userTransactionStat({ navigate }));
+        // dispatch(userTransactionStatByDate({ navigate }));
         dispatch(getNotificationDetails({ enqueueSnackbar, setshowAlert }));
     }, [dispatch, navigate, enqueueSnackbar]);
 
@@ -61,11 +65,11 @@ const Dashboard = () => {
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} md={8}>
-                        <ProductListing isLoading={isLoading} />
+                        <ProductListing isLoading={isLoading} stat={stat} />
                     </Grid>
-                    {/* <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4}>
                         <PopularCard isLoading={isLoading} />
-                    </Grid> */}
+                    </Grid>
                 </Grid>
             </Grid>
             {

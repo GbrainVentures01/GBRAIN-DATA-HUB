@@ -67,6 +67,12 @@ import {
     GET_TRANSACTION_HISTORY_FAIL,
     GET_TRANSACTION_HISTORY_REQUEST,
     GET_TRANSACTION_HISTORY_SUCCESS,
+    GET_USER_STAT_BY_DATE_FAIL,
+    GET_USER_STAT_BY_DATE_REQUEST,
+    GET_USER_STAT_BY_DATE_SUCCESS,
+    GET_USER_STAT_FAIL,
+    GET_USER_STAT_REQUEST,
+    GET_USER_STAT_SUCCESS,
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
@@ -307,7 +313,7 @@ export const sellAirtime =
 
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: from === 'otp' ? 'verify-airtime-otp' : from === 'get-otp' ? 'sell-airtime' : 'finalize-sell-airtime',
+                path: from === 'verify-airtime-otp' ? 'verify-airtime-otp' : from === 'get-otp' ? 'sell-airtime' : 'finalize-sell-airtime',
                 requestBody: {
                     data: orderDetails
                 },
@@ -338,13 +344,20 @@ export const sellAirtime =
                 type: SELL_AIRTIME_SUCCESS,
                 payload: data
             });
-
+            console.log(data);
             enqueueSnackbar(data?.data?.message, {
                 variant: 'success',
                 autoHideDuration: 2000
             });
             setshowAlert((prevState) => !prevState);
-            navigate(`/sell-airtime-otp?phone_number=${orderDetails.phone_number}&network=${orderDetails.network}`);
+            if (from === 'get-otp') {
+                navigate(`/sell-airtime-otp?phone_number=${orderDetails.phone_number}&network=${orderDetails.network}`);
+            } else if (from === 'verify-airtime-otp') {
+                navigate(
+                    `/finalize-sell-airtime?phone_number=${orderDetails.phone_number}&network=${orderDetails.network}&session_id=${data?.data?.sessionId}`
+                );
+            }
+
             // }
             // }
         } catch (error) {
@@ -741,6 +754,66 @@ export const userAction =
         }
     };
 
+export const userTransactionStat =
+    ({ navigate }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_USER_STAT_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `users-stat`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: GET_USER_STAT_SUCCESS,
+                payload: data
+            });
+            console.log('DATA: ', data);
+        } catch (error) {
+            if (error.response?.data?.error?.status === 401) {
+                navigate('/pages/login');
+            }
+            dispatch({
+                type: GET_USER_STAT_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
+
+export const userTransactionStatByDate =
+    ({ navigate, date }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: GET_USER_STAT_BY_DATE_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'GET',
+                path: `users-stat-by-date/${date}`,
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: GET_USER_STAT_BY_DATE_SUCCESS,
+                payload: data
+            });
+            console.log(data);
+        } catch (error) {
+            if (error.response?.data?.error?.status === 401) {
+                navigate('/pages/login');
+            }
+            dispatch({
+                type: GET_USER_STAT_BY_DATE_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+        }
+    };
 export const fundWalletWithMonnify =
     ({ amount, enqueueSnackbar }) =>
     async (dispatch) => {
@@ -750,7 +823,7 @@ export const fundWalletWithMonnify =
             });
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: `account-fundings`,
+                path: `account-funding`,
                 requestBody: amount,
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -799,8 +872,7 @@ export const generateMonnifyAccount =
                 variant: 'sucess',
                 autoHideDuration: 2000
             });
-            navigate('/');
-            navigate('/fund-wallet');
+            window.location.reload();
         } catch (error) {
             console.log('ERROR: ', error);
             dispatch({

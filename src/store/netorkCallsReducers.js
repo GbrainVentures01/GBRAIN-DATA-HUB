@@ -63,6 +63,12 @@ import {
     GET_TRANSACTION_HISTORY_FAIL,
     GET_TRANSACTION_HISTORY_REQUEST,
     GET_TRANSACTION_HISTORY_SUCCESS,
+    GET_USER_STAT_BY_DATE_FAIL,
+    GET_USER_STAT_BY_DATE_REQUEST,
+    GET_USER_STAT_BY_DATE_SUCCESS,
+    GET_USER_STAT_FAIL,
+    GET_USER_STAT_REQUEST,
+    GET_USER_STAT_SUCCESS,
     GET_VARIANTS_FAIL,
     GET_VARIANTS_REQUEST,
     GET_VARIANTS_SUCCESS,
@@ -180,6 +186,16 @@ export const initialSellAirtimeState = {
 };
 export const initialDataOrderState = {
     data: {},
+    loading: false,
+    error: null
+};
+export const initialUserStatState = {
+    stat: {},
+    loading: false,
+    error: null
+};
+export const initialUserStatByDateState = {
+    stat: {},
     loading: false,
     error: null
 };
@@ -391,6 +407,37 @@ export const userReducer = (state = initialUserState, action) => {
     }
 };
 
+export const userStatByDateReducer = (state = initialUserStatState, action) => {
+    switch (action.type) {
+        case GET_USER_STAT_BY_DATE_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_USER_STAT_BY_DATE_SUCCESS: {
+            return { ...state, loading: false, stat: action.payload };
+        }
+        case GET_USER_STAT_BY_DATE_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+
+export const userStatReducer = (state = initialUserStatState, action) => {
+    switch (action.type) {
+        case GET_USER_STAT_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_USER_STAT_SUCCESS: {
+            return { ...state, loading: false, stat: action.payload };
+        }
+        case GET_USER_STAT_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
 // update user profile reducers
 
 export const userUpdateReducer = (state = initialUserUpdate, action) => {

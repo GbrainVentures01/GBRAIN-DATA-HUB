@@ -27,10 +27,15 @@ const Funding = () => {
         !Cookies.get('user') && navigate('/pages/login');
 
         dispatch(userAction({ navigate }));
+    }, [navigate, dispatch]);
+
+    useEffect(() => {
+        if (Object.keys(user).length === 0) return;
+        console.log('USER: ', user);
         if (!user?.hasAccountNum) {
-            setshowAlert((prevAlert) => !prevAlert);
+            setshowAlert((prevAlert) => true);
         }
-    }, [navigate, dispatch, setshowAlert]);
+    }, [user]);
 
     const INITIAL_FORM_VALUES = {
         amount: ''
@@ -58,7 +63,7 @@ const Funding = () => {
                     </Typography>
                     <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
                         These are your unique monnify vitual accounts, you can always transfer to it anytime and it will reflect immediately
-                        and automatically in your wallet.
+                        and automatically in your wallet. Note: Charges of 1.65% will be deducted from amount deposited.
                     </Typography>
                 </>
             )}

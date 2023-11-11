@@ -33,8 +33,11 @@ import {
     verifyDetailsReducers,
     verifyMeterReducers,
     getNotificationReducer,
-    generateMonnifyAccountReducer
+    generateMonnifyAccountReducer,
+    userStatReducer,
+    userStatByDateReducer
 } from './netorkCallsReducers';
+// import { userTransactionStatByDate } from './actions';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -71,7 +74,9 @@ const reducer = combineReducers({
     verifyDetailsData: verifyDetailsReducers,
     verifyMeterData: verifyMeterReducers,
     notificationDetails: getNotificationReducer,
-    monnifyAccountGeneration: generateMonnifyAccountReducer
+    monnifyAccountGeneration: generateMonnifyAccountReducer,
+    userStat: userStatReducer,
+    userStatByDate: userStatByDateReducer
 });
 
 export default reducer;

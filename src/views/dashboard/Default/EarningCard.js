@@ -188,10 +188,16 @@ const EarningCard = ({ isLoading, message }) => {
                                                     </Grid>
                                                 </Link>
 
-                                                <marquee>
-                                                    <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mt: 1.75, mb: 0.25 }}>
-                                                        {message ? message : ''}
-                                                    </Typography>
+                                                <marquee
+                                                    style={{
+                                                        backgroundColor: 'red',
+                                                        marginTop: 1.7,
+                                                        marginBottom: 0.25,
+                                                        padding: '5px 0',
+                                                        borderRadius: '5px'
+                                                    }}
+                                                >
+                                                    <Typography sx={{ fontSize: '1.0rem' }}>{message ? message : ''}</Typography>
                                                 </marquee>
                                             </>
                                         ) : (

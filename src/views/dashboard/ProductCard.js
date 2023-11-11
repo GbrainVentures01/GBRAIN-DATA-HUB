@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
         <Grid item xs={6}>
             {product.external ? (
                 <Link to={url} style={{ textDecoration: 'none' }}>
-                    <Paper variant="outlined" sx={{ py: 2.5, textAlign: 'center' }}>
+                    <Paper variant="elevation" elevation={3} sx={{ py: 2.5, textAlign: 'center' }}>
                         {icon ? (
                             <Box sx={{ mb: 0.5 }}>{icon}</Box>
                         ) : (
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
                 </Link>
             ) : (
                 <Link to={url} style={{ textDecoration: 'none' }}>
-                    <Paper variant="outlined" sx={{ py: 2.5, textAlign: 'center' }}>
+                    <Paper variant="elevation" elevation={3} sx={{ py: 2.5, textAlign: 'center' }}>
                         {icon ? (
                             <Box sx={{ mb: 0.5 }}>{icon}</Box>
                         ) : (

@@ -1,6 +1,5 @@
 // material-ui
 import { Box, Grid, Typography } from '@mui/material';
-import FormData from 'form-data';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -12,7 +11,6 @@ import { getSellAirtimeDetails, sellAirtime, userAction } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
 import FeedBack from '../feedBack';
 
@@ -25,7 +23,6 @@ const SellAirtime = ({ title }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [showErrorAlert, setshowErrorAlert] = useState(false);
-    const [file, setfile] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
