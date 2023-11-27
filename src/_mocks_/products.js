@@ -71,30 +71,48 @@ export const dataProducts = [
     },
     {
         id: 2,
+        name: 'MTN SME 1 Data',
+        image: mtnLogo,
+        url: '/buy-mtn-data-sme-1'
+    },
+    {
+        id: 3,
+        name: 'MTN SME 2 Data',
+        image: mtnLogo,
+        url: '/buy-mtn-data-sme-2'
+    },
+    {
+        id: 4,
+        name: 'MTN COUPON Data',
+        image: mtnLogo,
+        url: '/buy-mtn-data-coup'
+    },
+    {
+        id: 5,
         name: 'MTN Data (Gifting)',
         image: mtnLogo,
         url: '/buy-mtn-gift-data'
     },
     {
-        id: 3,
+        id: 6,
         name: 'Glo Data',
         image: gloLogo,
         url: '/buy-glo-data'
     },
     {
-        id: 4,
+        id: 7,
         name: 'Glo Corporate Gifting',
         image: gloLogo,
         url: '/buy-glo-cg-data'
     },
     {
-        id: 5,
+        id: 8,
         name: 'Airtel Data',
         image: airtelLogo,
         url: '/buy-airtel-data'
     },
     {
-        id: 6,
+        id: 9,
         name: 'Airtel Corporate Gifting ',
         image: airtelLogo,
         url: '/buy-airtel-cg-data'

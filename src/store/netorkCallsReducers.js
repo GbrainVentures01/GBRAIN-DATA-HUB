@@ -48,9 +48,18 @@ import {
     GET_LOGGED_IN_USER_FAIL,
     GET_LOGGED_IN_USER_REQUEST,
     GET_LOGGED_IN_USER_SUCCESS,
+    GET_MTN_COUPON_DATA_PLAN_FAIL,
+    GET_MTN_COUPON_DATA_PLAN_REQUEST,
+    GET_MTN_COUPON_DATA_PLAN_SUCCESS,
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_1_DATA_PLAN_FAIL,
+    GET_MTN_SME_1_DATA_PLAN_REQUEST,
+    GET_MTN_SME_1_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_2_DATA_PLAN_FAIL,
+    GET_MTN_SME_2_DATA_PLAN_REQUEST,
+    GET_MTN_SME_2_DATA_PLAN_SUCCESS,
     GET_MTN_SME_DATA_PLAN_FAIL,
     GET_MTN_SME_DATA_PLAN_REQUEST,
     GET_MTN_SME_DATA_PLAN_SUCCESS,
@@ -123,6 +132,22 @@ export const initialMtnSmeDataState = {
     loading: false,
     error: null
 };
+export const initialMtnSmeOneDataState = {
+    mtnSme1DataPlans: [],
+    loading: false,
+    error: null
+};
+export const initialMtnSmeTwoDataState = {
+    mtnSme2DataPlans: [],
+    loading: false,
+    error: null
+};
+export const initialMtnCoupDataState = {
+    mtnCoupDataPlans: [],
+    loading: false,
+    error: null
+};
+
 export const initialAirtelDataState = {
     airtelDataPlans: [],
     loading: false,
@@ -315,6 +340,48 @@ export const getMtnSmeDataReducer = (state = initialMtnSmeDataState, action) => 
         case GET_MTN_SME_DATA_PLAN_SUCCESS:
             return { ...state, loading: false, mtnSmeDataPlans: action.payload };
         case GET_MTN_SME_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+export const getMtnSmeOneDataReducer = (state = initialMtnSmeOneDataState, action) => {
+    switch (action.type) {
+        case GET_MTN_SME_1_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_MTN_SME_1_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, mtnSme1DataPlans: action.payload };
+        case GET_MTN_SME_1_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+export const getMtnSmeTwoDataReducer = (state = initialMtnSmeTwoDataState, action) => {
+    switch (action.type) {
+        case GET_MTN_SME_2_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_MTN_SME_2_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, mtnSme2DataPlans: action.payload };
+        case GET_MTN_SME_2_DATA_PLAN_FAIL:
+            return { ...state, loading: false, error: action.payload };
+
+        default:
+            return state;
+    }
+};
+export const getMtnCoupDataReducer = (state = initialMtnCoupDataState, action) => {
+    switch (action.type) {
+        case GET_MTN_COUPON_DATA_PLAN_REQUEST:
+            return { ...state, loading: true };
+
+        case GET_MTN_COUPON_DATA_PLAN_SUCCESS:
+            return { ...state, loading: false, mtnCoupDataPlans: action.payload };
+        case GET_MTN_COUPON_DATA_PLAN_FAIL:
             return { ...state, loading: false, error: action.payload };
 
         default:

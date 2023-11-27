@@ -52,9 +52,18 @@ import {
     GET_LOGGED_IN_USER_FAIL,
     GET_LOGGED_IN_USER_REQUEST,
     GET_LOGGED_IN_USER_SUCCESS,
+    GET_MTN_COUPON_DATA_PLAN_FAIL,
+    GET_MTN_COUPON_DATA_PLAN_REQUEST,
+    GET_MTN_COUPON_DATA_PLAN_SUCCESS,
     GET_MTN_DATA_PLAN_FAIL,
     GET_MTN_DATA_PLAN_REQUEST,
     GET_MTN_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_1_DATA_PLAN_FAIL,
+    GET_MTN_SME_1_DATA_PLAN_REQUEST,
+    GET_MTN_SME_1_DATA_PLAN_SUCCESS,
+    GET_MTN_SME_2_DATA_PLAN_FAIL,
+    GET_MTN_SME_2_DATA_PLAN_REQUEST,
+    GET_MTN_SME_2_DATA_PLAN_SUCCESS,
     GET_MTN_SME_DATA_PLAN_FAIL,
     GET_MTN_SME_DATA_PLAN_REQUEST,
     GET_MTN_SME_DATA_PLAN_SUCCESS,
@@ -164,6 +173,80 @@ export const getMtnSmeData = () => async (dispatch) => {
     }
 };
 
+export const getMtnSmeOneData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_MTN_SME_1_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'mtn-sme-1-data-plans',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log('data1', data);
+
+        dispatch({
+            type: GET_MTN_SME_1_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_MTN_SME_1_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+
+export const getMtnSmeTwoData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_MTN_SME_2_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'mtn-sme-2-data-plans',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log('data2', data);
+        dispatch({
+            type: GET_MTN_SME_2_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_MTN_SME_2_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
+export const getMtnSmeCoupData = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: GET_MTN_COUPON_DATA_PLAN_REQUEST
+        });
+        const { data } = await makeNetworkCall({
+            method: 'GET',
+            path: 'mtn-coupon-data-plans',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        dispatch({
+            type: GET_MTN_COUPON_DATA_PLAN_SUCCESS,
+            payload: data.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_MTN_COUPON_DATA_PLAN_FAIL,
+            payload: error.response?.data?.error?.message || error?.messag
+        });
+    }
+};
 export const getMtnData = () => async (dispatch) => {
     try {
         dispatch({
@@ -374,6 +457,46 @@ export const sellAirtime =
         }
     };
 export const buyData =
+    ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert, path }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: BUY_DATA_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path,
+                requestBody: orderDetails,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            dispatch({
+                type: BUY_DATA_SUCCESS,
+                payload: data
+            });
+            data &&
+                enqueueSnackbar(data?.data?.message, {
+                    variant: 'success',
+                    autoHideDuration: 2000
+                });
+            setshowAlert((prevState) => !prevState);
+        } catch (error) {
+            dispatch({
+                type: BUY_DATA_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+            setErrorAlert((prevState) => !prevState);
+        }
+    };
+
+export const buyCouponData =
     ({ orderDetails, enqueueSnackbar, setshowAlert, setErrorAlert }) =>
     async (dispatch) => {
         try {
@@ -382,7 +505,7 @@ export const buyData =
             });
             const { data } = await makeNetworkCall({
                 method: 'POST',
-                path: 'sme-data-orders',
+                path: 'mtn-coupon-data-orders',
                 requestBody: orderDetails,
                 headers: {
                     Authorization: `Bearer ${token}`

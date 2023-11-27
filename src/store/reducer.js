@@ -35,7 +35,10 @@ import {
     getNotificationReducer,
     generateMonnifyAccountReducer,
     userStatReducer,
-    userStatByDateReducer
+    userStatByDateReducer,
+    getMtnSmeOneDataReducer,
+    getMtnSmeTwoDataReducer,
+    getMtnCoupDataReducer
 } from './netorkCallsReducers';
 // import { userTransactionStatByDate } from './actions';
 
@@ -45,6 +48,9 @@ const reducer = combineReducers({
     customization: customizationReducer,
     myMtnDataPlans: getMtnDataReducer,
     myMtnSmeDataPlans: getMtnSmeDataReducer,
+    myMtnSme1DataPlans: getMtnSmeOneDataReducer,
+    myMtnSme2DataPlans: getMtnSmeTwoDataReducer,
+    myMtnCoupDataPlans: getMtnCoupDataReducer,
     myGloDataPlans: getGloDataReducer,
     myAirtelDataPlans: getAirtelDataReducer,
     getairtelCgDataPlans: getAirtelcgDataReducer,

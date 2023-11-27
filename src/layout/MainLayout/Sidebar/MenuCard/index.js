@@ -5,7 +5,9 @@ import {
     Card,
     CardContent,
     Grid,
-    LinearProgress, linearProgressClasses, List,
+    LinearProgress,
+    linearProgressClasses,
+    List,
     ListItem,
     ListItemAvatar,
     ListItemText,
@@ -14,8 +16,6 @@ import {
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-
-
 
 // styles
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -57,18 +57,18 @@ function LinearProgressWithLabel({ value, ...others }) {
             <Grid item>
                 <Grid container justifyContent="space-between">
                     <Grid item>
-                        <Typography variant="h6" sx={{ color: theme.palette.primary[800] }}>
-                            Progress
+                        <Typography variant="subtitle1" sx={{ color: theme.palette.primary[800] }}>
+                            Contact Me
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Typography variant="h6" color="inherit">{`${Math.round(value)}%`}</Typography>
+                        <Typography variant="subtitle1" color="inherit">{`08059299184`}</Typography>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
                 <BorderLinearProgress variant="determinate" value={value} {...others} />
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 }
@@ -110,11 +110,11 @@ const MenuCard = () => {
                                     Powered By:
                                 </Typography>
                             }
-                            secondary={<Typography variant="h5"> Layintontechhub</Typography>}
+                            secondary={<Typography variant="h5"> Layintontechhub </Typography>}
                         />
                     </ListItem>
                 </List>
-                {/* <LinearProgressWithLabel value={80} /> */}
+                <LinearProgressWithLabel value={80} />
             </CardContent>
         </CardStyle>
     );

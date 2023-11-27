@@ -137,6 +137,18 @@ const MainRoutes = {
             element: <BuyData title="Mtn Data" sme={true} network="Mtn" />
         },
         {
+            path: '/buy-mtn-data-sme-1',
+            element: <BuyData title="Mtn Sme 1 Data" sme_1={true} network="Mtn" />
+        },
+        {
+            path: '/buy-mtn-data-sme-2',
+            element: <BuyData title="Mtn Sme 2 Data" sme_2={true} network="Mtn" />
+        },
+        {
+            path: '/buy-mtn-data-coup',
+            element: <BuyData title="Mtn Coupon Data" coup={true} network="Mtn" />
+        },
+        {
             path: '/buy-mtn-gift-data',
             element: <BuyData title="Mtn Data Gifting" sme={false} network="Mtn" />
         },

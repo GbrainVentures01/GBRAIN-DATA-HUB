@@ -17,7 +17,10 @@ import {
     getMtnSmeData,
     buyCgData,
     getAirtelCgData,
-    getGloCgData
+    getGloCgData,
+    getMtnSmeTwoData,
+    getMtnSmeOneData,
+    getMtnSmeCoupData
 } from 'store/actions';
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
@@ -28,7 +31,7 @@ import * as yup from 'yup';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const BuyData = ({ title, network, sme, cg }) => {
+const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
     const {
         myGloDataPlans,
         getairtelCgDataPlans,
@@ -38,12 +41,18 @@ const BuyData = ({ title, network, sme, cg }) => {
         dataOrder,
         dataGiftingOrder,
         cgDataOrder,
-        myMtnSmeDataPlans
+        myMtnSmeDataPlans,
+        myMtnSme1DataPlans,
+        myMtnSme2DataPlans,
+        myMtnCoupDataPlans
     } = useSelector((state) => state);
 
     const { gloDataPlans } = myGloDataPlans;
     const { mtnDataPlans } = myMtnDataPlans;
     const { mtnSmeDataPlans } = myMtnSmeDataPlans;
+    const { mtnSme1DataPlans } = myMtnSme1DataPlans;
+    const { mtnSme2DataPlans } = myMtnSme2DataPlans;
+    const { mtnCoupDataPlans } = myMtnCoupDataPlans;
     const { airtelDataPlans } = myAirtelDataPlans;
     const { gloCgDataPlans } = getgloCgDataPlans;
     const { airtelCgDataPlans } = getairtelCgDataPlans;
@@ -59,13 +68,16 @@ const BuyData = ({ title, network, sme, cg }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
 
     const pinRef = useRef('');
-
+    console.log(mtnSme1DataPlans);
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
         dispatch(getGloData());
         dispatch(getMtnData());
         dispatch(getMtnSmeData());
+        dispatch(getMtnSmeOneData());
+        dispatch(getMtnSmeTwoData());
+        dispatch(getMtnSmeCoupData());
         dispatch(getAirtelData());
         dispatch(getAirtelCgData());
         dispatch(getGloCgData());
@@ -91,13 +103,18 @@ const BuyData = ({ title, network, sme, cg }) => {
         network: yup.string().required('Please select data plan')
     });
 
-    const returnPlan = (network, sme, cg) => {
+    const returnPlan = ({ network, sme, cg, sme_1, sme_2, coup }) => {
+        console.log('SME1', sme_1);
         switch (network) {
             case 'Glo':
                 return cg ? gloCgDataPlans : gloDataPlans;
 
             case 'Mtn':
-                return sme ? mtnSmeDataPlans : mtnDataPlans;
+                if (sme) return mtnSmeDataPlans;
+                if (sme_1) return mtnSme1DataPlans;
+                if (sme_2) return mtnSme2DataPlans;
+                if (coup) return mtnCoupDataPlans;
+                return mtnDataPlans;
             case 'Airtel':
                 return cg ? airtelCgDataPlans : airtelDataPlans;
 
@@ -186,6 +203,7 @@ const BuyData = ({ title, network, sme, cg }) => {
 
         dispatch(
             buyData({
+                path: sme ? 'sme-data-orders' : sme_1 ? 'mtn-sme-1-data-orders' : coup ? 'mtn-coupon-data-orders' : 'mtn-sme-2-data-orders',
                 orderDetails: {
                     data: { ...body }
                 },
@@ -201,7 +219,9 @@ const BuyData = ({ title, network, sme, cg }) => {
             <Formik
                 initialValues={{ ...INITIAL_FORM_VALUES }}
                 enableReinitialize={true}
-                onSubmit={sme ? handleSubmit : cg ? sendCgdata : sendGiftData}
+                onSubmit={
+                    sme ? handleSubmit : sme_1 ? handleSubmit : sme_2 ? handleSubmit : coup ? handleSubmit : cg ? sendCgdata : sendGiftData
+                }
                 validationSchema={VALIDATIONS}
             >
                 {({ values, setFieldValue }) => (
@@ -212,7 +232,11 @@ const BuyData = ({ title, network, sme, cg }) => {
                                     <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CustomSelect name="plan" options={returnPlan(network, sme, cg)} label="Select Plan" />
+                                    <CustomSelect
+                                        name="plan"
+                                        options={returnPlan({ network, sme, sme_1, sme_2, coup, cg })}
+                                        label="Select Plan"
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CustomTextField

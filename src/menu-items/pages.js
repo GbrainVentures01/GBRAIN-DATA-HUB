@@ -79,19 +79,41 @@ const pages = {
 
             children: [
                 {
-                    id: 'mtn',
+                    id: 'mtn1',
                     title: 'Mtn SME Data',
                     type: 'item',
                     url: '/buy-mtn-data',
                     target: false
                 },
                 {
-                    id: 'mtn',
+                    id: 'mtn2',
+                    title: 'Mtn SME 1 Data ',
+                    type: 'item',
+                    url: '/buy-mtn-data-sme-1',
+                    target: false
+                },
+                {
+                    id: 'mtn3',
+                    title: 'Mtn SME 2 Data ',
+                    type: 'item',
+                    url: '/buy-mtn-data-sme-2',
+                    target: false
+                },
+                {
+                    id: 'mtn4',
+                    title: 'Mtn COUPON Data ',
+                    type: 'item',
+                    url: '/buy-mtn-data-coup',
+                    target: false
+                },
+                {
+                    id: 'mtn5',
                     title: 'Mtn Data (Gifting)',
                     type: 'item',
                     url: '/buy-mtn-gift-data',
                     target: false
                 },
+
                 {
                     id: 'glo',
                     title: 'Glo Data ',
