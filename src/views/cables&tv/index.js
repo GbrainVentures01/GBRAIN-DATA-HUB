@@ -16,6 +16,10 @@ import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
 import { cablesCategory } from '_mocks_/tv&cables';
 import FeedBack from '../feedBack';
+import gotv from '../../assets/images/gotv.webp';
+import dstv from '../../assets/images/dstv.jpg';
+import startimes from '../../assets/images/startimes.webp';
+import showmax from '../../assets/images/showmax.webp';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -89,13 +93,14 @@ const SubTv = ({ title }) => {
         price: '',
         cardNumber: '',
         beneficiaryNum: '',
-        pin: ''
+        pin: '',
+        subscription_type: ''
     };
     const VALIDATIONS = yup.object().shape({
         provider: yup.string(),
         plan: yup.object(),
         price: yup.number().integer().typeError('amount must be a number'),
-
+        subscription_type: yup.string().required('Please select subscription type'),
         cardNumber: yup.string().required('Please enter card number'),
         beneficiaryNum: yup.number().integer().required('Please enter beneficiary number').typeError('beneficairy must be a number')
     });
@@ -125,6 +130,7 @@ const SubTv = ({ title }) => {
             });
             return;
         }
+
         const body = {
             serviceID: values.provider,
             request_id: generateRequestId(),
@@ -132,7 +138,7 @@ const SubTv = ({ title }) => {
             amount: values.price,
             phone: values.beneficiaryNum,
             variation_code: values.plan.variation_code,
-            subscription_type: 'renew',
+            subscription_type: values.subscription_type,
             pin: pinRef.current.values.join('')
         };
 
@@ -162,6 +168,40 @@ const SubTv = ({ title }) => {
             >
                 {({ values, setFieldValue }) => (
                     <Form>
+                        <div
+                            style={{
+                                maxWidth: '700px',
+                                marginBottom: '40px',
+                                display: values.provider === '' ? 'none' : 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                        >
+                            <img
+                                style={{
+                                    marginRight: '10px',
+                                    width: '70px',
+                                    height: '70px',
+                                    display: values.provider === '' ? 'none' : 'block'
+                                }}
+                                src={
+                                    values.provider === 'dstv'
+                                        ? dstv
+                                        : values.provider === 'startimes'
+                                        ? startimes
+                                        : values.provider === 'gotv'
+                                        ? gotv
+                                        : showmax
+                                }
+                                alt="logo"
+                            />
+
+                            <Typography variant="body1">
+                                Choose from a range of {values?.provider} Bouquets for your entertainment. Easy payment, seamless service
+                                delivery.
+                            </Typography>
+                        </div>
                         <Box sx={{ maxWidth: 500, height: '100vh' }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
@@ -171,6 +211,23 @@ const SubTv = ({ title }) => {
                                         makeNetCall={true}
                                         setvalue={setvalue}
                                         options={cablesCategory}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CustomSelect
+                                        disabled={variations.length === 0 ? true : false}
+                                        name="subscription_type"
+                                        label="Select Subscription Type"
+                                        options={[
+                                            {
+                                                name: 'Renew Current Bouquet',
+                                                value: 'renew'
+                                            },
+                                            {
+                                                name: 'Change Bouquet',
+                                                value: 'change'
+                                            }
+                                        ]}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
