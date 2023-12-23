@@ -132,9 +132,12 @@ const Histories = () => {
             const seconds = ('0' + date.getSeconds()).slice(-2);
             return [
                 date.getFullYear(),
+                '-',
                 mnth,
+                '-',
                 day,
-                '/', // Space between date and time
+
+                ' ', // Space between date and time
                 hours,
                 ':',
                 minutes,
