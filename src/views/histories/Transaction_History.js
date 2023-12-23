@@ -35,13 +35,14 @@ const Histories = () => {
             }
         },
         {
-            name: 'ref',
-            label: 'Refrence',
+            name: 'status',
+            label: 'Status',
             options: {
                 filter: true,
                 sort: false
             }
         },
+
         {
             name: 'date',
             label: 'Date',
@@ -109,8 +110,8 @@ const Histories = () => {
         },
 
         {
-            name: 'status',
-            label: 'Status',
+            name: 'ref',
+            label: 'Refrence',
             options: {
                 filter: true,
                 sort: false
@@ -125,7 +126,21 @@ const Histories = () => {
             var date = new Date(strDate),
                 mnth = ('0' + (date.getMonth() + 1)).slice(-2),
                 day = ('0' + date.getDate()).slice(-2);
-            return [date.getFullYear(), mnth, day].join('-');
+            // Get hours, minutes, and seconds with leading zeros
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            const seconds = ('0' + date.getSeconds()).slice(-2);
+            return [
+                date.getFullYear(),
+                mnth,
+                day,
+                '/', // Space between date and time
+                hours,
+                ':',
+                minutes,
+                ':',
+                seconds
+            ].join('');
         }
         return {
             id: `${serv._id}`,
