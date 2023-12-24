@@ -2,6 +2,7 @@
 // project imports
 import { Box, CircularProgress } from '@mui/material';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 import MUIDataTable from 'mui-datatables';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
@@ -121,30 +122,31 @@ const Histories = () => {
     histories.histories?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     const data = histories.histories?.map((serv, i) => {
-        const strDate = new Date(serv?.createdAt);
-        function convert(strDate) {
-            var date = new Date(strDate),
-                mnth = ('0' + (date.getMonth() + 1)).slice(-2),
-                day = ('0' + date.getDate()).slice(-2);
-            // Get hours, minutes, and seconds with leading zeros
-            const hours = ('0' + date.getHours()).slice(-2);
-            const minutes = ('0' + date.getMinutes()).slice(-2);
-            const seconds = ('0' + date.getSeconds()).slice(-2);
-            return [
-                date.getFullYear(),
-                '-',
-                mnth,
-                '-',
-                day,
+        // const strDate = new Date(serv?.createdAt);
+        const formattedDate = moment(serv?.createdAt).format('LLLL');
+        // function convert(strDate) {
+        //     var date = new Date(strDate),
+        //         mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+        //         day = ('0' + date.getDate()).slice(-2);
+        //     // Get hours, minutes, and seconds with leading zeros
+        //     const hours = ('0' + date.getHours()).slice(-2);
+        //     const minutes = ('0' + date.getMinutes()).slice(-2);
+        //     const seconds = ('0' + date.getSeconds()).slice(-2);
+        //     return [
+        //         date.getFullYear(),
+        //         '-',
+        //         mnth,
+        //         '-',
+        //         day,
 
-                ' ', // Space between date and time
-                hours,
-                ':',
-                minutes,
-                ':',
-                seconds
-            ].join('');
-        }
+        //         ' ', // Space between date and time
+        //         hours,
+        //         ':',
+        //         minutes,
+        //         ':',
+        //         seconds
+        //     ].join('');
+        // }
         return {
             id: `${serv._id}`,
             name: `${serv.TRX_Name ? serv?.TRX_Name : serv?.plan || '-'}`,
@@ -157,7 +159,7 @@ const Histories = () => {
             status: `${serv.status}`,
             exam_pin: `${serv.purchased_pin || '-'}`,
             electricity: `${serv.purchased_token || '-'}`,
-            date: convert(strDate)
+            date: formattedDate
         };
     });
 
