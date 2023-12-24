@@ -61,6 +61,14 @@ const Histories = () => {
             }
         },
         {
+            name: 'plan',
+            label: 'Plan',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+        {
             name: 'previous_balance',
             label: 'Previous Balance',
             options: {
@@ -159,7 +167,8 @@ const Histories = () => {
             status: `${serv.status}`,
             exam_pin: `${serv.purchased_pin || '-'}`,
             electricity: `${serv.purchased_token || '-'}`,
-            date: formattedDate
+            date: formattedDate,
+            plan: `${serv?.plan || serv?.Plan || '-'}`
         };
     });
 
