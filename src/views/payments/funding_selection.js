@@ -23,14 +23,14 @@ const FundingSelection = () => {
         },
         {
             name: 'Monify ',
-            description: 'Second Option'
+            description: 'Second Option (Faster)'
         },
         {
             name: 'Flutterwave ',
             description: 'Third Option(Fast)'
         },
         {
-            name: 'Credo ',
+            name: 'Credo (Slow)',
             description: 'Poor Option'
         }
     ];
