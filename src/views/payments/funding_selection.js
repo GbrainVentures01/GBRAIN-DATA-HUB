@@ -27,11 +27,11 @@ const FundingSelection = () => {
         },
         {
             name: 'Flutterwave ',
-            description: 'Third Option(Fast)'
+            description: 'Third Option (Fast)'
         },
         {
-            name: 'Credo (Slow)',
-            description: 'Poor Option'
+            name: 'Credo ',
+            description: 'Poor Option (Slow)'
         }
     ];
 
