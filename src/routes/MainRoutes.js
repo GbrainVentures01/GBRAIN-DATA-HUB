@@ -24,6 +24,7 @@ import SellAirtime from 'views/sell-airtime/sell-airtime';
 import { airtimeProducts, dataProducts } from '../_mocks_/products';
 import SellAirtimeOtp from 'views/sell-airtime/sell-airtime-otp';
 import FinalizeSellAirtime from 'views/sell-airtime/finalize-sell-airtime';
+import FundingSelection from 'views/payments/funding_selection';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -174,6 +175,10 @@ const MainRoutes = {
         },
         {
             path: '/fund-wallet',
+            element: <FundingSelection />
+        },
+        {
+            path: '/fund',
             element: <Funding />
         },
         {
