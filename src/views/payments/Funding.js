@@ -36,9 +36,8 @@ const Funding = () => {
                     [searchParams.get('option')]: true
                 };
             });
-    }, []);
+    }, [searchParams]);
 
-    console.log(searchParams.get('option'));
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
 

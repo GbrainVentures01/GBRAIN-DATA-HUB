@@ -846,6 +846,44 @@ export const UpdateUserAction =
         }
     };
 
+export const UpdateBvn =
+    ({ enqueueSnackbar, user }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: UPDATE_USER_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'POST',
+                path: `update-bvn`,
+                requestBody: user,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: UPDATE_USER_SUCCESS,
+                payload: data
+            });
+            console.log('data', data);
+            data &&
+                enqueueSnackbar(data, {
+                    variant: 'success',
+                    autoHideDuration: 2000
+                });
+        } catch (error) {
+            dispatch({
+                type: UPDATE_USER_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+        }
+    };
+
 export const userAction =
     ({ navigate }) =>
     async (dispatch) => {

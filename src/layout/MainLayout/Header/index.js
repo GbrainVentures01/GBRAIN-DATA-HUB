@@ -8,9 +8,7 @@ import { useSelector } from 'react-redux';
 // project imports
 import LogoSection from '../LogoSection';
 import ProfileSection from './ProfileSection';
-
-
-
+import NotificationSection from './NotificationSection';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
@@ -62,11 +60,9 @@ const Header = ({ handleLeftDrawerToggle }) => {
             <Box sx={{ flexGrow: 1 }} />
 
             {/* notification & profile */}
-            {/* <NotificationSection /> */}
-            {user.username&&(
-            <ProfileSection />
-            )}
-            
+
+            {user && <NotificationSection />}
+            {user.username && <ProfileSection />}
         </>
     );
 };

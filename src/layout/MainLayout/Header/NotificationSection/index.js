@@ -1,9 +1,7 @@
 import {
     Avatar,
     Box,
-    Button,
     ButtonBase,
-    CardActions,
     Chip,
     ClickAwayListener,
     Divider,
@@ -11,7 +9,6 @@ import {
     Paper,
     Popper,
     Stack,
-    TextField,
     Typography,
     useMediaQuery
 } from '@mui/material';
@@ -22,50 +19,51 @@ import { IconBell } from '@tabler/icons';
 import { useEffect, useRef, useState } from 'react';
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Link } from 'react-router-dom';
 // project imports
+import NotificationBadge, { Effect } from 'react-notification-badge';
+import { useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
-
-
-
-
 // notification status options
-const status = [
-    {
-        value: 'all',
-        label: 'All Notification'
-    },
-    {
-        value: 'new',
-        label: 'New'
-    },
-    {
-        value: 'unread',
-        label: 'Unread'
-    },
-    {
-        value: 'other',
-        label: 'Other'
-    }
-];
+// const status = [
+//     {
+//         value: 'all',
+//         label: 'All Notification'
+//     },
+//     {
+//         value: 'new',
+//         label: 'New'
+//     },
+//     {
+//         value: 'unread',
+//         label: 'Unread'
+//     },
+//     {
+//         value: 'other',
+//         label: 'Other'
+//     }
+// ];
 
 // ==============================|| NOTIFICATION ||============================== //
 
 const NotificationSection = () => {
     const theme = useTheme();
+    const { loggedInUser } = useSelector((state) => state);
+    const { user } = loggedInUser;
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('');
+    // const [value, setValue] = useState('');
+    console.log('user', user);
     /**
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
      * */
     const anchorRef = useRef(null);
 
     const handleToggle = () => {
+        if (user?.updateBvn) return;
         setOpen((prevOpen) => !prevOpen);
     };
 
@@ -84,9 +82,9 @@ const NotificationSection = () => {
         prevOpen.current = open;
     }, [open]);
 
-    const handleChange = (event) => {
-        if (event?.target.value) setValue(event?.target.value);
-    };
+    // const handleChange = (event) => {
+    //     if (event?.target.value) setValue(event?.target.value);
+    // };
 
     return (
         <>
@@ -99,7 +97,7 @@ const NotificationSection = () => {
                     }
                 }}
             >
-                <ButtonBase sx={{ borderRadius: '12px' }}>
+                <ButtonBase sx={{ borderRadius: '12px', position: 'relative' }}>
                     <Avatar
                         variant="rounded"
                         sx={{
@@ -121,6 +119,9 @@ const NotificationSection = () => {
                     >
                         <IconBell stroke={1.5} size="1.3rem" />
                     </Avatar>
+                    <div style={{ position: 'absolute', top: '0px', right: '-5px' }}>
+                        <NotificationBadge count={user?.updateBvn ? null : 1} effect={Effect.SCALE} />
+                    </div>
                 </ButtonBase>
             </Box>
             <Popper
@@ -151,7 +152,7 @@ const NotificationSection = () => {
                                             <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
                                                 <Grid item>
                                                     <Stack direction="row" spacing={2}>
-                                                        <Typography variant="subtitle1">All Notification</Typography>
+                                                        <Typography variant="subtitle1"> Notification</Typography>
                                                         <Chip
                                                             size="small"
                                                             label="01"
@@ -162,11 +163,11 @@ const NotificationSection = () => {
                                                         />
                                                     </Stack>
                                                 </Grid>
-                                                <Grid item>
+                                                {/* <Grid item>
                                                     <Typography component={Link} to="#" variant="subtitle2" color="primary">
                                                         Mark as all read
                                                     </Typography>
-                                                </Grid>
+                                                </Grid> */}
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -174,7 +175,7 @@ const NotificationSection = () => {
                                                 style={{ height: '100%', maxHeight: 'calc(100vh - 205px)', overflowX: 'hidden' }}
                                             >
                                                 <Grid container direction="column" spacing={2}>
-                                                    <Grid item xs={12}>
+                                                    {/* <Grid item xs={12}>
                                                         <Box sx={{ px: 2, pt: 0.25 }}>
                                                             <TextField
                                                                 id="outlined-select-currency-native"
@@ -193,7 +194,7 @@ const NotificationSection = () => {
                                                                 ))}
                                                             </TextField>
                                                         </Box>
-                                                    </Grid>
+                                                    </Grid> */}
                                                     <Grid item xs={12} p={0}>
                                                         <Divider sx={{ my: 0 }} />
                                                     </Grid>
@@ -203,11 +204,11 @@ const NotificationSection = () => {
                                         </Grid>
                                     </Grid>
                                     <Divider />
-                                    <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
+                                    {/* <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
                                         <Button size="small" disableElevation>
                                             View All
                                         </Button>
-                                    </CardActions>
+                                    </CardActions> */}
                                 </MainCard>
                             </ClickAwayListener>
                         </Paper>
