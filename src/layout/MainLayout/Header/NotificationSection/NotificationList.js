@@ -20,7 +20,7 @@ const ListItemWrapper = styled('div')(({ theme }) => ({
 
 // ==============================|| NOTIFICATION LIST ITEM ||============================== //
 
-const NotificationList = () => {
+const NotificationList = ({ notification, bvnverified }) => {
     const theme = useTheme();
 
     const chipSX = {
@@ -68,13 +68,15 @@ const NotificationList = () => {
                 }
             }}
         >
-            <ListItemWrapper>
-                <ListItem alignItems="center">
-                    <ListItemAvatar>
-                        <Avatar alt="John Doe" src={User1} />
-                    </ListItemAvatar>
-                    <ListItemText primary={<Typography variant="subtitle1">Account Verification </Typography>} />
-                    {/* <ListItemSecondaryAction>
+            {!bvnverified && (
+                <>
+                    <ListItemWrapper>
+                        <ListItem alignItems="center">
+                            <ListItemAvatar>
+                                <Avatar alt="John Doe" src={User1} />
+                            </ListItemAvatar>
+                            <ListItemText primary={<Typography variant="subtitle1">Account Verification </Typography>} />
+                            {/* <ListItemSecondaryAction>
                         <Grid container justifyContent="flex-end">
                             <Grid item xs={12}>
                                 <Typography variant="caption" display="block" gutterBottom>
@@ -83,23 +85,58 @@ const NotificationList = () => {
                             </Grid>
                         </Grid>
                     </ListItemSecondaryAction> */}
-                </ListItem>
-                <Grid container direction="column" className="list-container">
-                    <Grid item xs={12} sx={{ pb: 2 }}>
-                        <Typography variant="subtitle2">Your account is not yet verified as directed by the CBN.</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container>
-                            <Grid item>
-                                <Link to="/verify-account" style={{ cursor: 'pointer' }}>
-                                    <Chip label="Verify now" sx={chipErrorSX} />
-                                </Link>
+                        </ListItem>
+                        <Grid container direction="column" className="list-container">
+                            <Grid item xs={12} sx={{ pb: 2 }}>
+                                <Typography variant="subtitle2">Your account is not yet verified as directed by the CBN.</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Grid container>
+                                    <Grid item>
+                                        <Link to="/verify-account" style={{ cursor: 'pointer' }}>
+                                            <Chip label="Verify now" sx={chipErrorSX} />
+                                        </Link>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
+                    </ListItemWrapper>
+                    <Divider />
+                </>
+            )}
+            {notification && (
+                <ListItemWrapper>
+                    <ListItem alignItems="center">
+                        <ListItemAvatar>
+                            <Avatar alt="John Doe" src={User1} />
+                        </ListItemAvatar>
+                        <ListItemText primary={<Typography variant="subtitle1">Service Update </Typography>} />
+                        {/* <ListItemSecondaryAction>
+                        <Grid container justifyContent="flex-end">
+                            <Grid item xs={12}>
+                                <Typography variant="caption" display="block" gutterBottom>
+                                    2 min ago
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </ListItemSecondaryAction> */}
+                    </ListItem>
+                    <Grid container direction="column" className="list-container">
+                        <Grid item xs={12} sx={{ pb: 2 }}>
+                            <Typography variant="subtitle2">{notification?.message}</Typography>
+                        </Grid>
+                        {/* <Grid item xs={12}>
+                            <Grid container>
+                                <Grid item>
+                                    <Link to="/verify-account" style={{ cursor: 'pointer' }}>
+                                        <Chip label="Verify now" sx={chipErrorSX} />
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Grid> */}
                     </Grid>
-                </Grid>
-            </ListItemWrapper>
-            <Divider />
+                </ListItemWrapper>
+            )}
         </List>
     );
 };

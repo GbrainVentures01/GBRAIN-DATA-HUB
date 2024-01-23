@@ -847,7 +847,7 @@ export const UpdateUserAction =
     };
 
 export const UpdateBvn =
-    ({ enqueueSnackbar, user }) =>
+    ({ enqueueSnackbar, user, navigate }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -871,6 +871,7 @@ export const UpdateBvn =
                     variant: 'success',
                     autoHideDuration: 2000
                 });
+            navigate('/');
         } catch (error) {
             dispatch({
                 type: UPDATE_USER_FAIL,

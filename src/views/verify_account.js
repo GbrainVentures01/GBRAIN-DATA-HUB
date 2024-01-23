@@ -36,6 +36,7 @@ const VerifyAccount = () => {
     const handleSubmit = (values) => {
         dispatch(
             UpdateBvn({
+                navigate,
                 user: {
                     data: {
                         bvn: values.bvn

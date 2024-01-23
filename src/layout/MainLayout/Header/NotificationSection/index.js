@@ -50,7 +50,8 @@ import NotificationList from './NotificationList';
 
 const NotificationSection = () => {
     const theme = useTheme();
-    const { loggedInUser } = useSelector((state) => state);
+    const { loggedInUser, notificationDetails } = useSelector((state) => state);
+    const { notification } = notificationDetails;
     const { user } = loggedInUser;
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -63,7 +64,6 @@ const NotificationSection = () => {
     const anchorRef = useRef(null);
 
     const handleToggle = () => {
-        if (user?.updateBvn) return;
         setOpen((prevOpen) => !prevOpen);
     };
 
@@ -155,7 +155,7 @@ const NotificationSection = () => {
                                                         <Typography variant="subtitle1"> Notification</Typography>
                                                         <Chip
                                                             size="small"
-                                                            label="01"
+                                                            label={user?.updateBvn ? '01' : '02'}
                                                             sx={{
                                                                 color: theme.palette.background.default,
                                                                 bgcolor: theme.palette.warning.dark
@@ -199,7 +199,7 @@ const NotificationSection = () => {
                                                         <Divider sx={{ my: 0 }} />
                                                     </Grid>
                                                 </Grid>
-                                                <NotificationList />
+                                                <NotificationList notification={notification} bvnverified={user?.updateBvn} />
                                             </PerfectScrollbar>
                                         </Grid>
                                     </Grid>
