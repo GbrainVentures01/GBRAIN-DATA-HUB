@@ -33,20 +33,7 @@ const Contact = ({ title }) => {
                         <Typography variant="h4">Whatsaap or Call</Typography>
                     </a>
                 </li>
-                <li
-                    style={{
-                        marginBottom: '10px'
-                    }}
-                >
-                    <a
-                        href="tel: +2347042500308"
-                        style={{
-                            textDecoration: 'none'
-                        }}
-                    >
-                        <Typography variant="h4">+234 704 250 0308</Typography>
-                    </a>
-                </li>
+
                 <li
                     style={{
                         marginBottom: '10px'
@@ -59,6 +46,20 @@ const Contact = ({ title }) => {
                         }}
                     >
                         <Typography variant="h4">+234 812 321 0297</Typography>
+                    </a>
+                </li>
+                <li
+                    style={{
+                        marginBottom: '10px'
+                    }}
+                >
+                    <a
+                        href="tel: +2348108520887"
+                        style={{
+                            textDecoration: 'none'
+                        }}
+                    >
+                        <Typography variant="h4">+234 810 852 0887</Typography>
                     </a>
                 </li>
                 <li
