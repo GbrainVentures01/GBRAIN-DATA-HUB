@@ -38,18 +38,26 @@ const FeedBack = ({
         setshowErrorAlert(false);
     };
 
-    const SuccessFullAlert = ({ title, message }) => {
+    const SuccessFullAlert = ({ title, message, from }) => {
         return (
             <SweetAlert
+                style={{ width: '500px', position: 'relative' }}
                 type={type ? 'info' : 'success'}
                 title={title || 'Successful!'}
                 show={showAlert}
                 onConfirm={() => (from === 'fund' ? generateAccount(setshowAlert) : onClickSuccess(setshowAlert, goHome))}
                 onCancel={() => setshowAlert(false)}
                 customButtons={
-                    <>
+                    <div
+                        style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: from === 'dashboard' ? 'end' : 'center'
+                        }}
+                    >
                         <Button
-                            fullWidth
+                            // sx={{ display: 'absolute', bottom: 0, left: '130px' }}
                             onClick={() => (from === 'fund' ? generateAccount(setshowAlert) : onClickSuccess(setshowAlert, goHome))}
                             variant="contained"
                             color="primary"
@@ -57,11 +65,13 @@ const FeedBack = ({
                         >
                             {from === 'fund' ? 'Generate now' : 'Ok'}
                         </Button>
-                    </>
+                    </div>
                 }
             >
                 <br />
-                <Typography variant="subtitle1">{message}</Typography>
+                <Typography variant="subtitle1" sx={{ textAlign: 'justify' }}>
+                    {message}
+                </Typography>
                 {purchasePin && <Typography variant="subtitle1">{purchasePin}</Typography>}
             </SweetAlert>
         );
@@ -96,7 +106,7 @@ const FeedBack = ({
     };
 
     if (showAlert) {
-        return <SuccessFullAlert title={title} message={message} />;
+        return <SuccessFullAlert title={title} message={message} from={from} />;
     } else if (showErrorAlert) {
         return <FailureAlert message={message} />;
     } else {

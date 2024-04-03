@@ -74,6 +74,7 @@ const Dashboard = () => {
             </Grid>
             {
                 <FeedBack
+                    from="dashboard"
                     setshowAlert={setshowAlert}
                     showAlert={showAlert}
                     title={notification?.title}
