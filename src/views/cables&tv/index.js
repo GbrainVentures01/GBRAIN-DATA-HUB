@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Grid, Paper, Typography, Card, CardHeader } from '@mui/material';
 import { Form, Formik } from 'formik';
 
 import Cookies from 'js-cookie';
@@ -20,6 +20,7 @@ import gotv from '../../assets/images/gotv.webp';
 import dstv from '../../assets/images/dstv.jpg';
 import startimes from '../../assets/images/startimes.webp';
 import showmax from '../../assets/images/showmax.webp';
+import FixedNotification from 'ui-component/fixed-notification';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -158,8 +159,11 @@ const SubTv = ({ title }) => {
             sx={{
                 overflowY: 'scroll'
             }}
-            title={title}
         >
+            <FixedNotification />
+            <Card>
+                <CardHeader title={title} />
+            </Card>
             <Formik
                 initialValues={{ ...INITIAL_FORM_VALUES }}
                 validateOnChange={true}

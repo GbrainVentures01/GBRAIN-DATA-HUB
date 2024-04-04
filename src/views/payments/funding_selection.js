@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography, Card, CardHeader } from '@mui/material';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { userAction } from 'store/actions';
 import MainCard from 'ui-component/cards/MainCard';
+import FixedNotification from 'ui-component/fixed-notification';
 
 const FundingSelection = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const FundingSelection = () => {
     ];
 
     return (
-        <MainCard title="Fund Wallet By Selecting Your Preferred Payment Method ">
+        <MainCard>
             {/* <>
                 <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
                     Bank Transfer
@@ -46,6 +47,10 @@ const FundingSelection = () => {
                     automatically in your wallet. Note: Charges of 1.65% will be deducted from amount deposited.
                 </Typography>
             </> */}
+            <FixedNotification />
+            <Card>
+                <CardHeader title="Fund Wallet By Selecting Your Preferred Payment Method " />
+            </Card>
             <Grid container spacing={2}>
                 {methods.map(({ name, description }) => (
                     <Grid key={name} item xs={12} md={6} lg={6}>

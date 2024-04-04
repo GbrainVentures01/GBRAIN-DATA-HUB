@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, Grid, useMediaQuery } from '@mui/material';
 import React from 'react';
 import MainCard from 'ui-component/cards/MainCard';
+import FixedNotification from 'ui-component/fixed-notification';
 import ProductCard from 'views/dashboard/ProductCard';
 
 const SelectDataView = ({ dataplans }) => {
@@ -11,6 +12,7 @@ const SelectDataView = ({ dataplans }) => {
                 width: matches ? '50%' : '100%'
             }}
         >
+            <FixedNotification />
             <Card>
                 <CardHeader title="Select Network" />
                 <CardContent>

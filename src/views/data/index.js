@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, CardHeader, Card } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -25,6 +25,7 @@ import {
 import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
+import FixedNotification from 'ui-component/fixed-notification';
 import { generateRequestId } from 'utils/generateRequestId';
 import FeedBack from 'views/feedBack';
 import * as yup from 'yup';
@@ -215,72 +216,86 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
         pinRef.current = '';
     };
     return (
-        <MainCard title={title}>
-            <Formik
-                initialValues={{ ...INITIAL_FORM_VALUES }}
-                enableReinitialize={true}
-                onSubmit={
-                    sme ? handleSubmit : sme_1 ? handleSubmit : sme_2 ? handleSubmit : coup ? handleSubmit : cg ? sendCgdata : sendGiftData
-                }
-                validationSchema={VALIDATIONS}
-            >
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
-                            <Grid container spacing={4}>
-                                <Grid item xs={12}>
-                                    <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+        <MainCard>
+            <FixedNotification />
+            <Card>
+                <CardHeader title={title} />
+                <Formik
+                    initialValues={{ ...INITIAL_FORM_VALUES }}
+                    enableReinitialize={true}
+                    onSubmit={
+                        sme
+                            ? handleSubmit
+                            : sme_1
+                            ? handleSubmit
+                            : sme_2
+                            ? handleSubmit
+                            : coup
+                            ? handleSubmit
+                            : cg
+                            ? sendCgdata
+                            : sendGiftData
+                    }
+                    validationSchema={VALIDATIONS}
+                >
+                    {({ values, setFieldValue }) => (
+                        <Form>
+                            <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12}>
+                                        <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomSelect
+                                            name="plan"
+                                            options={returnPlan({ network, sme, sme_1, sme_2, coup, cg })}
+                                            label="Select Plan"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name="amount"
+                                            disabled
+                                            value={(values.amount = values.plan.Price || values.plan.price)}
+                                            placeholder="Amount"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} style={{ display: 'none' }}>
+                                        <CustomTextField name="network" disabled value={(values.network = network)} placeholder="Amount" />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography>Enter Transaction Pin</Typography>
+                                        <PinInput
+                                            style={{
+                                                margin: 'auto'
+                                            }}
+                                            length={4}
+                                            initialValue=""
+                                            ref={(n) => (pinRef.current = n)}
+                                            secret
+                                            // onChange={(value, index) => {
+                                            //     settpin(value);
+                                            // }}
+                                            type="numeric"
+                                            inputMode="number"
+                                            inputStyle={{ borderColor: 'black' }}
+                                            inputFocusStyle={{ borderColor: 'blue' }}
+                                            onComplete={(value, index) => {}}
+                                            autoSelect={true}
+                                            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomButton disabled={loading || Cgdataloading || dataGiftloading ? true : false}>
+                                            Submit
+                                        </CustomButton>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <CustomSelect
-                                        name="plan"
-                                        options={returnPlan({ network, sme, sme_1, sme_2, coup, cg })}
-                                        label="Select Plan"
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomTextField
-                                        name="amount"
-                                        disabled
-                                        value={(values.amount = values.plan.Price || values.plan.price)}
-                                        placeholder="Amount"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: 'none' }}>
-                                    <CustomTextField name="network" disabled value={(values.network = network)} placeholder="Amount" />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography>Enter Transaction Pin</Typography>
-                                    <PinInput
-                                        style={{
-                                            margin: 'auto'
-                                        }}
-                                        length={4}
-                                        initialValue=""
-                                        ref={(n) => (pinRef.current = n)}
-                                        secret
-                                        // onChange={(value, index) => {
-                                        //     settpin(value);
-                                        // }}
-                                        type="numeric"
-                                        inputMode="number"
-                                        inputStyle={{ borderColor: 'black' }}
-                                        inputFocusStyle={{ borderColor: 'blue' }}
-                                        onComplete={(value, index) => {}}
-                                        autoSelect={true}
-                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomButton disabled={loading || Cgdataloading || dataGiftloading ? true : false}>
-                                        Submit
-                                    </CustomButton>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Form>
-                )}
-            </Formik>
+                            </Box>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
             {
                 <FeedBack
                     setshowAlert={setshowAlert}

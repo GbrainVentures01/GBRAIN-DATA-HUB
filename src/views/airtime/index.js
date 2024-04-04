@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, CardHeader, Card } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -14,6 +14,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
 import FeedBack from '../feedBack';
+import FixedNotification from 'ui-component/fixed-notification';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -80,56 +81,62 @@ const BuyAirtime = ({ title, network }) => {
     };
 
     return (
-        <MainCard title={title}>
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
-                            <Grid container spacing={4}>
-                                <Grid item xs={12}>
-                                    <CustomTextField name="beneficiary" label="Beneficiary Number" />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomTextField name="amount" label="Airtime Amount" />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: 'none' }}>
-                                    <CustomTextField name="network" label="Network" value={(values.network = network)} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography>Enter Transaction Pin</Typography>
-                                    <PinInput
-                                        style={{
-                                            margin: 'auto'
-                                        }}
-                                        length={4}
-                                        initialValue=""
-                                        secret
-                                        onChange={(value, index) => {
-                                            settpin(value);
-                                        }}
-                                        type="numeric"
-                                        inputMode="number"
-                                        inputStyle={{ borderColor: 'black' }}
-                                        inputFocusStyle={{ borderColor: 'blue' }}
-                                        onComplete={(value, index) => {}}
-                                        autoSelect={true}
-                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomButton color="primary" disabled={loading ? true : false}>
-                                        Submit
-                                    </CustomButton>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Form>
-                )}
-            </Formik>
+        <>
+            <MainCard>
+                <FixedNotification />
+                <Card>
+                    <CardHeader title={title} />
+                    <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
+                        {({ values, setFieldValue }) => (
+                            <Form>
+                                <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                                    <Grid container spacing={4}>
+                                        <Grid item xs={12}>
+                                            <CustomTextField name="beneficiary" label="Beneficiary Number" />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <CustomTextField name="amount" label="Airtime Amount" />
+                                        </Grid>
+                                        <Grid item xs={12} style={{ display: 'none' }}>
+                                            <CustomTextField name="network" label="Network" value={(values.network = network)} />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography>Enter Transaction Pin</Typography>
+                                            <PinInput
+                                                style={{
+                                                    margin: 'auto'
+                                                }}
+                                                length={4}
+                                                initialValue=""
+                                                secret
+                                                onChange={(value, index) => {
+                                                    settpin(value);
+                                                }}
+                                                type="numeric"
+                                                inputMode="number"
+                                                inputStyle={{ borderColor: 'black' }}
+                                                inputFocusStyle={{ borderColor: 'blue' }}
+                                                onComplete={(value, index) => {}}
+                                                autoSelect={true}
+                                                regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <CustomButton color="primary" disabled={loading ? true : false}>
+                                                Submit
+                                            </CustomButton>
+                                        </Grid>
+                                    </Grid>
+                                </Box>
+                            </Form>
+                        )}
+                    </Formik>
+                </Card>
 
-            {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={airtime?.data?.message} variant="success" />}
-            {<FeedBack setshowErrorAlert={setshowErrorAlert} showErrorAlert={showErrorAlert} message={error} variant="error" />}
-        </MainCard>
+                {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={airtime?.data?.message} variant="success" />}
+                {<FeedBack setshowErrorAlert={setshowErrorAlert} showErrorAlert={showErrorAlert} message={error} variant="error" />}
+            </MainCard>
+        </>
     );
 };
 

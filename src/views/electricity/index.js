@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, CardHeader, Card } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -15,6 +15,7 @@ import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
 import { electricityVariations } from '_mocks_/electricity';
 import FeedBack from '../feedBack';
+import FixedNotification from 'ui-component/fixed-notification';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -97,127 +98,129 @@ const Electricity = ({ title }) => {
 
     return (
         <MainCard
-            title={title}
             sx={{
                 overflowY: 'scroll'
             }}
         >
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
-                            <Grid container spacing={4}>
-                                <Grid item xs={12}>
-                                    <CustomSelect name="discoName" label="Select Disco Name" options={providers} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomSelect name="variation_code" label="Choose Variations" options={electricityVariations} />
-                                </Grid>
+            <FixedNotification />
+            <Card>
+                <CardHeader title={title} />
+                <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
+                    {({ values, setFieldValue }) => (
+                        <Form>
+                            <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12}>
+                                        <CustomSelect name="discoName" label="Select Disco Name" options={providers} />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomSelect name="variation_code" label="Choose Variations" options={electricityVariations} />
+                                    </Grid>
 
-                                <Grid item xs={12}>
-                                    <CustomTextField name="amount" label="Price" />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomTextField name="meterNumber" label="Meter Number" />
-                                </Grid>
-                                {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
                                     <Grid item xs={12}>
-                                        <Button
-                                            variant="contained"
-                                            color="secondary"
-                                            disabled={verifyMeterLoading}
-                                            onClick={() => handleVerifyDetails(values)}
-                                        >
-                                            Verify
-                                        </Button>
+                                        <CustomTextField name="amount" label="Price" />
                                     </Grid>
-                                )}
-                                {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
                                     <Grid item xs={12}>
-                                        <Typography variant="body1">Please verify your details before proceeding</Typography>
+                                        <CustomTextField name="meterNumber" label="Meter Number" />
                                     </Grid>
-                                )}
-                                {meterVerify && (
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            sx={{
-                                                marginBottom: '15px'
-                                            }}
-                                            variant="h4"
-                                        >
-                                            Customer Name: {meterVerify.Customer_Name}
-                                        </Typography>
-                                    </Grid>
-                                )}
-                                {meterVerify && (
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            sx={{
-                                                marginBottom: '15px'
-                                            }}
-                                            variant="h4"
-                                        >
-                                            Meter Number: {meterVerify.MeterNumber}
-                                        </Typography>
-                                    </Grid>
-                                )}
-                                {meterVerify && (
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            sx={{
-                                                marginBottom: '15px'
-                                            }}
-                                            variant="h4"
-                                        >
-                                            Meter Type: {meterVerify.Meter_Type}
-                                        </Typography>
-                                    </Grid>
-                                )}
+                                    {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
+                                        <Grid item xs={12}>
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                disabled={verifyMeterLoading}
+                                                onClick={() => handleVerifyDetails(values)}
+                                            >
+                                                Verify
+                                            </Button>
+                                        </Grid>
+                                    )}
+                                    {values.meterNumber !== '' && values.discoName !== '' && values.variation_code !== '' && (
+                                        <Grid item xs={12}>
+                                            <Typography variant="body1">Please verify your details before proceeding</Typography>
+                                        </Grid>
+                                    )}
+                                    {meterVerify && (
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                sx={{
+                                                    marginBottom: '15px'
+                                                }}
+                                                variant="h4"
+                                            >
+                                                Customer Name: {meterVerify.Customer_Name}
+                                            </Typography>
+                                        </Grid>
+                                    )}
+                                    {meterVerify && (
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                sx={{
+                                                    marginBottom: '15px'
+                                                }}
+                                                variant="h4"
+                                            >
+                                                Meter Number: {meterVerify.MeterNumber}
+                                            </Typography>
+                                        </Grid>
+                                    )}
+                                    {meterVerify && (
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                sx={{
+                                                    marginBottom: '15px'
+                                                }}
+                                                variant="h4"
+                                            >
+                                                Meter Type: {meterVerify.Meter_Type}
+                                            </Typography>
+                                        </Grid>
+                                    )}
 
-                                {meterVerify && (
+                                    {meterVerify && (
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                sx={{
+                                                    marginBottom: '15px'
+                                                }}
+                                                variant="h4"
+                                            >
+                                                Address : {meterVerify.Address}
+                                            </Typography>
+                                        </Grid>
+                                    )}
+
                                     <Grid item xs={12}>
-                                        <Typography
-                                            sx={{
-                                                marginBottom: '15px'
-                                            }}
-                                            variant="h4"
-                                        >
-                                            Address : {meterVerify.Address}
-                                        </Typography>
+                                        <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
                                     </Grid>
-                                )}
-
-                                <Grid item xs={12}>
-                                    <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                    <Grid item xs={12}>
+                                        <Typography>Enter Transaction Pin</Typography>
+                                        <PinInput
+                                            style={{
+                                                margin: 'auto'
+                                            }}
+                                            length={4}
+                                            initialValue=""
+                                            secret
+                                            ref={(n) => (pinRef.current = n)}
+                                            type="numeric"
+                                            inputMode="number"
+                                            inputStyle={{ borderColor: 'black' }}
+                                            inputFocusStyle={{ borderColor: 'blue' }}
+                                            onComplete={(value, index) => {}}
+                                            autoSelect={true}
+                                            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <Typography>Enter Transaction Pin</Typography>
-                                    <PinInput
-                                        style={{
-                                            margin: 'auto'
-                                        }}
-                                        length={4}
-                                        initialValue=""
-                                        secret
-                                        ref={(n) => (pinRef.current = n)}
-                                        type="numeric"
-                                        inputMode="number"
-                                        inputStyle={{ borderColor: 'black' }}
-                                        inputFocusStyle={{ borderColor: 'blue' }}
-                                        onComplete={(value, index) => {}}
-                                        autoSelect={true}
-                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Form>
-                )}
-            </Formik>
-
+                            </Box>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
             {
                 <FeedBack
                     setshowAlert={setshowAlert}

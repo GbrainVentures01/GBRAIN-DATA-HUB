@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, CardHeader, Card } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -15,6 +15,7 @@ import { generateRequestId } from 'utils/generateRequestId';
 import * as yup from 'yup';
 import { examVariations } from '_mocks_/exam';
 import FeedBack from '../feedBack';
+import FixedNotification from 'ui-component/fixed-notification';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -78,70 +79,73 @@ const ExamPin = ({ title }) => {
     };
 
     return (
-        <MainCard title={title}>
-            <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
-                            <Grid container spacing={4}>
-                                <Grid item xs={12}>
-                                    <CustomSelect
-                                        name="examType"
-                                        label="Choose Exam Type"
-                                        options={examVariations}
-                                        makeNetCall={true}
-                                        setvalue={setvalue}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomSelect
-                                        name="plan"
-                                        vtplan={true}
-                                        label="Choose Plan"
-                                        disabled={variations.length === 0 ? true : false}
-                                        options={variations}
-                                    />
-                                </Grid>
+        <MainCard>
+            <FixedNotification />
+            <Card>
+                <CardHeader title={title} />
+                <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
+                    {({ values, setFieldValue }) => (
+                        <Form>
+                            <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12}>
+                                        <CustomSelect
+                                            name="examType"
+                                            label="Choose Exam Type"
+                                            options={examVariations}
+                                            makeNetCall={true}
+                                            setvalue={setvalue}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomSelect
+                                            name="plan"
+                                            vtplan={true}
+                                            label="Choose Plan"
+                                            disabled={variations.length === 0 ? true : false}
+                                            options={variations}
+                                        />
+                                    </Grid>
 
-                                <Grid item xs={12}>
-                                    <CustomTextField
-                                        name="price"
-                                        placeholder="Amount"
-                                        value={(values.price = values.plan.variation_amount)}
-                                    />
-                                </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomTextField
+                                            name="price"
+                                            placeholder="Amount"
+                                            value={(values.price = values.plan.variation_amount)}
+                                        />
+                                    </Grid>
 
-                                <Grid item xs={12}>
-                                    <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                    <Grid item xs={12}>
+                                        <CustomTextField name="beneficiaryNum" label="Beneficiary Number" />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography>Enter Transaction Pin</Typography>
+                                        <PinInput
+                                            style={{
+                                                margin: 'auto'
+                                            }}
+                                            length={4}
+                                            initialValue=""
+                                            secret
+                                            ref={(n) => (pinRef.current = n)}
+                                            type="numeric"
+                                            inputMode="number"
+                                            inputStyle={{ borderColor: 'black' }}
+                                            inputFocusStyle={{ borderColor: 'blue' }}
+                                            onComplete={(value, index) => {}}
+                                            autoSelect={true}
+                                            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <Typography>Enter Transaction Pin</Typography>
-                                    <PinInput
-                                        style={{
-                                            margin: 'auto'
-                                        }}
-                                        length={4}
-                                        initialValue=""
-                                        secret
-                                        ref={(n) => (pinRef.current = n)}
-                                        type="numeric"
-                                        inputMode="number"
-                                        inputStyle={{ borderColor: 'black' }}
-                                        inputFocusStyle={{ borderColor: 'blue' }}
-                                        onComplete={(value, index) => {}}
-                                        autoSelect={true}
-                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <CustomButton disabled={loading ? true : false}>Submit</CustomButton>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Form>
-                )}
-            </Formik>
-
+                            </Box>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
             {
                 <FeedBack
                     setshowAlert={setshowAlert}

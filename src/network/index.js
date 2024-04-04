@@ -3,7 +3,7 @@ import axios from 'axios';
 const liveUrl = 'https://gbrain-backend-live.herokuapp.com/api/';
 // const liveUrl_prod = 'https://gbrain-backend-live.herokuapp.com/api/';
 
-const testUrl = 'http://localhost:1337/api/';
+// const testUrl = 'http://localhost:1337/api/';
 
 // const baseUrl = `${liveUrl}/api`;
 

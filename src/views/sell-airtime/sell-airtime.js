@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, Card, CardHeader } from '@mui/material';
 import { Form, Formik } from 'formik';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
@@ -13,6 +13,7 @@ import { CustomButton, CustomSelect, CustomTextField } from 'ui-component/basic-
 import MainCard from 'ui-component/cards/MainCard';
 import * as yup from 'yup';
 import FeedBack from '../feedBack';
+import FixedNotification from 'ui-component/fixed-notification';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -120,34 +121,37 @@ const SellAirtime = ({ title }) => {
 
     return (
         <MainCard
-            title={title}
             sx={
                 {
                     // overflowY: 'scroll'
                 }
             }
         >
-            <Grid
-                container
-                spacing={12}
-                sx={{
-                    marginBottom: '30px',
-                    // overflowY: 'scroll',
-                    overflowX: 'hidden'
-                }}
-            >
-                {airtimeDetails.map((details) => {
-                    return (
-                        <Grid item xs={3} lg={0} key={details.id}>
-                            <img
-                                src={details.attributes?.image?.data?.attributes?.url}
-                                alt="net_img"
-                                style={{
-                                    width: '75px',
-                                    height: '75px'
-                                }}
-                            />
-                            {/* 
+            <FixedNotification />
+            <Card>
+                <CardHeader title={title} />
+
+                <Grid
+                    container
+                    spacing={12}
+                    sx={{
+                        marginBottom: '30px',
+                        // overflowY: 'scroll',
+                        overflowX: 'hidden'
+                    }}
+                >
+                    {airtimeDetails.map((details) => {
+                        return (
+                            <Grid item xs={3} lg={0} key={details.id}>
+                                <img
+                                    src={details.attributes?.image?.data?.attributes?.url}
+                                    alt="net_img"
+                                    style={{
+                                        width: '75px',
+                                        height: '75px'
+                                    }}
+                                />
+                                {/* 
                             <Typography
                                 style={{
                                     width: '75px'
@@ -156,28 +160,28 @@ const SellAirtime = ({ title }) => {
                             >
                                 {` We convert at ${details.attributes.charges_in_percentage} %`}
                             </Typography> */}
-                        </Grid>
-                    );
-                })}
-            </Grid>
-            <Formik
-                initialValues={{ ...INITIAL_FORM_VALUES }}
-                validateOnChange={true}
-                onSubmit={handleSubmit}
-                validationSchema={VALIDATIONS}
-            >
-                {({ values, setFieldValue }) => (
-                    <Form>
-                        <Box sx={{ maxWidth: 500, height: '60vh' }}>
-                            <Grid container spacing={4}>
-                                <Grid item xs={12}>
-                                    <CustomSelect name="network" options={airtimeDetails} label="Select Airtime Network" />
-                                </Grid>
-                                {/* <Grid item xs={12}>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+                <Formik
+                    initialValues={{ ...INITIAL_FORM_VALUES }}
+                    validateOnChange={true}
+                    onSubmit={handleSubmit}
+                    validationSchema={VALIDATIONS}
+                >
+                    {({ values, setFieldValue }) => (
+                        <Form>
+                            <Box sx={{ maxWidth: 500, height: '60vh' }}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12}>
+                                        <CustomSelect name="network" options={airtimeDetails} label="Select Airtime Network" />
+                                    </Grid>
+                                    {/* <Grid item xs={12}>
                                     <CustomTextField name="amount" label="Airtime Amount" />
                                 </Grid> */}
 
-                                {/* <Grid item xs={12}>
+                                    {/* <Grid item xs={12}>
                                     <CustomTextField
                                         name="amount_in_percent"
                                         label="You will get"
@@ -188,7 +192,7 @@ const SellAirtime = ({ title }) => {
                                         }
                                     />
                                 </Grid> */}
-                                {/* <Grid
+                                    {/* <Grid
                                     item
                                     xs={12}
                                     style={{
@@ -201,7 +205,7 @@ const SellAirtime = ({ title }) => {
                                         values={(values.recharge_number = getRechargeNum(values?.network) || '')}
                                     />
                                 </Grid> */}
-                                {/* <Grid item xs={12}>
+                                    {/* <Grid item xs={12}>
                                     <CustomTextField name="account_name" label="Beneficiary Account Name" />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -210,10 +214,10 @@ const SellAirtime = ({ title }) => {
                                 <Grid item xs={12}>
                                     <CustomTextField name="account_number" label="Beneficiary Account Number" />
                                 </Grid> */}
-                                <Grid item xs={12}>
-                                    <CustomTextField name="phone_number" label="Sender Phone Number" />
-                                </Grid>
-                                {/* <Grid item xs={12}>
+                                    <Grid item xs={12}>
+                                        <CustomTextField name="phone_number" label="Sender Phone Number" />
+                                    </Grid>
+                                    {/* <Grid item xs={12}>
                                     <Typography style={{ marginBottom: '20px' }} variant="body1">
                                         UPLOAD SCREENSHOT OF SUCCESSFUL AIRTIME SENT
                                     </Typography>
@@ -228,36 +232,36 @@ const SellAirtime = ({ title }) => {
                                         }}
                                     />
                                 </Grid> */}
-                                <Grid item xs={12}>
-                                    <Typography>Enter Transaction Pin</Typography>
-                                    <PinInput
-                                        style={{
-                                            margin: 'auto'
-                                        }}
-                                        length={4}
-                                        initialValue=""
-                                        secret
-                                        ref={(n) => (pinRef.current = n)}
-                                        type="numeric"
-                                        inputMode="number"
-                                        inputStyle={{ borderColor: 'black' }}
-                                        inputFocusStyle={{ borderColor: 'blue' }}
-                                        onComplete={(value, index) => {}}
-                                        autoSelect={true}
-                                        regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-                                    />
+                                    <Grid item xs={12}>
+                                        <Typography>Enter Transaction Pin</Typography>
+                                        <PinInput
+                                            style={{
+                                                margin: 'auto'
+                                            }}
+                                            length={4}
+                                            initialValue=""
+                                            secret
+                                            ref={(n) => (pinRef.current = n)}
+                                            type="numeric"
+                                            inputMode="number"
+                                            inputStyle={{ borderColor: 'black' }}
+                                            inputFocusStyle={{ borderColor: 'blue' }}
+                                            onComplete={(value, index) => {}}
+                                            autoSelect={true}
+                                            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
+                                            Submit
+                                        </CustomButton>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <CustomButton color="primary" disabled={loading || airtimeLoading ? true : false}>
-                                        Submit
-                                    </CustomButton>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Form>
-                )}
-            </Formik>
-
+                            </Box>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
             {<FeedBack setshowAlert={setshowAlert} showAlert={showAlert} message={airtime?.data?.message} variant="success" />}
             {<FeedBack setshowErrorAlert={setshowErrorAlert} showErrorAlert={showErrorAlert} message={error} variant="error" />}
         </MainCard>
