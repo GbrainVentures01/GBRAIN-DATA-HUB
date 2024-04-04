@@ -57,10 +57,9 @@ const FeedBack = ({
                         }}
                     >
                         <Button
-                            // sx={{ display: 'absolute', bottom: 0, left: '130px' }}
+                            sx={{ backgroundColor: '#83529f', color: 'white', mr: 1, '&:hover': { backgroundColor: '#83529f' } }}
                             onClick={() => (from === 'fund' ? generateAccount(setshowAlert) : onClickSuccess(setshowAlert, goHome))}
                             variant="contained"
-                            color="primary"
                             disabled={loading}
                         >
                             {from === 'fund' ? 'Generate now' : 'Ok'}
@@ -89,7 +88,11 @@ const FeedBack = ({
                 focusCancelBtn
                 customButtons={
                     <>
-                        <Button onClick={onClickFailure} sx={{ mr: 2 }} variant="contained" color="primary">
+                        <Button
+                            sx={{ mr: 2, backgroundColor: '#83529f', color: 'white', mr: 1, '&:hover': { backgroundColor: '#83529f' } }}
+                            onClick={onClickFailure}
+                            variant="contained"
+                        >
                             Ok
                         </Button>
                         {/* {!disableTopup && (
