@@ -22,7 +22,7 @@ import FixedNotification from 'ui-component/fixed-notification';
 const Electricity = ({ title }) => {
     const { electricityOrder, electricityProviders, verifyMeterData } = useSelector((state) => state);
     const { verifyMeterLoading, meterVerify } = verifyMeterData;
-    console.log(meterVerify);
+
     const { providers } = electricityProviders;
     const { loading, data, error } = electricityOrder;
     const { enqueueSnackbar } = useSnackbar();

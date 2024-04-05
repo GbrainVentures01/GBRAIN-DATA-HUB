@@ -69,7 +69,7 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
     const [showErrorAlert, setshowErrorAlert] = useState(false);
 
     const pinRef = useRef('');
-    console.log(mtnSme1DataPlans);
+
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
@@ -105,7 +105,6 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
     });
 
     const returnPlan = ({ network, sme, cg, sme_1, sme_2, coup }) => {
-        console.log('SME1', sme_1);
         switch (network) {
             case 'Glo':
                 return cg ? gloCgDataPlans : gloDataPlans;
@@ -125,7 +124,6 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
     };
 
     const sendCgdata = (values) => {
-        console.log(pinRef.current.values);
         if (!pinRef.current.values) {
             enqueueSnackbar('provide transaction pin to proceed', {
                 variant: 'error',
@@ -143,7 +141,7 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
             request_Id: generateRequestId(),
             pin: pinRef.current.values.join('')
         };
-        console.log(body);
+
         dispatch(
             buyCgData({
                 orderDetails: {
@@ -156,7 +154,6 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
         );
     };
     const sendGiftData = (values) => {
-        console.log(pinRef.current.values);
         if (!pinRef.current.values) {
             enqueueSnackbar('provide transaction pin to proceed', {
                 variant: 'error',
@@ -174,9 +171,6 @@ const BuyData = ({ title, network, sme, cg, sme_1, sme_2, coup }) => {
             request_id: generateRequestId(),
             pin: pinRef.current.values.join('')
         };
-
-        console.log('from body');
-        console.log(body);
 
         dispatch(
             giftData({

@@ -47,7 +47,7 @@ const Funding = () => {
 
     useEffect(() => {
         if (Object.keys(user).length === 0) return;
-        console.log('USER: ', user);
+
         if (!user?.hasAccountNum) {
             setshowAlert((prevAlert) => true);
         }

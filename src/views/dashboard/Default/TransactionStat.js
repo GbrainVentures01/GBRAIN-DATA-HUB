@@ -3,7 +3,6 @@ import { FaDollarSign, FaLink, FaSalesforce, FaUpload, FaWallet } from 'react-ic
 import StatisticCard from './StatisticCard';
 
 const TransactionStat = ({ stat }) => {
-    console.log('Stat: ', stat);
     const date = new Date();
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];

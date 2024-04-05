@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
+import { isOldNoification } from 'utils/determinOldNotification';
 
 // notification status options
 // const status = [
@@ -56,8 +57,8 @@ const NotificationSection = () => {
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false);
-    // const [value, setValue] = useState('');
-    console.log('user', user);
+    const [isOldNotification, setisOldNotification] = useState(true);
+
     /**
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
      * */
@@ -82,10 +83,14 @@ const NotificationSection = () => {
         prevOpen.current = open;
     }, [open]);
 
+    // useEffect(() => {
+    //     setisOldNotification(isOldNoification({ notification }));
+    // }, [notification]);
     // const handleChange = (event) => {
     //     if (event?.target.value) setValue(event?.target.value);
     // };
 
+    //
     return (
         <>
             <Box
@@ -120,7 +125,10 @@ const NotificationSection = () => {
                         <IconBell stroke={1.5} size="1.3rem" />
                     </Avatar>
                     <div style={{ position: 'absolute', top: '0px', right: '-5px' }}>
-                        <NotificationBadge count={user?.updateBvn ? null : 1} effect={Effect.SCALE} />
+                        <NotificationBadge
+                            count={user?.updateBvn ? (notification.treatAsNew ? 1 : null) : notification.treatAsNew ? 2 : 1}
+                            effect={Effect.SCALE}
+                        />
                     </div>
                 </ButtonBase>
             </Box>

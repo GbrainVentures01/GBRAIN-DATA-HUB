@@ -31,12 +31,12 @@ const SellAirtimeOtp = ({ title }) => {
     const location = useLocation();
     const phone_num = new URLSearchParams(location.search).get('phone_number');
     const network = new URLSearchParams(location.search).get('network');
-    console.log(phone_num);
+
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch, enqueueSnackbar]);
-    console.log(airtimeDetails);
+
     const INITIAL_FORM_VALUES = {
         // account_number: '',
         phone_number: '',
@@ -78,7 +78,7 @@ const SellAirtimeOtp = ({ title }) => {
         //     return;
         // }
         // const formData = new FormData();
-        // console.log(file);
+        //
 
         // formData.append('files', file);
 
@@ -204,7 +204,7 @@ const SellAirtimeOtp = ({ title }) => {
                                         placeholder="Upload screenshot of successful airtime sent"
                                         type="file"
                                         onChange={(event) => {
-                                            console.log(event.target.files);
+                                            
                                             setfile(event.target.files[0]);
                                         }}
                                     />

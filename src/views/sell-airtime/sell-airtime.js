@@ -33,7 +33,7 @@ const SellAirtime = ({ title }) => {
         dispatch(userAction({ navigate }));
         dispatch(getSellAirtimeDetails({ enqueueSnackbar }));
     }, [navigate, dispatch, enqueueSnackbar]);
-    console.log(airtimeDetails);
+
     const INITIAL_FORM_VALUES = {
         // account_number: '',
         phone_number: '',
@@ -76,7 +76,7 @@ const SellAirtime = ({ title }) => {
             return;
         }
         // const formData = new FormData();
-        // console.log(file);
+        //
 
         // formData.append('files', file);
 
@@ -227,7 +227,7 @@ const SellAirtime = ({ title }) => {
                                         placeholder="Upload screenshot of successful airtime sent"
                                         type="file"
                                         onChange={(event) => {
-                                            console.log(event.target.files);
+                                            
                                             setfile(event.target.files[0]);
                                         }}
                                     />

@@ -185,7 +185,6 @@ export const getMtnSmeOneData = () => async (dispatch) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log('data1', data);
 
         dispatch({
             type: GET_MTN_SME_1_DATA_PLAN_SUCCESS,
@@ -211,7 +210,7 @@ export const getMtnSmeTwoData = () => async (dispatch) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log('data2', data);
+
         dispatch({
             type: GET_MTN_SME_2_DATA_PLAN_SUCCESS,
             payload: data.data
@@ -405,7 +404,7 @@ export const sellAirtime =
                 }
             });
             // if (data) {
-            // console.log(data);
+            //
             // file.append('ref', 'api::sell-airtime.sell-airtime');
             // file.append('refId', data.data.Order.id);
             // file.append('field', 'screenshot');
@@ -418,16 +417,16 @@ export const sellAirtime =
             //     }
             // });
 
-            // console.log('====================================');
-            // console.log(res.data);
-            // console.log('====================================');
+            //
+            //
+            //
 
             // if (res.data) {
             dispatch({
                 type: SELL_AIRTIME_SUCCESS,
                 payload: data
             });
-            console.log(data);
+
             enqueueSnackbar(data?.data?.message, {
                 variant: 'success',
                 autoHideDuration: 2000
@@ -682,14 +681,12 @@ export const ForgetPinAction =
                 payload: data
             });
 
-            console.log(data);
             data &&
                 enqueueSnackbar(data?.message, {
                     variant: 'success',
                     autoHideDuration: 2000
                 });
         } catch (error) {
-            console.log(error);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
                     variant: 'error',
@@ -719,14 +716,12 @@ export const ForgetPasswordAction =
                 payload: data
             });
 
-            console.log(data);
             data &&
                 enqueueSnackbar(data?.message, {
                     variant: 'success',
                     autoHideDuration: 2000
                 });
         } catch (error) {
-            console.log(error);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
                     variant: 'error',
@@ -762,7 +757,6 @@ export const ResetPasswordAction =
                     autoHideDuration: 2000
                 });
         } catch (error) {
-            console.log(error.message);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error',
@@ -791,10 +785,7 @@ export const registerAction =
                 type: REGISTER_USER_SUCCESS,
                 payload: data
             });
-
-            console.log(data);
         } catch (error) {
-            console.log(error.response);
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.message, {
                     variant: 'error',
@@ -865,7 +856,7 @@ export const UpdateBvn =
                 type: UPDATE_USER_SUCCESS,
                 payload: data
             });
-            console.log('data', data);
+
             data &&
                 enqueueSnackbar(data, {
                     variant: 'success',
@@ -934,7 +925,6 @@ export const userTransactionStat =
                 type: GET_USER_STAT_SUCCESS,
                 payload: data
             });
-            console.log('DATA: ', data);
         } catch (error) {
             if (error.response?.data?.error?.status === 401) {
                 navigate('/pages/login');
@@ -965,7 +955,6 @@ export const userTransactionStatByDate =
                 type: GET_USER_STAT_BY_DATE_SUCCESS,
                 payload: data
             });
-            console.log(data);
         } catch (error) {
             if (error.response?.data?.error?.status === 401) {
                 navigate('/pages/login');
@@ -995,9 +984,7 @@ export const fundWalletWithMonnify =
                 type: FUND_WALLET_BY_MONNIFY_SUCCESS,
                 payload: data
             });
-            console.log(data);
         } catch (error) {
-            console.log('ERROR: ', error);
             dispatch({
                 type: FUND_WALLET_BY_MONNIFY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
@@ -1029,14 +1016,13 @@ export const generateMonnifyAccount =
                 type: GENERATE_mONNIFY_ACCOUNT_SUCCESS,
                 payload: data
             });
-            console.log(data);
+
             enqueueSnackbar('Account Created Successfully', {
                 variant: 'sucess',
                 autoHideDuration: 2000
             });
             window.location.reload();
         } catch (error) {
-            console.log('ERROR: ', error);
             dispatch({
                 type: GENERATE_mONNIFY_ACCOUNT_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
@@ -1083,7 +1069,6 @@ export const verifyData =
     ({ body, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
-            console.log('trying');
             dispatch({
                 type: VERIFY_DETAILS_REQUEST
             });
@@ -1117,7 +1102,6 @@ export const verifyMeter =
     ({ body, enqueueSnackbar }) =>
     async (dispatch) => {
         try {
-            console.log('trying');
             dispatch({
                 type: VERIFY_METER_REQUEST
             });
@@ -1134,7 +1118,6 @@ export const verifyMeter =
                 type: VERIFY_METER_SUCCESS,
                 payload: data
             });
-            console.log(data);
         } catch (error) {
             error &&
                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
@@ -1165,7 +1148,6 @@ export const getElectricProviders = () => async (dispatch) => {
             type: GET_ELECTRICITY_PROVIDERS_SUCCESS,
             payload: data.data
         });
-        console.log(data.data);
     } catch (error) {
         dispatch({
             type: GET_ELECTRICITY_PROVIDERS_FAIL,
@@ -1284,9 +1266,7 @@ export const getHistories =
                     variant: 'success',
                     autoHideDuration: 2000
                 });
-            console.log(data);
         } catch (error) {
-            console.log(error);
             dispatch({
                 type: GET_TRANSACTION_HISTORY_FAIL,
                 payload: error.response?.data?.error?.message || error?.messag
@@ -1378,12 +1358,11 @@ export const getNotificationDetails =
                 }
             });
 
-            console.log('notification', data?.data?.attributes);
-
             dispatch({
                 type: GET_NOTIFICATION_SUCCESS,
                 payload: data?.data?.attributes
             });
+
             setshowAlert((prevState) => !prevState);
         } catch (error) {
             dispatch({

@@ -52,7 +52,6 @@ const SubTv = ({ title }) => {
 
     useEffect(() => {
         if (code === 'dstv' && decoderNumber.length === 10) {
-            console.log('fecthing');
             dispatch(
                 verifyData({
                     body: {
@@ -75,7 +74,6 @@ const SubTv = ({ title }) => {
             );
         }
         if (code === 'gotv' && decoderNumber.length === 10) {
-            console.log('fecthing');
             dispatch(
                 verifyData({
                     body: {
@@ -107,12 +105,12 @@ const SubTv = ({ title }) => {
     });
 
     const handleDecoderNumber = (e, code, cardnum) => {
-        // console.log(cardRef.current);
+        //
         setdecoderNumber(e.target.value);
         setcode(code);
 
         // if (code === 'showmax' && decoderNumber.length === 11) {
-        //     console.log('fecthing');
+        //
         //     dispatch(
         //         verifyData({
         //             body: {

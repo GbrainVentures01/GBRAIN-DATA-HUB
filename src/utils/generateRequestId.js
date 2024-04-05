@@ -12,6 +12,6 @@ export const generateRequestId = () => {
     const hour = addZero(today.getHours());
     const min = addZero(today.getMinutes());
     today = yyyy + mm + dd + hour + min;
-    console.log(today);
+
     return `${today}${Math.random().toString(36).substring(2, 7)}${Math.floor(Math.random() * 100 + 1)}`;
 };

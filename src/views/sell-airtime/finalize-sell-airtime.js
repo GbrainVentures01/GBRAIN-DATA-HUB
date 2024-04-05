@@ -38,7 +38,7 @@ const FinalizeSellAirtime = ({ title }) => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
     }, [navigate, dispatch, enqueueSnackbar]);
-    console.log(airtimeDetails);
+
     const INITIAL_FORM_VALUES = {
         // account_number: '',
         phone_number: '',
@@ -80,7 +80,7 @@ const FinalizeSellAirtime = ({ title }) => {
             return;
         }
         // const formData = new FormData();
-        // console.log(file);
+        //
 
         // formData.append('files', file);
 
@@ -207,7 +207,7 @@ const FinalizeSellAirtime = ({ title }) => {
                                         placeholder="Upload screenshot of successful airtime sent"
                                         type="file"
                                         onChange={(event) => {
-                                            console.log(event.target.files);
+                                            
                                             setfile(event.target.files[0]);
                                         }}
                                     />

@@ -41,7 +41,6 @@ const FirebaseLogin = ({ ...others }) => {
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
-    console.log(login);
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();

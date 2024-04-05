@@ -66,7 +66,7 @@ const ExamPin = ({ title }) => {
             variation_code: values.plan.variation_code,
             pin: pinRef.current.values.join('')
         };
-        console.log(body);
+
         dispatch(
             buyExamPin({
                 reqBody: {
