@@ -97,18 +97,14 @@ const Electricity = ({ title }) => {
     };
 
     return (
-        <MainCard
-            sx={{
-                overflowY: 'scroll'
-            }}
-        >
+        <MainCard sx={{ height: '100%' }}>
             <FixedNotification />
             <Card>
                 <CardHeader title={title} />
                 <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                     {({ values, setFieldValue }) => (
                         <Form>
-                            <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                            <Box sx={{ maxWidth: 500 }}>
                                 <Grid container spacing={4}>
                                     <Grid item xs={12}>
                                         <CustomSelect name="discoName" label="Select Disco Name" options={providers} />

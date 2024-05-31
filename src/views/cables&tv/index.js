@@ -153,11 +153,7 @@ const SubTv = ({ title }) => {
     };
 
     return (
-        <MainCard
-            sx={{
-                overflowY: 'scroll'
-            }}
-        >
+        <MainCard>
             <FixedNotification />
             <Card>
                 <CardHeader title={title} />
@@ -204,7 +200,7 @@ const SubTv = ({ title }) => {
                                 delivery.
                             </Typography>
                         </div>
-                        <Box sx={{ maxWidth: 500, height: '100vh' }}>
+                        <Box sx={{ maxWidth: 500 }}>
                             <Grid container spacing={4}>
                                 <Grid item xs={12}>
                                     <CustomSelect

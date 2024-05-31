@@ -19,7 +19,6 @@ export const CustomTextField = ({ name, fullWidth, ...other }) => {
 // custom select box
 
 export const CustomSelect = ({ name, setvalue, makeNetCall, options, vtplan, ...other }) => {
- 
     const [field, meta] = useField(name);
     const { setFieldValue } = useFormikContext();
 
@@ -107,5 +106,9 @@ export const CustomButton = ({ children, fullWidth, disabled, ...others }) => {
         fullWidth: true || fullWidth
     };
 
-    return <Button {...defaultConfiq}>{children}</Button>;
+    return (
+        <Button sx={{ zIndex: 10 }} {...defaultConfiq}>
+            {children}
+        </Button>
+    );
 };
