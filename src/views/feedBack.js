@@ -31,7 +31,8 @@ const FeedBack = ({
     const { loading } = monnifyAccountGeneration;
 
     const generateAccount = async (setshowAlert) => {
-        await dispatch(generateMonnifyAccount({ enqueueSnackbar, navigate }));
+        // await dispatch(generateMonnifyAccount({ enqueueSnackbar, navigate }));
+        navigate("/verify-account");
         setshowAlert((prevAlert) => !prevAlert);
     };
     const onClickFailure = () => {

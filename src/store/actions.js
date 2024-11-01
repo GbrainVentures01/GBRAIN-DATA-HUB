@@ -997,43 +997,43 @@ export const fundWalletWithMonnify =
         }
     };
 
-export const generateMonnifyAccount =
-    ({ enqueueSnackbar, navigate }) =>
-    async (dispatch) => {
-        try {
-            dispatch({
-                type: GENERATE_mONNIFY_ACCOUNT_REQUEST
-            });
-            const { data } = await makeNetworkCall({
-                method: 'POST',
-                path: `create-reserved-account`,
-                requestBody: {},
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            dispatch({
-                type: GENERATE_mONNIFY_ACCOUNT_SUCCESS,
-                payload: data
-            });
+// export const generateMonnifyAccount =
+//     ({ enqueueSnackbar, navigate }) =>
+//     async (dispatch) => {
+//         try {
+//             dispatch({
+//                 type: GENERATE_mONNIFY_ACCOUNT_REQUEST
+//             });
+//             const { data } = await makeNetworkCall({
+//                 method: 'POST',
+//                 path: `create-reserved-account`,
+//                 requestBody: {},
+//                 headers: {
+//                     Authorization: `Bearer ${token}`
+//                 }
+//             });
+//             dispatch({
+//                 type: GENERATE_mONNIFY_ACCOUNT_SUCCESS,
+//                 payload: data
+//             });
 
-            enqueueSnackbar('Account Created Successfully', {
-                variant: 'sucess',
-                autoHideDuration: 2000
-            });
-            window.location.reload();
-        } catch (error) {
-            dispatch({
-                type: GENERATE_mONNIFY_ACCOUNT_FAIL,
-                payload: error.response?.data?.error?.message || error?.messag
-            });
-            error &&
-                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
-                    variant: 'error',
-                    autoHideDuration: 2000
-                });
-        }
-    };
+//             enqueueSnackbar('Account Created Successfully', {
+//                 variant: 'sucess',
+//                 autoHideDuration: 2000
+//             });
+//             window.location.reload();
+//         } catch (error) {
+//             dispatch({
+//                 type: GENERATE_mONNIFY_ACCOUNT_FAIL,
+//                 payload: error.response?.data?.error?.message || error?.messag
+//             });
+//             error &&
+//                 enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+//                     variant: 'error',
+//                     autoHideDuration: 2000
+//                 });
+//         }
+//     };
 
 // VTU ACTIONS HERE
 

@@ -48,7 +48,7 @@ const VerifyAccount = () => {
     };
 
     return (
-        <MainCard title={'Verify Account'}>
+        <MainCard title={'Verify Your Account Using Your Bvn'}>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
