@@ -42,7 +42,7 @@ const Dashboard = () => {
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
-                    <Grid item lg={4} md={6} sm={6} xs={12}>
+                    <Grid item lg={6} md={6} sm={6} xs={12}>
                         <br />
                         <br />
                         <EarningCard isLoading={isLoading} message={notification?.message} />

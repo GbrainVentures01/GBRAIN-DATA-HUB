@@ -1,6 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 // import { useSnackbar } from 'notistack';
+import Markdown from 'markdown-to-jsx';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -32,7 +33,7 @@ const FeedBack = ({
 
     const generateAccount = async (setshowAlert) => {
         // await dispatch(generateMonnifyAccount({ enqueueSnackbar, navigate }));
-        navigate("/verify-account");
+        navigate('/verify-account');
         setshowAlert((prevAlert) => !prevAlert);
     };
     const onClickFailure = () => {
@@ -69,9 +70,10 @@ const FeedBack = ({
                 }
             >
                 <br />
-                <Typography variant="subtitle1" sx={{ textAlign: 'justify' }}>
-                    {message}
-                </Typography>
+                <Markdown>{message}</Markdown>
+                {/* <Typography variant="subtitle1" sx={{ textAlign: 'justify' }}> */}
+                {/* {message} */}
+                {/* </Typography> */}
                 {purchasePin && <Typography variant="subtitle1">{purchasePin}</Typography>}
             </SweetAlert>
         );

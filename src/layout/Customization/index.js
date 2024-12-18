@@ -1,3 +1,4 @@
+import { WhatsappOutlined, WhatsappSharp } from '@mui/icons-material';
 import {
     Drawer,
     Fab,
@@ -23,7 +24,7 @@ import { gridSpacing } from 'store/constant';
 // project imports
 import SubCard from 'ui-component/cards/SubCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
-
+import whatsaap from '../../assets/images/whatsapp.png';
 // concat 'px'
 function valueText(value) {
     return `${value}px`;
@@ -88,14 +89,15 @@ const Customization = () => {
     return (
         <>
             {/* toggle button */}
-            <Tooltip title="Live Customize">
+            <Tooltip title="Chat With us">
                 <Fab
-                    component="div"
-                    onClick={handleToggle}
+                    component="a"
+                    href="https://wa.me/+2348123210297"
+                    // onClick={handleToggle}
                     size="medium"
                     variant="circular"
-                    color="secondary"
                     sx={{
+                        backgroundColor: '#25D366',
                         borderRadius: 0,
                         borderTopLeftRadius: '50%',
                         borderBottomLeftRadius: '50%',
@@ -109,105 +111,11 @@ const Customization = () => {
                 >
                     <AnimateButton type="rotate">
                         <IconButton color="inherit" size="large" disableRipple>
-                            <IconSettings />
+                            <WhatsappOutlined sx={{ color: 'white' }} fontSize="medium" />
                         </IconButton>
                     </AnimateButton>
                 </Fab>
             </Tooltip>
-
-            <Drawer
-                anchor="right"
-                onClose={handleToggle}
-                open={open}
-                PaperProps={{
-                    sx: {
-                        width: 280
-                    }
-                }}
-            >
-                <PerfectScrollbar component="div">
-                    <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
-                        <Grid item xs={12}>
-                            {/* font family */}
-                            <SubCard title="Font Families">
-                                <FormControl>
-                                    <RadioGroup
-                                        aria-label="font-family"
-                                        value={fontFamily}
-                                        onChange={(e) => setFontFamily(e.target.value)}
-                                        name="row-radio-buttons-group"
-                                    >
-                                        <FormControlLabel
-                                            value="Roboto"
-                                            control={<Radio />}
-                                            label="Roboto"
-                                            sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                                            }}
-                                        />
-                                        <FormControlLabel
-                                            value="Poppins"
-                                            control={<Radio />}
-                                            label="Poppins"
-                                            sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                                            }}
-                                        />
-                                        <FormControlLabel
-                                            value="Inter"
-                                            control={<Radio />}
-                                            label="Inter"
-                                            sx={{
-                                                '& .MuiSvgIcon-root': { fontSize: 28 },
-                                                '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                                            }}
-                                        />
-                                    </RadioGroup>
-                                </FormControl>
-                            </SubCard>
-                        </Grid>
-                        <Grid item xs={12}>
-                            {/* border radius */}
-                            <SubCard title="Border Radius">
-                                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
-                                    <Grid item>
-                                        <Typography variant="h6" color="secondary">
-                                            4px
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Slider
-                                            size="small"
-                                            value={borderRadius}
-                                            onChange={handleBorderRadius}
-                                            getAriaValueText={valueText}
-                                            valueLabelDisplay="on"
-                                            aria-labelledby="discrete-slider-small-steps"
-                                            marks
-                                            step={2}
-                                            min={4}
-                                            max={24}
-                                            color="secondary"
-                                            sx={{
-                                                '& .MuiSlider-valueLabel': {
-                                                    color: 'secondary.light'
-                                                }
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Typography variant="h6" color="secondary">
-                                            24px
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </SubCard>
-                        </Grid>
-                    </Grid>
-                </PerfectScrollbar>
-            </Drawer>
         </>
     );
 };

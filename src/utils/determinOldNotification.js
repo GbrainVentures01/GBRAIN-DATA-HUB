@@ -3,7 +3,7 @@ export const isOldNoification = ({ notification }) => {
 
     if (Object.entries(oldNotification).length === 0 && Object.entries(notification).length === 0) {
         return true;
-    } else if (Object.entries(oldNotification).length === 0 && Object.entries(notification).length != 0) {
+    } else if (Object.entries(oldNotification).length === 0 && Object.entries(notification).length !== 0) {
         localStorage.setItem('notification', JSON.stringify(notification));
         return false;
     } else if (Object.entries(oldNotification).length != 0 && Object.entries(notification).length === 0) {

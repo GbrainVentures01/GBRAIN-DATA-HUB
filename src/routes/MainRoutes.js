@@ -26,6 +26,7 @@ import SellAirtimeOtp from 'views/sell-airtime/sell-airtime-otp';
 import FinalizeSellAirtime from 'views/sell-airtime/finalize-sell-airtime';
 import FundingSelection from 'views/payments/funding_selection';
 import VerifyAccount from 'views/verify_account';
+import RecieptComponent from 'views/histories/Receipt';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -181,6 +182,10 @@ const MainRoutes = {
         {
             path: '/fund',
             element: <Funding />
+        },
+        {
+            path: '/history/order',
+            element: <RecieptComponent />
         },
         {
             path: '/confirm-payment',
