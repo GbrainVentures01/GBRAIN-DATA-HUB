@@ -25,7 +25,7 @@ const Contact = ({ title }) => {
                     <a
                         target="_blank"
                         rel="noreferrer"
-                        href="https://wa.me/+2347042500308"
+                        href="https://wa.me/+2348140345162"
                         style={{
                             textDecoration: 'none'
                         }}

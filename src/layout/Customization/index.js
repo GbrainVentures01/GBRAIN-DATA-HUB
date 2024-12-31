@@ -92,7 +92,7 @@ const Customization = () => {
             <Tooltip title="Chat With us">
                 <Fab
                     component="a"
-                    href="https://wa.me/+2348123210297"
+                    href="https://wa.me/+2348140345162"
                     // onClick={handleToggle}
                     size="medium"
                     variant="circular"
