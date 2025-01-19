@@ -1,17 +1,31 @@
 // material-ui
 // project imports
-import { Box, Card, CardHeader, CircularProgress, Divider, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+    Box,
+    Button,
+    Card,
+    CardHeader,
+    CircularProgress,
+    Divider,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField
+} from '@mui/material';
 import Cookies from 'js-cookie';
 import moment from 'moment';
 
 import { useSnackbar } from 'notistack';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ScrollBar from 'react-perfect-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getHistories, userAction } from 'store/actions';
 import theme from 'themes';
 import { SeverityPill } from 'ui-component/severity-pill';
+import { useDebounce } from 'use-debounce';
 
 // import Scrollbar from 'ui-component/Scrollbar';
 
@@ -37,6 +51,9 @@ const statusMap = {
 const Histories = () => {
     const { transactionHistory } = useSelector((state) => state);
     const { loading, histories } = transactionHistory;
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('account-funding');
+    const [value] = useDebounce(search, 500);
 
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
@@ -44,8 +61,8 @@ const Histories = () => {
     useEffect(() => {
         !Cookies.get('user') && navigate('/pages/login');
         dispatch(userAction({ navigate }));
-        dispatch(getHistories({ enqueueSnackbar }));
-    }, [dispatch, enqueueSnackbar, navigate]);
+        dispatch(getHistories({ enqueueSnackbar, search, type }));
+    }, [dispatch, enqueueSnackbar, navigate, value, type]);
 
     const columns = [
         {
@@ -149,9 +166,9 @@ const Histories = () => {
         }
     ];
 
-    histories.histories?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    histories?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-    const data = histories.histories?.map((serv, i) => {
+    const data = histories?.map((serv, i) => {
         // const strDate = new Date(serv?.createdAt);
         const formattedDate = moment(serv?.createdAt).format('LLLL');
         // function convert(strDate) {
@@ -198,6 +215,60 @@ const Histories = () => {
     return (
         <Card sx={{ height: '100%', marginTop: 5, width: '100%' }}>
             <CardHeader title={'Transactions History'} />
+            <Box sx={{ display: 'flex', paddingX: 2, marginBottom: 2, flexDirection: { xs: 'column', lg: 'column' }, gap: 2 }}>
+                <TextField
+                    variant="outlined"
+                    placeholder="Search..."
+                    sx={{ mb: { xs: 2, lg: 0 } }}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 1,
+                        flexGrow: 1,
+                        overflowX: 'auto'
+                    }}
+                >
+                    {[
+                        'account-funding',
+                        'airtime',
+                        'sme-1-data',
+                        'sme-2-data',
+                        'sme-data',
+                        'data-gifting',
+                        'cg-data',
+                        'mtn-coupon-data',
+                        'sell-airtime',
+                        'tv-cables',
+                        'electricity',
+                        'exam-pins'
+                    ].map((tx_type) => (
+                        <button
+                            key={tx_type}
+                            onClick={() => setType(tx_type)}
+                            style={{
+                                whiteSpace: 'nowrap',
+                                padding: '5px 10px',
+                                width: 'auto',
+                                border: '1px solid #83529f',
+                                borderRadius: '5px',
+                                backgroundColor: type === tx_type ? '#83529f' : 'transparent',
+                                color: type === tx_type ? '#fff' : '#83529f'
+                            }}
+                            // variant="outlined"
+                            // sx={{
+                            //     width: '800px',
+
+                            //     whiteSpace: 'nowrap'
+                            // }}
+                        >
+                            {tx_type.replace('-', ' ').toUpperCase()}
+                        </button>
+                    ))}
+                </Box>
+            </Box>
             <ScrollBar sx={{ flexGrow: 1 }}>
                 {/* <Box sx={{ minWidth: 800, overflowX: 'auto' }}> */}
                 {loading ? (

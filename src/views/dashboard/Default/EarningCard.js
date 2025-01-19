@@ -2,17 +2,19 @@ import { CopyAll, LinkOutlined } from '@mui/icons-material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Alert, Avatar, Box, Grid, Menu, MenuItem, Paper, Snackbar, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, Card, Grid, Menu, MenuItem, Paper, Snackbar, Typography } from '@mui/material';
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
 import Cookies from 'js-cookie';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { generatePalmPayAccount } from 'store/actions';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
@@ -96,15 +98,21 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const EarningCard = ({ isLoading, message }) => {
-    const { loggedInUser } = useSelector((state) => state);
+    const { loggedInUser, updateUser } = useSelector((state) => state);
+    const { Update_user_loading } = updateUser;
     const [display, setdisplay] = useState(0);
     const { user } = loggedInUser;
     // console.log({ user });
     const theme = useTheme();
     const bankDetails = user?.monnify_bank_details;
+    const hasPalmpayAcc = bankDetails?.some((a) => a.bank_name === 'PalmPay');
+    console.log({ hasPalmpayAcc });
     const [anchorEl, setAnchorEl] = useState(null);
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -116,6 +124,16 @@ const EarningCard = ({ isLoading, message }) => {
         setOpen(true);
         navigator.clipboard.writeText(d.account_number);
     };
+
+    const handleGeneratePalmPayAcc = (values) => {
+        dispatch(
+            generatePalmPayAccount({
+                navigate,
+
+                enqueueSnackbar
+            })
+        );
+    };
     return (
         <>
             {isLoading ? (
@@ -123,42 +141,66 @@ const EarningCard = ({ isLoading, message }) => {
             ) : (
                 <div>
                     {user?.updateBvn && bankDetails.length > 0 && user?.hasAccountNum && (
-                        <div
-                            style={{
-                                // maxWidth: "560px",
-                                display: 'flex',
-                                gap: '5px',
-
-                                // justifyContent: "space-between",
-                                alignItems: 'center',
-                                marginBottom: '15px',
-                                flexWrap: 'wrap'
-                            }}
-                        >
-                            {bankDetails?.map((a, i) => (
-                                <Paper
-                                    key={i}
-                                    onClick={() => setdisplay(i)}
-                                    variant="elevation"
-                                    elevation={display === i ? 3 : 0}
+                        <>
+                            {/* {!hasPalmpayAcc && (
+                                <Card
+                                    onClick={handleGeneratePalmPayAcc}
                                     sx={{
-                                        cursor: 'pointer',
-                                        backgroundColor: display === i ? 'purple' : 'white'
+                                        backgroundColor: theme.palette.secondary[800],
+                                        padding: theme.spacing(2),
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: theme.spacing(1),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        borderRadius: theme.shape.borderRadiusMd,
+                                        marginBottom: theme.spacing(2),
+                                        cursor: 'pointer'
                                     }}
                                 >
-                                    <Typography
-                                        sx={{
-                                            color: display === i ? 'white' : 'inherit',
-                                            padding: 1,
-                                            fontSize: '.74rem'
-                                        }}
-                                        variant="body2"
-                                    >
-                                        {a?.bank_name}
+                                    <img src="/palmpay.png" width={50} height={50} />
+                                    <Typography variant="body2" color="white">
+                                        {Update_user_loading ? 'Generating...' : 'Generate PalmPay Account'}
                                     </Typography>
-                                </Paper>
-                            ))}
-                        </div>
+                                </Card>
+                            )} */}
+                            <div
+                                style={{
+                                    // maxWidth: "560px",
+                                    display: 'flex',
+                                    gap: '5px',
+
+                                    // justifyContent: "space-between",
+                                    alignItems: 'center',
+                                    marginBottom: '15px',
+                                    flexWrap: 'wrap'
+                                }}
+                            >
+                                {bankDetails?.map((a, i) => (
+                                    <Paper
+                                        key={i}
+                                        onClick={() => setdisplay(i)}
+                                        variant="elevation"
+                                        elevation={display === i ? 3 : 0}
+                                        sx={{
+                                            cursor: 'pointer',
+                                            backgroundColor: display === i ? 'purple' : 'white'
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                color: display === i ? 'white' : 'inherit',
+                                                padding: 1,
+                                                fontSize: '.74rem'
+                                            }}
+                                            variant="body2"
+                                        >
+                                            {a?.bank_name}
+                                        </Typography>
+                                    </Paper>
+                                ))}
+                            </div>
+                        </>
                     )}
 
                     <CardWrapper border={false} content={false}>

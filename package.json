@@ -52,11 +52,12 @@
         "redux": "^4.0.5",
         "redux-thunk": "^2.4.1",
         "simplebar-react": "^3.3.0",
+        "use-debounce": "^10.0.4",
         "yup": "^0.32.9"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
+        "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+        "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "build:css": "postcss src/index.css -o src/global.css",

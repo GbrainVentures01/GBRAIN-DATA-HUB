@@ -876,6 +876,44 @@ export const UpdateBvn =
         }
     };
 
+export const generatePalmPayAccount =
+    ({ enqueueSnackbar, navigate }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: UPDATE_USER_REQUEST
+            });
+            const { data } = await makeNetworkCall({
+                method: 'PUT',
+                path: `generate-palmpay-account`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            dispatch({
+                type: UPDATE_USER_SUCCESS,
+                payload: data
+            });
+
+            data &&
+                enqueueSnackbar(data, {
+                    variant: 'success',
+                    autoHideDuration: 2000
+                });
+            navigate('/');
+        } catch (error) {
+            dispatch({
+                type: UPDATE_USER_FAIL,
+                payload: error.response?.data?.error?.message || error?.messag
+            });
+            error &&
+                enqueueSnackbar(error.response?.data?.error?.message || error?.messag, {
+                    variant: 'error',
+                    autoHideDuration: 2000
+                });
+        }
+    };
+
 export const userAction =
     ({ navigate }) =>
     async (dispatch) => {
@@ -1243,7 +1281,7 @@ export const buyExamPin =
         }
     };
 export const getHistories =
-    ({ enqueueSnackbar }) =>
+    ({ enqueueSnackbar, search, type, start = 1, limit = 100 }) =>
     async (dispatch) => {
         try {
             dispatch({
@@ -1251,7 +1289,7 @@ export const getHistories =
             });
             const { data } = await makeNetworkCall({
                 method: 'GET',
-                path: `transaction-histories`,
+                path: `transaction-histories?search=${search}&type=${type}&start=${start}&limit=${limit}`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
