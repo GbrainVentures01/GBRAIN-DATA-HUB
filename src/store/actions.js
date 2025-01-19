@@ -1281,7 +1281,7 @@ export const buyExamPin =
         }
     };
 export const getHistories =
-    ({ enqueueSnackbar, search, type, start = 1, limit = 100 }) =>
+    ({ enqueueSnackbar, search, type, start = 0, limit = 100 }) =>
     async (dispatch) => {
         try {
             dispatch({
