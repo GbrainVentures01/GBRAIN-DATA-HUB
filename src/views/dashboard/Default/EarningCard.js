@@ -111,7 +111,7 @@ const EarningCard = ({ isLoading, message }) => {
     if (hasPayVesselAcc)
         bankDetails = [
             ...bankDetails,
-            ...user?.payvessel_accounts?.map((a) => ({ account_number: a?.accountNumber, account_name: a?.accountName, bank_name: '9BSB' }))
+            ...user?.payvessel_accounts?.map((a) => ({ account_number: a?.accountNumber, account_name: a?.accountName, bank_name: '9PSB' }))
         ];
 
     console.log({ hasPayVesselAcc, bankDetails });
