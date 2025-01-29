@@ -24,14 +24,14 @@
     min-width: 100%; /* Ensures text takes full width */
     position: relative;
     animation: scroll 20s linear infinite;
-    font-size: 1.1rem;
+    font-size: 1rem;
     
 
   }
   
   @keyframes scroll {
     0% {
-        transform: translateX(0%); /* Start outside the right edge */
+        transform: translateX(100%); /* Start outside the right edge */
     }
     100% {
         transform: translateX(-100%); /* Move fully left */
