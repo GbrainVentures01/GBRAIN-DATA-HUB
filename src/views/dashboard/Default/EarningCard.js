@@ -11,9 +11,9 @@ import EarningIcon from 'assets/images/icons/earning.svg';
 import Cookies from 'js-cookie';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Router, useNavigate } from 'react-router-dom';
 import { generatePalmPayAccount } from 'store/actions';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -102,11 +102,19 @@ const EarningCard = ({ isLoading, message }) => {
     const { Update_user_loading } = updateUser;
     const [display, setdisplay] = useState(0);
     const { user } = loggedInUser;
-    // console.log({ user });
     const theme = useTheme();
-    const bankDetails = user?.monnify_bank_details;
-    const hasPalmpayAcc = bankDetails?.some((a) => a.bank_name === 'PalmPay');
-    console.log({ hasPalmpayAcc });
+    let bankDetails = user?.monnify_bank_details || [];
+
+    const payvesselAcc = user?.payvessel_accounts || [];
+    const hasPayVesselAcc = payvesselAcc?.length > 0;
+
+    if (hasPayVesselAcc)
+        bankDetails = [
+            ...bankDetails,
+            ...user?.payvessel_accounts?.map((a) => ({ account_number: a?.accountNumber, account_name: a?.accountName, bank_name: '9BSB' }))
+        ];
+
+    console.log({ hasPayVesselAcc, bankDetails });
     const [anchorEl, setAnchorEl] = useState(null);
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -126,13 +134,7 @@ const EarningCard = ({ isLoading, message }) => {
     };
 
     const handleGeneratePalmPayAcc = (values) => {
-        dispatch(
-            generatePalmPayAccount({
-                navigate,
-
-                enqueueSnackbar
-            })
-        );
+        navigate('/verify-account?generate=true');
     };
     return (
         <>
@@ -142,11 +144,11 @@ const EarningCard = ({ isLoading, message }) => {
                 <div>
                     {user?.updateBvn && bankDetails.length > 0 && user?.hasAccountNum && (
                         <>
-                            {/* {!hasPalmpayAcc && (
+                            {!hasPayVesselAcc && (
                                 <Card
                                     onClick={handleGeneratePalmPayAcc}
                                     sx={{
-                                        backgroundColor: theme.palette.secondary[800],
+                                        backgroundColor: theme.palette.success.dark,
                                         padding: theme.spacing(2),
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -158,12 +160,12 @@ const EarningCard = ({ isLoading, message }) => {
                                         cursor: 'pointer'
                                     }}
                                 >
-                                    <img src="/palmpay.png" width={50} height={50} />
+                                    <img src="/9bsp.png" width={50} height={50} />
                                     <Typography variant="body2" color="white">
-                                        {Update_user_loading ? 'Generating...' : 'Generate PalmPay Account'}
+                                        {Update_user_loading ? 'Generating...' : 'Generate 9BSB Account'}
                                     </Typography>
                                 </Card>
-                            )} */}
+                            )}
                             <div
                                 style={{
                                     // maxWidth: "560px",
@@ -329,6 +331,56 @@ const EarningCard = ({ isLoading, message }) => {
                                                                 onClick={() => handleCopy({ d: bankDetails[display] })}
                                                                 sx={{ ml: 1 }}
                                                             />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {user && user?.updateBvn && bankDetails?.length > 0 && user?.hasAccountNum && (
+                                                <div className={classes.account}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        sx={{
+                                                            fontSize: '1.0rem',
+                                                            fontWeight: 500,
+                                                            mr: 1,
+                                                            mt: 1.75,
+                                                            mb: 0.75
+                                                        }}
+                                                    >
+                                                        Account Name
+                                                    </Typography>
+                                                    <div
+                                                        style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center'
+                                                        }}
+                                                    >
+                                                        <div
+                                                            style={{
+                                                                display: 'flex',
+                                                                justifyContent: 'space-between',
+                                                                alignItems: 'center'
+                                                            }}
+                                                        >
+                                                            <Typography
+                                                                variant="body1"
+                                                                sx={{
+                                                                    fontSize: '1.0rem',
+                                                                    fontWeight: 500,
+                                                                    mr: 1,
+                                                                    mt: 1.75,
+                                                                    mb: 0.75
+                                                                }}
+                                                                className={classes.acc_num}
+                                                            >
+                                                                {bankDetails[display]?.account_name?.slice(0, 20)}
+                                                            </Typography>
+                                                            {/* <CopyAll
+                                                                onClick={() => handleCopy({ d: bankDetails[display] })}
+                                                                sx={{ ml: 1 }}
+                                                            /> */}
                                                         </div>
                                                     </div>
                                                 </div>

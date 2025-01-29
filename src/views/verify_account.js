@@ -6,7 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { UpdateBvn, userAction } from 'store/actions';
+import { generatePayVesselAccount, UpdateBvn, userAction } from 'store/actions';
 import { CustomButton, CustomTextField } from 'ui-component/basic-inputs';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -18,6 +18,8 @@ const VerifyAccount = () => {
     const { updateUser } = useSelector((state) => state);
     const { Update_user_loading } = updateUser;
     const { enqueueSnackbar } = useSnackbar();
+    const generate = window?.location.search.split('=')[1];
+    console.log({ generate });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,18 +30,40 @@ const VerifyAccount = () => {
 
     const INITIAL_FORM_VALUES = {
         bvn: ''
+        // fullName: ''
+
+        // nin: ''
     };
     const VALIDATIONS = yup.object().shape({
         bvn: yup.string().required('please enter your bvn number')
+        // fullName: yup.string().required('please enter your full Name')
     });
 
     const handleSubmit = (values) => {
+        if (generate) {
+            dispatch(
+                generatePayVesselAccount({
+                    navigate,
+                    payload: {
+                        data: {
+                            bvn: values.bvn
+                            // fullName: values.fullName
+
+                            // nin: values.nin
+                        }
+                    },
+                    enqueueSnackbar
+                })
+            );
+            return;
+        }
         dispatch(
             UpdateBvn({
                 navigate,
                 user: {
                     data: {
                         bvn: values.bvn
+                        // nin: values.nin
                     }
                 },
                 enqueueSnackbar
@@ -48,7 +72,7 @@ const VerifyAccount = () => {
     };
 
     return (
-        <MainCard title={'Verify Your Account Using Your Bvn'}>
+        <MainCard title={generate ? 'Generate 9BSP Account Number for fast payment' : 'Verify Your Account Using Your Bvn and NIN'}>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
@@ -57,6 +81,9 @@ const VerifyAccount = () => {
                                 <Grid item xs={12}>
                                     <CustomTextField name="bvn" label="BVN  Number" />
                                 </Grid>
+                                {/* <Grid item xs={12}>
+                                    <CustomTextField name="fullName" label="Full Name" />
+                                </Grid> */}
 
                                 <Grid item xs={12}>
                                     <CustomButton color="primary" disabled={Update_user_loading ? true : false}>

@@ -876,16 +876,17 @@ export const UpdateBvn =
         }
     };
 
-export const generatePalmPayAccount =
-    ({ enqueueSnackbar, navigate }) =>
+export const generatePayVesselAccount =
+    ({ enqueueSnackbar, navigate, payload }) =>
     async (dispatch) => {
         try {
             dispatch({
                 type: UPDATE_USER_REQUEST
             });
             const { data } = await makeNetworkCall({
-                method: 'PUT',
-                path: `generate-palmpay-account`,
+                method: 'POST',
+                path: `generate-payvessel-account`,
+                requestBody: payload,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
