@@ -162,7 +162,7 @@ const EarningCard = ({ isLoading, message }) => {
                                 >
                                     <img src="/9bsp.png" width={50} height={50} />
                                     <Typography variant="body2" color="white">
-                                        {Update_user_loading ? 'Generating...' : 'Generate 9BSB Account'}
+                                        {Update_user_loading ? 'Generating...' : 'Click here to generate 9PSB Account'}
                                     </Typography>
                                 </Card>
                             )}
