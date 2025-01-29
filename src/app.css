@@ -4,3 +4,36 @@
     src: local("AirbnbCerealLight"),
         url("assets/fonts/avant.otf") format("truetype");
 }
+
+.scrolling-text {
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: red;
+    width: 100%;
+    padding: 12px ; /* Match card padding */
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 8px;
+  }
+  
+  .scrolling-text p {
+    display: inline-block;
+    white-space: nowrap;
+    color: white;
+    margin: 0;
+    min-width: 100%; /* Ensures text takes full width */
+    position: relative;
+    animation: scroll 20s linear infinite;
+    font-size: 1.1rem;
+    
+
+  }
+  
+  @keyframes scroll {
+    0% {
+        transform: translateX(0%); /* Start outside the right edge */
+    }
+    100% {
+        transform: translateX(-100%); /* Move fully left */
+    }
+  }

@@ -423,8 +423,8 @@ const EarningCard = ({ isLoading, message }) => {
                                                     </Grid>
                                                 </Grid>
                                             </Link>
-                                            <div style={{ width: '95%', padding: '0px 10px' }}>
-                                                <marquee
+
+                                            {/* <marquee
                                                     style={{
                                                         backgroundColor: 'red',
                                                         marginTop: 1.7,
@@ -433,10 +433,9 @@ const EarningCard = ({ isLoading, message }) => {
                                                         borderRadius: '5px',
                                                         overflow: 'hidden'
                                                     }}
-                                                >
-                                                    <Typography sx={{ fontSize: '1.0rem' }}>{message ? message : ''}</Typography>
-                                                </marquee>
-                                            </div>
+                                                > */}
+
+                                            {/* </marquee> */}
                                         </>
                                     ) : (
                                         <Link to={'/pages/login'}>
@@ -452,6 +451,9 @@ const EarningCard = ({ isLoading, message }) => {
                             </Grid>
                             {/* </Grid>
                             </Grid> */}
+                            <div className="scrolling-text">
+                                <p>{message ? message : ''}</p>
+                            </div>
                         </Box>
                     </CardWrapper>
                 </div>
