@@ -262,31 +262,59 @@ const EarningCard = ({ isLoading, message }) => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
+                                {/* <Grid item>
+                                    <Grid container alignItems="center"> */}
+
                                 <Grid item>
-                                    <Grid container alignItems="center">
-                                        <Grid item>
-                                            {Cookies.get('user') && (
-                                                <Typography sx={{ fontSize: '1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                    {`Welcome Back, ${user?.username}`}
-                                                </Typography>
-                                            )}
-                                            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                                <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                    {Cookies.get('user')
-                                                        ? `Wallet Balance:₦${user?.AccountBalance} `
-                                                        : 'Welcome To Gbrain Ventures'}
-                                                </Typography>
-                                            </div>
-                                            {user && (!user?.updateBvn || !user?.hasAccountNum || bankDetails.length === 0) && (
-                                                <Link to="/verify-account" className="text-white font-[1rem] text-sm">
-                                                    Click here to generate your personal Accounts
-                                                    {/* <span>
+                                    {Cookies.get('user') && (
+                                        <Typography sx={{ fontSize: '1rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                            {`Welcome Back, ${user?.username}`}
+                                        </Typography>
+                                    )}
+                                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
+                                            {Cookies.get('user')
+                                                ? `Wallet Balance:₦${user?.AccountBalance} `
+                                                : 'Welcome To Gbrain Ventures'}
+                                        </Typography>
+                                    </div>
+                                    {user && (!user?.updateBvn || !user?.hasAccountNum || bankDetails.length === 0) && (
+                                        <Link to="/verify-account" className="text-white font-[1rem] text-sm">
+                                            Click here to generate your personal Accounts
+                                            {/* <span>
                                                         <LinkOutlined />
                                                     </span> */}
-                                                </Link>
-                                            )}
-                                            {user && user?.updateBvn && bankDetails?.length > 0 && user?.hasAccountNum && (
-                                                <div className={classes.account}>
+                                        </Link>
+                                    )}
+                                    {user && user?.updateBvn && bankDetails?.length > 0 && user?.hasAccountNum && (
+                                        <div className={classes.account}>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{
+                                                    fontSize: '1.0rem',
+                                                    fontWeight: 500,
+                                                    mr: 1,
+                                                    mt: 1.75,
+                                                    mb: 0.75
+                                                }}
+                                            >
+                                                {bankDetails[display]?.bank_name}
+                                            </Typography>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
                                                     <Typography
                                                         variant="body1"
                                                         sx={{
@@ -296,164 +324,132 @@ const EarningCard = ({ isLoading, message }) => {
                                                             mt: 1.75,
                                                             mb: 0.75
                                                         }}
+                                                        className={classes.acc_num}
                                                     >
-                                                        {bankDetails[display]?.bank_name}
+                                                        {bankDetails[display]?.account_number}
                                                     </Typography>
-                                                    <div
-                                                        style={{
-                                                            display: 'flex',
-                                                            flexDirection: 'column',
-                                                            justifyContent: 'center',
-                                                            alignItems: 'center'
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{
-                                                                display: 'flex',
-                                                                justifyContent: 'space-between',
-                                                                alignItems: 'center'
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                variant="body1"
-                                                                sx={{
-                                                                    fontSize: '1.0rem',
-                                                                    fontWeight: 500,
-                                                                    mr: 1,
-                                                                    mt: 1.75,
-                                                                    mb: 0.75
-                                                                }}
-                                                                className={classes.acc_num}
-                                                            >
-                                                                {bankDetails[display]?.account_number}
-                                                            </Typography>
-                                                            <CopyAll
-                                                                onClick={() => handleCopy({ d: bankDetails[display] })}
-                                                                sx={{ ml: 1 }}
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    <CopyAll onClick={() => handleCopy({ d: bankDetails[display] })} sx={{ ml: 1 }} />
                                                 </div>
-                                            )}
-                                            {user && user?.updateBvn && bankDetails?.length > 0 && user?.hasAccountNum && (
-                                                <div className={classes.account}>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {user && user?.updateBvn && bankDetails?.length > 0 && user?.hasAccountNum && (
+                                        <div className={classes.account}>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{
+                                                    fontSize: '1.0rem',
+                                                    fontWeight: 500,
+                                                    mr: 1,
+                                                    mt: 1.75,
+                                                    mb: 0.75
+                                                }}
+                                            >
+                                                Account Name
+                                            </Typography>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center'
+                                                    }}
+                                                >
                                                     <Typography
                                                         variant="body1"
                                                         sx={{
                                                             fontSize: '1.0rem',
                                                             fontWeight: 500,
-                                                            mr: 1,
+                                                            // mr: 1,
                                                             mt: 1.75,
                                                             mb: 0.75
                                                         }}
+                                                        className={classes.acc_num}
                                                     >
-                                                        Account Name
+                                                        {bankDetails[display]?.account_name?.slice(0, 20)}
                                                     </Typography>
-                                                    <div
-                                                        style={{
-                                                            display: 'flex',
-                                                            flexDirection: 'column',
-                                                            justifyContent: 'center',
-                                                            alignItems: 'center'
-                                                        }}
-                                                    >
-                                                        <div
-                                                            style={{
-                                                                display: 'flex',
-                                                                justifyContent: 'space-between',
-                                                                alignItems: 'center'
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                variant="body1"
-                                                                sx={{
-                                                                    fontSize: '1.0rem',
-                                                                    fontWeight: 500,
-                                                                    // mr: 1,
-                                                                    mt: 1.75,
-                                                                    mb: 0.75
-                                                                }}
-                                                                className={classes.acc_num}
-                                                            >
-                                                                {bankDetails[display]?.account_name?.slice(0, 20)}
-                                                            </Typography>
-                                                            {/* <CopyAll
+                                                    {/* <CopyAll
                                                                 onClick={() => handleCopy({ d: bankDetails[display] })}
                                                                 sx={{ ml: 1 }}
                                                             /> */}
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                            )}
-                                            {Cookies.get('user') ? (
-                                                <>
-                                                    <Link
-                                                        to={'/fund-wallet'}
-                                                        style={{
-                                                            textDecoration: 'none',
-                                                            color: 'white',
-                                                            position: 'relative',
-                                                            top: 6,
-                                                            bottom: 0
-                                                        }}
-                                                    >
-                                                        <Grid container columnSpacing={-11}>
-                                                            <Grid item xs={6}>
-                                                                <Typography
-                                                                    sx={{ fontSize: '1.0rem', fontWeight: 500, mb: 1.75, mt: 1.75 }}
-                                                                >
-                                                                    Fund Wallet
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item xs={6}>
-                                                                <Avatar
-                                                                    sx={{
-                                                                        mb: 1.75,
-                                                                        mt: 1.75,
-                                                                        // position: 'relative',
-                                                                        // top: 6,
-                                                                        // bottom: 0,
-                                                                        cursor: 'pointer',
-                                                                        ...theme.typography.smallAvatar,
-                                                                        backgroundColor: theme.palette.secondary[200],
-                                                                        color: theme.palette.secondary.dark
-                                                                    }}
-                                                                >
-                                                                    <ArrowUpwardIcon
-                                                                        fontSize="inherit"
-                                                                        sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
-                                                                    />
-                                                                </Avatar>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Link>
-                                                    {/* 
-                                                    <marquee
-                                                        style={{
-                                                            backgroundColor: 'red',
-                                                            marginTop: 1.7,
-                                                            marginBottom: 0.25,
-                                                            padding: '5px 0',
-                                                            borderRadius: '5px'
-                                                        }}
-                                                    >
-                                                        <Typography sx={{ fontSize: '1.0rem' }}>{message ? message : ''}</Typography>
-                                                    </marquee> */}
-                                                </>
-                                            ) : (
-                                                <Link to={'/pages/login'}>
-                                                    <Typography variant="subtitle1" color={'white'}>
-                                                        Please Login To Your Account
-                                                    </Typography>
-                                                </Link>
-                                            )}
-                                        </Grid>
-                                        {/* <Grid item>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {Cookies.get('user') ? (
+                                        <>
+                                            <Link
+                                                to={'/fund-wallet'}
+                                                style={{
+                                                    textDecoration: 'none',
+                                                    color: 'white',
+                                                    position: 'relative',
+                                                    top: 6,
+                                                    bottom: 0
+                                                }}
+                                            >
+                                                <Grid container columnSpacing={-11}>
+                                                    <Grid item xs={6}>
+                                                        <Typography sx={{ fontSize: '1.0rem', fontWeight: 500, mb: 1.75, mt: 1.75 }}>
+                                                            Fund Wallet
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Avatar
+                                                            sx={{
+                                                                mb: 1.75,
+                                                                mt: 1.75,
+                                                                // position: 'relative',
+                                                                // top: 6,
+                                                                // bottom: 0,
+                                                                cursor: 'pointer',
+                                                                ...theme.typography.smallAvatar,
+                                                                backgroundColor: theme.palette.secondary[200],
+                                                                color: theme.palette.secondary.dark
+                                                            }}
+                                                        >
+                                                            <ArrowUpwardIcon
+                                                                fontSize="inherit"
+                                                                sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }}
+                                                            />
+                                                        </Avatar>
+                                                    </Grid>
+                                                </Grid>
+                                            </Link>
+
+                                            <marquee
+                                                style={{
+                                                    backgroundColor: 'red',
+                                                    marginTop: 1.7,
+                                                    marginBottom: 0.25,
+                                                    padding: '5px 0',
+                                                    borderRadius: '5px'
+                                                }}
+                                            >
+                                                <Typography sx={{ fontSize: '1.0rem' }}>{message ? message : ''}</Typography>
+                                            </marquee>
+                                        </>
+                                    ) : (
+                                        <Link to={'/pages/login'}>
+                                            <Typography variant="subtitle1" color={'white'}>
+                                                Please Login To Your Account
+                                            </Typography>
+                                        </Link>
+                                    )}
+                                </Grid>
+                                {/* <Grid item>
                                   
                                     </Grid> */}
-                                    </Grid>
-                                </Grid>
                             </Grid>
+                            {/* </Grid>
+                            </Grid> */}
                         </Box>
                     </CardWrapper>
                 </div>

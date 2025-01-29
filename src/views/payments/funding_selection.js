@@ -19,12 +19,16 @@ const FundingSelection = () => {
     }, [navigate, dispatch]);
     const methods = [
         {
-            name: 'Bank Transfer',
+            name: 'Bank Transfer (9PSB)',
             description: 'Best option (Fastest)'
         },
         {
+            name: 'Bank Transfer (Monnify)',
+            description: 'Best option (Faster)'
+        },
+        {
             name: 'Monify ',
-            description: 'Second Option (Faster)'
+            description: 'Second Option (Fast)'
         },
         {
             name: 'Flutterwave ',

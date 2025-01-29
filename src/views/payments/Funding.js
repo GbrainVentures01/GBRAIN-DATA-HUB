@@ -23,7 +23,8 @@ const Funding = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [showAlert, setshowAlert] = useState(false);
     const [method, setmethod] = useState({
-        'Bank Transfer': false,
+        'Bank Transfer (9PSB)': false,
+        'Bank Transfer (Monnify)': false,
         Monify: false,
         Flutterwave: false,
         Credo: false
@@ -76,30 +77,47 @@ const Funding = () => {
             <Card>
                 <CardHeader title="Fund Wallet " />
 
-                {method['Bank Transfer'] && user?.hasAccountNum && (
+                {method['Bank Transfer (9PSB)'] && user?.payvessel_accounts.length > 0 && (
+                    <div>
+                        <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
+                            Bank Transfer
+                        </Typography>
+                        <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
+                            These are your unique 9PSB vitual accounts, you can always transfer to it anytime and it will reflect
+                            immediately and automatically in your wallet. Note: Charges of 2% will be deducted from amount deposited.
+                        </Typography>
+                        <Grid container spacing={3}>
+                            {user.payvessel_accounts.map((acc, index) => (
+                                <Grid key={index} item xs={12} md={3}>
+                                    <Paper variant="outlined" sx={{ mt: 2, py: 1.5, textAlign: 'center' }}>
+                                        <Typography variant="subtitle1">Bank Name: 9PSB</Typography>
+                                        <Typography variant="subtitle1">Account Number: {acc.accountNumber}</Typography>
+                                    </Paper>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </div>
+                )}
+                {method['Bank Transfer (Monnify)'] && user?.hasAccountNum && (
                     <>
                         <Typography variant="h4" sx={{ fontSize: '1.2rem', fontWeight: 500, mr: 0.4, mt: 1, mb: 1.75 }}>
                             Bank Transfer
                         </Typography>
                         <Typography variant="body" color="initial" sx={{ fontSize: '1.1rem', fontWeight: 200, mr: 0.4, mt: 10, mb: 1.75 }}>
-                            These are your unique monnify vitual accounts, you can always transfer to it anytime and it will reflect
-                            immediately and automatically in your wallet. Note: Charges of 1.65% will be deducted from amount deposited.
+                            These are your unique 9PSB vitual accounts, you can always transfer to it anytime and it will reflect
+                            immediately and automatically in your wallet. Note: Charges of 2% will be deducted from amount deposited.
                         </Typography>
+                        <Grid container spacing={3}>
+                            {user.monnify_bank_details.map((acc, index) => (
+                                <Grid key={index} item xs={12} md={3}>
+                                    <Paper variant="outlined" sx={{ mt: 2, py: 1.5, textAlign: 'center' }}>
+                                        <Typography variant="subtitle1">Bank Name: {acc.bank_name}</Typography>
+                                        <Typography variant="subtitle1">Account Number: {acc.account_number}</Typography>
+                                    </Paper>
+                                </Grid>
+                            ))}
+                        </Grid>
                     </>
-                )}
-                {method['Bank Transfer'] && user?.hasAccountNum ? (
-                    <Grid container spacing={3}>
-                        {user.monnify_bank_details.map((acc, index) => (
-                            <Grid key={index} item xs={12} md={3}>
-                                <Paper variant="outlined" sx={{ mt: 2, py: 1.5, textAlign: 'center' }}>
-                                    <Typography variant="subtitle1">Bank Name: {acc.bank_name}</Typography>
-                                    <Typography variant="subtitle1">Account Number: {acc.account_number}</Typography>
-                                </Paper>
-                            </Grid>
-                        ))}
-                    </Grid>
-                ) : (
-                    <></>
                 )}
                 {method['Monify'] && (
                     <>
