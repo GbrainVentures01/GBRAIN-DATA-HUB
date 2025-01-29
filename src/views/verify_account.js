@@ -72,7 +72,7 @@ const VerifyAccount = () => {
     };
 
     return (
-        <MainCard title={generate ? 'Generate 9BSP Account Number for fast payment' : 'Verify Your Account Using Your Bvn and NIN'}>
+        <MainCard title={generate ? 'Generate 9PSB Account Number for fast payment' : 'Verify Your Account Using Your Bvn and NIN'}>
             <Formik initialValues={{ ...INITIAL_FORM_VALUES }} onSubmit={handleSubmit} validationSchema={VALIDATIONS}>
                 {({ values, setFieldValue }) => (
                     <Form>
