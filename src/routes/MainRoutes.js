@@ -113,7 +113,7 @@ const MainRoutes = {
         },
         {
             path: '/buy-data',
-            element: <SelectDataView dataplans={dataProducts} />
+            element: <SelectDataView />
         },
         {
             path: '/buy-mtn-airtime',
