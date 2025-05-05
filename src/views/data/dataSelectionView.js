@@ -4,10 +4,26 @@ import React, { useEffect, useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import FixedNotification from 'ui-component/fixed-notification';
 import ProductCard from 'views/dashboard/ProductCard';
-
+import mtnLogo from '../assets/images/network/mtn-logo.png';
+import gloLogo from '../assets/images/network/glo-log.png';
+import airtelLogo from '../assets/images/network/airtel-logo.png';
 const SelectDataView = () => {
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const returnImage = (id) => {
+        if (!id) return;
+        switch (id) {
+            case 9:
+            case 8:
+                return airtelLogo;
+            case 7:
+            case 6:
+                return gloLogo;
+            default:
+                return mtnLogo;
+        }
+    };
     const fetchPlans = async () => {
         setLoading(true);
         try {
@@ -20,7 +36,7 @@ const SelectDataView = () => {
                             id: item.id,
                             name: item.attributes.name,
                             url: item.attributes.url,
-                            image: 'https://gbrain-backend-live.herokuapp.com' + item.attributes.image.data.attributes.url ?? ''
+                            image: returnImage(item.id)
                         };
                     })
                 );
